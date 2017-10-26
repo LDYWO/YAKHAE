@@ -6,25 +6,20 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 
-
 public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        Handler hd = new Handler();
+        hd.postDelayed(new splashhandler() , 3000); // 3초 후에 splashHandler 실행
+    }
 
-        Handler handler = new Handler(){
-            public void handleMessage(Message msg) {
-                //Intent intent = new Intent(SplashActivity.this,TeamListActivity.class);
-
-                // to InformationActivity after developed other Activities
-                Intent intent = new Intent(SplashActivity.this,LoginActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        };
-        handler.sendEmptyMessageDelayed(0,3000);
-
+    private class splashhandler implements Runnable{
+        public void run() {
+            startActivity(new Intent(getApplication(), LoginActivity.class)); // 로딩이 끝난후 이동할 Activity
+            SplashActivity.this.finish(); // 로딩페이지 Activity Stack에서 제거
+        }
     }
 }
