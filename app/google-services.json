@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1095741051866",
+    "firebase_url": "https://yakhae-d03e6.firebaseio.com",
+    "project_id": "yakhae-d03e6",
+    "storage_bucket": "yakhae-d03e6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1095741051866:android:e494b7d9d7e90a30",
+        "android_client_info": {
+          "package_name": "com.example.user.yakhae_demo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1095741051866-irgl53h82nnqacbndjpmjuhps27l3j74.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHnHUlKsXJXGOZGMVrI1qI3BIJGSK4c64"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
