@@ -3,58 +3,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.user.yakhae_demo.LoginActivity">
+    tools:context="com.example.user.yakhae_demo.RegisterActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:orientation="vertical">
+        android:background="@color/WHITE">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:orientation="vertical"
-            android:background="@color/WHITE">
-
-            <ImageView
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_marginTop="70dp"
-                android:layout_gravity="center"
-                android:src="@drawable/pills"/>
+            android:layout_height="100dp"
+            android:background="@color/WHITE"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="15dp"
-                android:text="Login"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:paddingTop="25dp"
+                android:text="SIGN UP"
                 android:textColor="@color/BLACK"
-                android:textSize="30dp"/>
+                android:textSize="40dp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@color/WHITE">
+            android:orientation="vertical">
 
             <EditText
                 android:inputType="textEmailAddress"
                 android:id="@+id/idText"
-                android:layout_width="250dp"
+                android:layout_width="280dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/border"
                 android:drawableLeft="@drawable/login_icon"
                 android:drawableStart="@drawable/login_icon"
                 android:drawablePadding="10dp"
-                android:hint="USERNAME"
+                android:hint="ID (Email)"
                 android:padding="10dp"
                 android:textColor="@color/GREY"
                 android:textColorHint="@color/GREY" />
@@ -62,10 +57,10 @@
             <EditText
                 android:inputType="textPassword"
                 android:id="@+id/passwordText"
-                android:layout_width="250dp"
+                android:layout_width="280dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/border"
                 android:drawableLeft="@drawable/password_icon"
                 android:drawableStart="@drawable/password_icon"
@@ -75,52 +70,32 @@
                 android:textColor="@color/GREY"
                 android:textColorHint="@color/GREY" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
-
-            <Button
-                android:id="@+id/login"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:background="@color/colorPrimaryDark"
-                android:text="Log in"
-                android:textColor="#FFFFFF"
-                android:textSize="15dp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:layout_marginRight="20dp"/>
-
-            <Button
-                android:id="@+id/Sign_in"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:background="@color/GREY"
-                android:text="Sign up"
-                android:textColor="#FFFFFF"
-                android:textSize="15dp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
             <TextView
                 android:id="@+id/findpasswordButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="55dp"
+                android:layout_marginTop="5dp"
+                android:text="*특수문자, 6글자 이상"
+                android:textColor="@color/RED"
+                android:textStyle="bold"
+                android:textSize="13dp" />
+
+            <EditText
+                android:layout_width="280dp"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
-                android:text="Do you forget your password?"
-                android:textColor="@color/colorPrimaryDark"
-                android:textStyle="bold"
-                android:textSize="15dp" />
+                android:background="@drawable/border"
+                android:drawableLeft="@drawable/nickname_icon"
+                android:drawableStart="@drawable/nickname_icon"
+                android:drawablePadding="10dp"
+                android:hint="NICKNAME"
+                android:id="@+id/nameText"
+                android:padding="10dp"
+                android:textColor="@color/GREY"
+                android:textColorHint="@color/GREY" />
 
         </LinearLayout>
     </LinearLayout>
-
 </RelativeLayout>
