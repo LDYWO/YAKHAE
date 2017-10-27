@@ -16,7 +16,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="160dp"
             android:background="@color/WHITE"
             android:orientation="vertical">
 
@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="40dp"
                 android:paddingTop="25dp"
                 android:text="SIGN UP"
                 android:textColor="@color/BLACK"
@@ -44,7 +44,7 @@
                 android:layout_width="280dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:background="@drawable/border"
                 android:drawableLeft="@drawable/login_icon"
                 android:drawableStart="@drawable/login_icon"
@@ -60,7 +60,7 @@
                 android:layout_width="280dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="25dp"
                 android:background="@drawable/border"
                 android:drawableLeft="@drawable/password_icon"
                 android:drawableStart="@drawable/password_icon"
@@ -71,30 +71,88 @@
                 android:textColorHint="@color/GREY" />
 
             <TextView
-                android:id="@+id/findpasswordButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="55dp"
+                android:layout_marginLeft="65dp"
                 android:layout_marginTop="5dp"
-                android:text="*특수문자, 6글자 이상"
+                android:text="*특수문자 포함, 6글자 이상"
                 android:textColor="@color/RED"
                 android:textStyle="bold"
-                android:textSize="13dp" />
+                android:textSize="12dp" />
 
             <EditText
                 android:layout_width="280dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/border"
                 android:drawableLeft="@drawable/nickname_icon"
                 android:drawableStart="@drawable/nickname_icon"
                 android:drawablePadding="10dp"
                 android:hint="NICKNAME"
-                android:id="@+id/nameText"
+                android:id="@+id/nicknameText"
                 android:padding="10dp"
                 android:textColor="@color/GREY"
                 android:textColorHint="@color/GREY" />
+
+            <LinearLayout
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:layout_marginTop="25dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="연령대:"
+                    android:textSize="15dp"/>
+
+                <Spinner
+                    android:id="@+id/AgeSpinner"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"></Spinner>
+
+            </LinearLayout>
+
+            <RadioGroup
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/genderGroup"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:layout_marginTop="25dp">
+
+                <RadioButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="여자"
+                    android:id="@+id/Woman"
+                    android:layout_weight="1"
+                    android:checked="true"/>
+
+                <RadioButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="남자"
+                    android:id="@+id/Man"
+                    android:layout_weight="1"
+                    android:checked="false"/>
+
+            </RadioGroup>
+
+            <Button
+                android:layout_width="180dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="35dp"
+                android:background="@color/colorPrimaryDark"
+                android:text="SUBMIT"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:id="@+id/submitButton"/>
 
         </LinearLayout>
     </LinearLayout>
