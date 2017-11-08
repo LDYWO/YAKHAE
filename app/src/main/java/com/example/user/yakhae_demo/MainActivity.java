@@ -18,6 +18,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
     SearchView searchView;
+    static final String[] LIST_MENU = {"LIST1", "LIST2", "LIST3","LIST1", "LIST2", "LIST3","LIST1", "LIST2", "LIST3","LIST1", "LIST2", "LIST3"} ;
 
 
     @Override
@@ -141,26 +144,26 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+
             switch (getArguments().getInt(ARG_SECTION_NUMBER)){
                 case 1:
                 {
                     View rootView = inflater.inflate(R.layout.fragment_one, container, false);
-                    TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-                    textView.setText("Tab 1");
+                    ArrayAdapter Adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, LIST_MENU) ;
+
+                    ListView listview = (ListView) rootView.findViewById(R.id.home_listview) ;
+                    listview.setAdapter(Adapter) ;
+
                     return rootView;
                 }
                 case 2:
                 {
                     View rootView = inflater.inflate(R.layout.fragment_two, container, false);
-                    TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-                    textView.setText("Tab 2");
                     return rootView;
                 }
                 case 3:
                 {
                     View rootView = inflater.inflate(R.layout.fragment_three, container, false);
-                    TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-                    textView.setText("Tab 3");
                     return rootView;
                 }
                 default:

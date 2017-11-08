@@ -7,27 +7,46 @@
     tools:context="com.example.user.yakhae_demo.MainActivity$PlaceholderFragment">
 
     <TableLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <TableRow
-            android:layout_width="100dp"
-            android:layout_height="100dp">
-
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp"
+        android:stretchColumns="*">
+        <TableRow>
+            <Button
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:id="@+id/category"
+                android:text="카테고리별"
+                android:textColor="@color/WHITE"
+                android:drawableTop="@drawable/ic_view_list"
+                android:background="@drawable/button"/>
+            <Button
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:id="@+id/specialty_medicine"
+                android:textColor="@color/WHITE"
+                android:text="전문의약품"
+                android:drawableTop="@drawable/prescription"
+                android:background="@drawable/button"/>
+            <Button
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:id="@+id/general_medicine"
+                android:textColor="@color/WHITE"
+                android:text="일반의약품"
+                android:drawableTop="@drawable/general_medicine"
+                android:background="@drawable/button"/>
         </TableRow>
+        <Button
+            android:id="@+id/more_review_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="button"/>
+        <ListView
+            android:id="@+id/home_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp">
+        </ListView>
     </TableLayout>
-
-    <TextView
-        android:id="@+id/section_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/constraintLayout"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintTop_creator="1" />
 
 
 </android.support.constraint.ConstraintLayout>
