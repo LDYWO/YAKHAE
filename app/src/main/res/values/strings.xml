@@ -7,7 +7,4 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    <string name="tab_text_1">HOME</string>
-    <string name="tab_text_2">RANK</string>
-    <string name="tab_text_3">COMMUNITY</string><!-- 어플 이름 -->
 </resources>
