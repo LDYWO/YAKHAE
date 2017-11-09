@@ -1,52 +1,62 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.user.yakhae_demo.MainActivity$PlaceholderFragment">
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="100dp"
-        android:stretchColumns="*">
-        <TableRow>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center_horizontal">
             <Button
-                style="@style/Widget.AppCompat.Button.Borderless"
                 android:id="@+id/category"
-                android:text="카테고리별"
-                android:textColor="@color/WHITE"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/button"
                 android:drawableTop="@drawable/ic_view_list"
-                android:background="@drawable/button"/>
+                android:text="카테고리별"
+                android:textColor="@color/WHITE" />
             <Button
-                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginRight="30dp"
                 android:id="@+id/specialty_medicine"
                 android:textColor="@color/WHITE"
                 android:text="전문의약품"
                 android:drawableTop="@drawable/prescription"
                 android:background="@drawable/button"/>
             <Button
-                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
                 android:id="@+id/general_medicine"
                 android:textColor="@color/WHITE"
                 android:text="일반의약품"
                 android:drawableTop="@drawable/general_medicine"
                 android:background="@drawable/button"/>
-        </TableRow>
+    </LinearLayout>
         <Button
             android:id="@+id/more_review_btn"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:text="button"/>
+            android:layout_marginTop="30dp"
+            android:drawableRight="@drawable/ic_navigate_next"
+            android:text="인기 있는 리뷰"
+            android:background="@drawable/large_button"
+            android:textColor="@color/WHITE"/>
         <ListView
             android:id="@+id/home_listview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp">
+            android:layout_marginTop="30dp">
         </ListView>
-    </TableLayout>
 
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

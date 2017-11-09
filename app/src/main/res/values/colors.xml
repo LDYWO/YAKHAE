@@ -3,6 +3,7 @@
     <color name="colorPrimary">#21D0C3</color> <!-- 메인 컬러 -->
     <color name="colorPrimaryDark">#666666</color> <!-- 보조 컬러 -->
     <color name="colorAccent">#FF4081</color> <!-- 강조 컬러 -->
+    <color name="colorButton">#FFAB91</color><!-- 버튼 컬러 -->
     <color name="BLACK">#000000</color> <!-- 검정색 -->
     <color name="WHITE">#FFFFFF</color> <!-- 흰색 -->
     <color name="GREY">#b8babc</color> <!-- 연한 회색 -->

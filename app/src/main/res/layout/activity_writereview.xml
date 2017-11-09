@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -15,4 +18,157 @@
         app:popupTheme="@style/PopupOverlay"
         app:title=" "/>
 
-</RelativeLayout>
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="22dp"
+        android:layout_below="@id/toolbar"
+        android:src="@drawable/pills"
+        android:id="@+id/medicine_image" />
+
+    <TextView
+        android:id="@+id/company_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/medicine_image"
+        android:layout_marginLeft="17dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="37dp"
+        android:layout_toEndOf="@+id/medicine_image"
+        android:layout_toRightOf="@+id/medicine_image"
+        android:text="제약회사 이름" />
+
+    <TextView
+        android:id="@+id/medicine_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/medicine_image"
+        android:layout_alignLeft="@+id/company_name"
+        android:layout_alignStart="@+id/company_name"
+        android:layout_marginBottom="8dp"
+        android:text="의약품 이름"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/rataing_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/ratingbar"
+        android:layout_marginEnd="29dp"
+        android:layout_marginRight="29dp"
+        android:layout_toLeftOf="@+id/ratingbar"
+        android:layout_toStartOf="@+id/ratingbar"
+        android:layout_marginBottom="5dp"
+        android:text="평점"
+        android:textSize="20dp" />
+
+    <RatingBar
+        android:id="@+id/ratingbar"
+        style="?android:attr/ratingBarStyleIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/medicine_image"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="41dp"
+        android:stepSize="0.5"
+        android:isIndicator="false"
+        android:numStars="5"
+        android:rating="0"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/rataing_title"
+        android:layout_alignStart="@+id/rataing_title"
+        android:layout_below="@+id/rataing_title"
+        android:layout_marginTop="28dp"
+        android:src="@drawable/ic_date_range"
+        android:id="@+id/date_range_image" />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@+id/date_range_image"
+        android:layout_alignLeft="@+id/ratingbar"
+        android:layout_alignStart="@+id/ratingbar"
+        android:background="@drawable/date_range_button"
+        android:text="사용기간"
+        android:textColor="@color/colorButton"
+        android:id="@+id/using_date_button" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/date_range_image"
+        android:layout_alignStart="@+id/date_range_image"
+        android:layout_below="@+id/date_range_image"
+        android:layout_marginTop="27dp"
+        android:src="@drawable/ic_thumb_up"
+        android:id="@+id/thumb_up_image" />
+
+    <TextView
+        android:id="@+id/good_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/using_date_button"
+        android:layout_alignBottom="@id/thumb_up_image"
+        android:layout_alignStart="@+id/using_date_button"
+        android:layout_marginBottom="5dp"
+        android:text="좋았던 점"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/good_review_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/edit_text_box"
+        android:layout_below="@id/thumb_up_image"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:hint="*사용한 의약품의 자세한 리뷰를 남겨주세요.\n\n효능 및 효과, 구입 가격, 구입 약국 등\n\n\n"
+        android:textColor="@color/GREY"
+        android:textSize="15dp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/date_range_image"
+        android:layout_alignStart="@+id/date_range_image"
+        android:layout_below="@+id/good_review_edittext"
+        android:layout_marginTop="27dp"
+        android:src="@drawable/ic_thumb_down"
+        android:id="@+id/thumb_down_image" />
+
+    <TextView
+        android:id="@+id/bad_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/using_date_button"
+        android:layout_alignBottom="@id/thumb_down_image"
+        android:layout_alignStart="@+id/using_date_button"
+        android:layout_marginBottom="5dp"
+        android:text="아쉬웠던 점"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/bad_review_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/edit_text_box"
+        android:layout_below="@id/thumb_down_image"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:hint="*사용한 의약품의 자세한 리뷰를 남겨주세요.\n\n부작용, 구입 가격 등\n\n\n"
+        android:textColor="@color/GREY"
+        android:textSize="15dp"/>
+
+    </RelativeLayout>
+</ScrollView>

@@ -26,7 +26,13 @@
         </activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".FindActivity" />
-        <activity android:name=".WriteReviewActivity"></activity>
+        <activity
+            android:name=".WriteReviewActivity"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
+        </activity>
     </application>
 
 </manifest>

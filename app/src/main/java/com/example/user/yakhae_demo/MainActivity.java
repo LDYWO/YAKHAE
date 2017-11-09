@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -159,18 +159,32 @@ public class MainActivity extends AppCompatActivity {
                 case 2:
                 {
                     View rootView = inflater.inflate(R.layout.fragment_two, container, false);
+                    ArrayAdapter Adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, LIST_MENU) ;
+
+                    ListView category_listview = (ListView) rootView.findViewById(R.id.category_listview) ;
+                    category_listview.setAdapter(Adapter) ;
+                    ListView specialty_medicine_listview = (ListView) rootView.findViewById(R.id.specialty_medicine_listview) ;
+                    specialty_medicine_listview.setAdapter(Adapter) ;
+                    ListView general_medicine_listview = (ListView) rootView.findViewById(R.id.general_medicine_listview) ;
+                    general_medicine_listview.setAdapter(Adapter) ;
                     return rootView;
                 }
                 case 3:
                 {
                     View rootView = inflater.inflate(R.layout.fragment_three, container, false);
+                    ArrayAdapter Adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, LIST_MENU) ;
+                    ListView community_listview = (ListView) rootView.findViewById(R.id.community_listview) ;
+                    community_listview.setAdapter(Adapter) ;
                     return rootView;
                 }
                 default:
                 {
                     View rootView = inflater.inflate(R.layout.fragment_one, container, false);
-                    TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-                    textView.setText("Tab 1");
+                    ArrayAdapter Adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, LIST_MENU) ;
+
+                    ListView listview = (ListView) rootView.findViewById(R.id.home_listview) ;
+                    listview.setAdapter(Adapter) ;
+
                     return rootView;
                 }
             }
