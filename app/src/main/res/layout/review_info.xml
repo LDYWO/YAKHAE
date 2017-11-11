@@ -56,21 +56,26 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="일반의약품/전문의약품"
-                android:id="@+id/drug_type"
+                android:text="작성자"
+                android:id="@+id/review_writer"
                 android:layout_gravity="center"
                 android:padding="3dp"
                 android:textColor="@color/BLACK"
                 android:textStyle="bold"/>
 
-            <TextView
+            <RatingBar
+                android:id="@+id/ratingbar"
+                style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="약품 분류"
-                android:id="@+id/drug_category"
-                android:layout_gravity="center"
-                android:padding="3dp"
-                android:textColor="@color/BLACK"/>
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:stepSize="0.5"
+                android:isIndicator="false"
+                android:numStars="5"
+                android:rating="0"
+                />
 
         </LinearLayout>
         <LinearLayout
@@ -82,8 +87,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="주요 성분"
-                android:id="@+id/main_ingredient"
+                android:text="장점:"
+                android:id="@+id/review_advantage"
                 android:layout_gravity="center"
                 android:padding="3dp"
                 android:textColor="@color/colorPrimary" />
@@ -91,26 +96,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="금기 사항"
-                android:id="@+id/taboo"
+                android:text="단점:"
+                android:id="@+id/review_disadvantage"
                 android:layout_gravity="center"
+                android:layout_marginLeft="110dp"
                 android:padding="3dp"
                 android:textColor="@color/RED"/>
-
-            <RatingBar
-                android:id="@+id/ratingbar"
-                style="?android:attr/ratingBarStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/medicine_image"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:stepSize="0.5"
-                android:isIndicator="false"
-                android:numStars="5"
-                android:rating="0"
-                />
 
         </LinearLayout>
     </LinearLayout>

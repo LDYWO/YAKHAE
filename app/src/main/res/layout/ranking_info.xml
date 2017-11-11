@@ -4,6 +4,16 @@
     android:layout_height="wrap_content"
     android:background="@drawable/drug_info_border">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="순위"
+        android:textSize="20dp"
+        android:layout_gravity="center"
+        android:background="@color/WHITE"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"/>
+    
     <ImageView
         android:layout_width="60dp"
         android:layout_height="60dp"

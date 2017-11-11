@@ -1,12 +1,8 @@
 package com.example.user.yakhae_demo;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -23,10 +19,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.support.v7.widget.SearchView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -163,17 +158,49 @@ public class MainActivity extends AppCompatActivity {
             switch (getArguments().getInt(ARG_SECTION_NUMBER)){
                 case 1:
                 {
-                    View rootView = inflater.inflate(R.layout.fragment_one, container, false);
+                    View rootView = inflater.inflate(R.layout.fragment_home, container, false);
                     ArrayAdapter Adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, LIST_MENU) ;
 
-                    ListView listview = (ListView) rootView.findViewById(R.id.home_listview) ;
-                    listview.setAdapter(Adapter) ;
+                    ListView listview = (ListView) rootView.findViewById(R.id.review_listview) ;
+                    listview.setAdapter(Adapter);
+
+                    Button category = (Button)rootView.findViewById(R.id.category);
+                    category.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(new Intent(getContext(), CategorySearchResultActivity.class));
+                        }
+                    });
+
+                    Button generalmedicine = (Button)rootView.findViewById(R.id.general_medicine);
+                    generalmedicine.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(new Intent(getContext(), GeneralMedinineResultActivity.class));
+                        }
+                    });
+
+                    Button specialtymedicine = (Button)rootView.findViewById(R.id.specialty_medicine);
+                    specialtymedicine.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(new Intent(getContext(), SpecialMedicineResultActivity.class));
+                        }
+                    });
+
+                    Button morereviewbtn = (Button)rootView.findViewById(R.id.more_review_btn);
+                    morereviewbtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(new Intent(getContext(), ReviewSearchListActivity.class));
+                        }
+                    });
 
                     return rootView;
                 }
                 case 2:
                 {
-                    View rootView = inflater.inflate(R.layout.fragment_two, container, false);
+                    View rootView = inflater.inflate(R.layout.fragment_ranking, container, false);
                     ArrayAdapter Adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, LIST_MENU) ;
 
                     ListView category_listview = (ListView) rootView.findViewById(R.id.category_listview) ;
@@ -182,11 +209,37 @@ public class MainActivity extends AppCompatActivity {
                     specialty_medicine_listview.setAdapter(Adapter) ;
                     ListView general_medicine_listview = (ListView) rootView.findViewById(R.id.general_medicine_listview) ;
                     general_medicine_listview.setAdapter(Adapter) ;
+
+                    Button category = (Button)rootView.findViewById(R.id.more_ranking_category);
+                    category.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(new Intent(getContext(), DrugSearchActivity.class));
+                        }
+                    });
+
+                    Button generalmedicine = (Button)rootView.findViewById(R.id.more_ranking_general);
+                    generalmedicine.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(new Intent(getContext(), DrugSearchActivity.class));
+                        }
+                    });
+
+                    Button specialtymedicine = (Button)rootView.findViewById(R.id.more_ranking_special);
+                    specialtymedicine.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(new Intent(getContext(), DrugSearchActivity.class));
+                        }
+                    });
+
+
                     return rootView;
                 }
                 case 3:
                 {
-                    View rootView = inflater.inflate(R.layout.fragment_three, container, false);
+                    View rootView = inflater.inflate(R.layout.fragment_community, container, false);
                     ArrayAdapter Adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, LIST_MENU) ;
                     ListView community_listview = (ListView) rootView.findViewById(R.id.community_listview) ;
                     community_listview.setAdapter(Adapter) ;
@@ -194,10 +247,10 @@ public class MainActivity extends AppCompatActivity {
                 }
                 default:
                 {
-                    View rootView = inflater.inflate(R.layout.fragment_one, container, false);
+                    View rootView = inflater.inflate(R.layout.fragment_home, container, false);
                     ArrayAdapter Adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, LIST_MENU) ;
 
-                    ListView listview = (ListView) rootView.findViewById(R.id.home_listview) ;
+                    ListView listview = (ListView) rootView.findViewById(R.id.review_listview) ;
                     listview.setAdapter(Adapter) ;
 
                     return rootView;

@@ -12,7 +12,7 @@
     tools:context="com.example.user.yakhae_demo.MainActivity$PlaceholderFragment">
 
     <Button
-        android:id="@+id/more_review_btn"
+        android:id="@+id/more_ranking_category"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
     </ListView>
 
     <Button
-        android:id="@+id/more_review_btn2"
+        android:id="@+id/more_ranking_special"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_width="match_parent"
@@ -48,7 +48,7 @@
     </ListView>
 
     <Button
-        android:id="@+id/more_review_btn3"
+        android:id="@+id/more_ranking_general"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_width="match_parent"
