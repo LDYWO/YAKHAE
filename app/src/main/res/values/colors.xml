@@ -8,4 +8,5 @@
     <color name="WHITE">#FFFFFF</color> <!-- 흰색 -->
     <color name="GREY">#b8babc</color> <!-- 연한 회색 -->
     <color name="RED">#e53434</color> <!-- 붉은색 -->
+    <color name="DarkGreen">#006064</color> <!-- 붉은색 -->
 </resources>
