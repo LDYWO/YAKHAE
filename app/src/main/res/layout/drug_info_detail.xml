@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/ingre_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="   성분"
+        android:textSize="20dp"
+        android:textColor="@color/colorPrimary"
+        android:background="#dddddd"/>
+
+    <TextView
+        android:id="@+id/drug_type_textview"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/ingre_title"
+        android:background="@drawable/border"
+        android:textAlignment="center"
+        android:text="일반의약품/전문의약품"/>
+
+    <TextView
+        android:id="@+id/drug_category_textview"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/drug_type_textview"
+        android:background="@drawable/border"
+        android:textAlignment="center"
+        android:text="약품 분류"/>
+
+    <TextView
+        android:id="@+id/ingredient_textview"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/drug_category_textview"
+        android:background="@drawable/border"
+        android:textAlignment="center"
+        android:text="성분구성"/>
+
+    <TextView
+        android:id="@+id/taboo_textview"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/ingredient_textview"
+        android:background="@drawable/border"
+        android:textAlignment="center"
+        android:text="금기사항"/>
+
+    <TextView
+        android:id="@+id/effect_textview"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/taboo_textview"
+        android:background="@drawable/border"
+        android:textAlignment="center"
+        android:text="효능 및 효과"/>
+
+
+
+</RelativeLayout>

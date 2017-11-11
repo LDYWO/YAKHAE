@@ -69,7 +69,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_menu_edit"
-        app:backgroundTint="@color/colorPrimary" />
+        app:srcCompat="@drawable/ic_edit"
+        app:backgroundTint="@color/colorPrimary"
+        tools:ignore="VectorDrawableCompat" />
 
 </android.support.design.widget.CoordinatorLayout>

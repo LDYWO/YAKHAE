@@ -107,10 +107,20 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:stepSize="0.5"
-                android:isIndicator="false"
+                android:isIndicator="true"
                 android:numStars="5"
                 android:rating="0"
                 />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rating_num"
+                android:layout_gravity="center"
+                android:text="test"
+                android:layout_marginLeft="5dp"
+                android:padding="3dp"
+                android:textColor="@color/colorPrimaryDark"/>
 
         </LinearLayout>
     </LinearLayout>
