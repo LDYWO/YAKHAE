@@ -5,6 +5,7 @@ package com.example.user.yakhae_demo;
  */
 
 public class DrugInfoItem {
+    private String drug_index;
     private String drug_image;
     private String drug_company;
     private String drug_name;
@@ -14,7 +15,9 @@ public class DrugInfoItem {
     private String taboo;
     private Float rating;
     private String rating_number;
-
+    public void setDrug_index(String drug_index){
+        this.drug_index = drug_index;
+    }
     public void setDrug_image(String drugImage){
         drug_image = drugImage;
     }
@@ -41,9 +44,8 @@ public class DrugInfoItem {
     }
     public void setRating_number(Float rate){rating_number=rate.toString();}
 
-    public String getDrug_image(){
-        return this.drug_image;
-    }
+    public String getDrug_index(){return this.drug_index;}
+    public String getDrug_image(){return this.drug_image;}
     public String getDrug_company(){
         return this.drug_company;
     }

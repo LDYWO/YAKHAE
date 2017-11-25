@@ -17,7 +17,18 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class WriteReviewActivity extends AppCompatActivity {
+
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    String company_name, medicine_name, userID, using_date, good_review, bad_review, drug_index;
+    float rating;
+    TextView Company_name, Medicine_name;
+    Button Using_date_button;
+    EditText Good_review_edittext, Bad_review_edittext;
+    RatingBar RatingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,16 +43,17 @@ public class WriteReviewActivity extends AppCompatActivity {
         //actionbar 객체 가져오기
         ActionBar actionBar = getSupportActionBar();
 
-        TextView company_name = (TextView)findViewById(R.id.company_name);
-        TextView medicine_name = (TextView)findViewById(R.id.medicine_name);
+        Company_name = (TextView)findViewById(R.id.company_name);
+        Medicine_name = (TextView)findViewById(R.id.medicine_name);
 
         Intent intent = getIntent();
 
-        company_name.setText(intent.getStringExtra("drug_company").toString());
-        medicine_name.setText(intent.getStringExtra("drug_name").toString());
+        drug_index = intent.getStringExtra("drug_index").toString();
+        Company_name.setText(intent.getStringExtra("drug_company").toString());
+        Medicine_name.setText(intent.getStringExtra("drug_name").toString());
 
-        RatingBar ratingBar = (RatingBar)findViewById(R.id.ratingbar);
-        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+        RatingBar = (RatingBar)findViewById(R.id.ratingbar);
+        RatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
 
@@ -49,26 +61,23 @@ public class WriteReviewActivity extends AppCompatActivity {
         });
 
         //good review text
-        final EditText good_review_edittext;
-        good_review_edittext = (EditText)findViewById(R.id.good_review_edittext);
-        good_review_edittext.setOnClickListener(new View.OnClickListener() {
+        Good_review_edittext = (EditText)findViewById(R.id.good_review_edittext);
+        Good_review_edittext.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
             }
         });
 
         //bad review text
-        final EditText bad_review_edittext;
-        bad_review_edittext = (EditText)findViewById(R.id.bad_review_edittext);
-        bad_review_edittext.setOnClickListener(new View.OnClickListener() {
+        Bad_review_edittext = (EditText)findViewById(R.id.bad_review_edittext);
+        Bad_review_edittext.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
             }
         });
 
-
-        Button using_date_button = (Button)findViewById(R.id.using_date_button);
-        using_date_button.setOnClickListener(new View.OnClickListener() {
+        Using_date_button = (Button)findViewById(R.id.using_date_button);
+        Using_date_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final CharSequence[] items = {"하루", "1주", "2주", "3주", "1개월", "2개월", "3개월","6개월","12개월 이상"};
@@ -93,6 +102,11 @@ public class WriteReviewActivity extends AppCompatActivity {
 
     }
 
+    private void createReview(String company_name, String medicine_name, String userID, String using_date, String good_review, String bad_review, String drug_id, float rating){
+        Review review = new Review(company_name, medicine_name, userID, using_date, good_review, bad_review, drug_id, rating);
+        DatabaseManager.databaseReference.child("reviews").child(drug_id).child(userID).setValue(review);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -108,7 +122,16 @@ public class WriteReviewActivity extends AppCompatActivity {
                 return true;
             }
             case R.id.newPost:{
+                company_name = Company_name.getText().toString().trim();
+                medicine_name = Medicine_name.getText().toString().trim();
+                userID = user.getUid();
+                using_date = Using_date_button.getText().toString().trim();
+                good_review = Good_review_edittext.getText().toString().trim();
+                bad_review = Bad_review_edittext.getText().toString().trim();
+                rating = RatingBar.getRating();
+                createReview(company_name, medicine_name, userID, using_date, good_review, bad_review, drug_index, rating);
                 Toast.makeText(WriteReviewActivity.this, "리뷰가 등록 되었습니다.", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplication(), DrugInfoDetailActivity.class));
                 return true;
             }
             default:

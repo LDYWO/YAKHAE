@@ -1,5 +1,6 @@
 package com.example.user.yakhae_demo;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -28,6 +29,7 @@ public class SearchResultActivity extends AppCompatActivity {
     private List<Medicine> MedicineList = new ArrayList<Medicine>();
     private List<String> StringList = new ArrayList<String>();
     static final String[] Medicine_feature = {"item_name","entp_name","induty","spclty_pblc","prduct_type", "item_ingr_name", "cancel_name", "chart", "item_image"} ;
+    ProgressDialog progressDialog1,progressDialog2;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,9 @@ public class SearchResultActivity extends AppCompatActivity {
         ListView listView;
         final DrugInfoItemAdapter adapter;
 
+       progressDialog1 = new ProgressDialog(this);
+       progressDialog2 = new ProgressDialog(this);;
+
         adapter = new DrugInfoItemAdapter();
 
         listView = (ListView)findViewById(R.id.search_result_listview);
@@ -63,13 +68,19 @@ public class SearchResultActivity extends AppCompatActivity {
 
 
         for(int i=0;i<49523;i++) {
+            progressDialog1.setMessage("검색 중 입니다. 기다려 주세요...");
+            progressDialog1.show();
+            final int finalI = i;
             mDatabaseList_medicine.get(i).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
                     Log.i("item_name", dataSnapshot.child("item_name").getValue().toString());
+
                     if(dataSnapshot.child("item_name").getValue().toString().contains(search))
-                    {adapter.addItem(dataSnapshot.child("item_image").getValue().toString(),
+                    {adapter.addItem(
+                            Integer.toString(finalI +1),
+                            dataSnapshot.child("item_image").getValue().toString(),
                             dataSnapshot.child("entp_name").getValue().toString(),
                             dataSnapshot.child("item_name").getValue().toString(),
                             dataSnapshot.child("spclty_pblc").getValue().toString(),
@@ -89,6 +100,8 @@ public class SearchResultActivity extends AppCompatActivity {
             });
         }
         for(int i=0;i<2327;i++){
+            progressDialog2.setMessage("검색 중 입니다. 기다려 주세요...");
+            progressDialog2.show();
             mDatabaseList_ingr.get(i).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -120,6 +133,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
                 DrugInfoItem item = (DrugInfoItem) parent.getItemAtPosition(position) ;
 
+                String drug_index =item.getDrug_index();
                 String drug_image = item.getDrug_image();
                 String drug_company = item.getDrug_company();
                 String drug_name = item.getDrug_name();
@@ -131,15 +145,16 @@ public class SearchResultActivity extends AppCompatActivity {
                 String drug_rating_num = item.getRating_number();
 
                 Intent intent=new Intent(SearchResultActivity.this,DrugInfoDetailActivity.class);
+                intent.putExtra("drug_index",drug_index.toString());
                 intent.putExtra("drug_image",drug_image.toString());
-                intent.putExtra("durg_company",drug_company.toString());
-                intent.putExtra("durg_name",drug_name.toString());
-                intent.putExtra("durg_category",drug_category.toString());
-                intent.putExtra("durg_type",drug_type.toString());
-                intent.putExtra("durg_main_ingre",drug_main_ingre.toString());
-                intent.putExtra("durg_taboo",drug_taboo.toString());
-                intent.putExtra("durg_rating",drug_rating.toString());
-                intent.putExtra("durg_rating_num",drug_rating_num.toString());
+                intent.putExtra("drug_company",drug_company.toString());
+                intent.putExtra("drug_name",drug_name.toString());
+                intent.putExtra("drug_category",drug_category.toString());
+                intent.putExtra("drug_type",drug_type.toString());
+                intent.putExtra("drug_main_ingre",drug_main_ingre.toString());
+                intent.putExtra("drug_taboo",drug_taboo.toString());
+                intent.putExtra("drug_rating",drug_rating.toString());
+                intent.putExtra("drug_rating_num",drug_rating_num.toString());
                 startActivity(intent);
             }
         });

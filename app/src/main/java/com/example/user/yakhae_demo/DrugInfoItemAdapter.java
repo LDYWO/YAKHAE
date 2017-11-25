@@ -70,9 +70,10 @@ public class DrugInfoItemAdapter extends BaseAdapter{
         return convertView;
     }
 
-    public void addItem(String img, String com, String name,String type,String category, String ingre, String taboo, Float rating) {
+    public void addItem(String drug_index, String img, String com, String name,String type,String category, String ingre, String taboo, Float rating) {
         DrugInfoItem item = new DrugInfoItem();
 
+        item.setDrug_index(drug_index);
         item.setDrug_image(img);
         item.setDrug_company(com);
         item.setDrug_name(name);
