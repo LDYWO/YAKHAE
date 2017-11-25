@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@+id/ingre_title"
-        android:background="@drawable/border"
+        android:background="@drawable/review_border"
         android:textAlignment="center"
         android:text="일반의약품/전문의약품"/>
 
@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@+id/drug_type_textview"
-        android:background="@drawable/border"
+        android:background="@drawable/review_border"
         android:textAlignment="center"
         android:text="약품 분류"/>
 
@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@+id/drug_category_textview"
-        android:background="@drawable/border"
+        android:background="@drawable/review_border"
         android:textAlignment="center"
         android:text="성분구성"/>
 
@@ -46,7 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@+id/ingredient_textview"
-        android:background="@drawable/border"
+        android:background="@drawable/review_border"
         android:textAlignment="center"
         android:text="금기사항"/>
 
@@ -55,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@+id/taboo_textview"
-        android:background="@drawable/border"
+        android:background="@drawable/review_border"
         android:textAlignment="center"
         android:text="효능 및 효과"/>
 

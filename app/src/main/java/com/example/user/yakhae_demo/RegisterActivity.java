@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -19,6 +20,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -33,15 +35,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     RadioGroup genderGroup;
     RadioButton selectedGender;
 
-    private String userID, userPassword, userNickname, userGender, userAge, result;
+    private String Uid, userID, userPassword, userNickname, userGender, userAge;
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        if (firebaseAuth.getCurrentUser() != null){
+        if (user != null){
             finish();
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
         }
@@ -62,9 +64,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         progressDialog = new ProgressDialog(this);
     }
 
-    private void createNewUser(String userID, String userGender, String userAge, String userNickname){
+    private void createNewUser(String userID, String userGender, String userAge, String userNickname, String Uid){
         User user = new User(userID, userGender, userNickname, userAge);
-        DatabaseManager.databaseReference.child("users").child(userID).setValue(user);
+        DatabaseManager.databaseReference.child("users").child(Uid).setValue(user);
     }
 
     private void registerUser() {
@@ -97,6 +99,18 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         if(task.isSuccessful()){
                             Toast.makeText(RegisterActivity.this, "등록이 완료되었습니다!", Toast.LENGTH_SHORT).show();
                             finish();
+
+                            Uid = user.getUid();
+                            int gender = genderGroup.getCheckedRadioButtonId();
+                            selectedGender = (RadioButton)findViewById(gender);
+
+                            userID = idText.getText().toString().trim();
+                            userNickname = nicknameText.getText().toString().trim();
+                            userAge = spinner.getSelectedItem().toString().trim();
+                            userGender = selectedGender.getText().toString().trim();
+
+                            createNewUser(userID, userGender, userAge, userNickname, Uid);
+
                             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                         } else {
                             Toast.makeText(RegisterActivity.this, "6자리 이상 비밀번호를 입력해주세요!", Toast.LENGTH_SHORT).show();
@@ -109,19 +123,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-
         registerUser(); // FirebaseAuth 인증 회원가입 등록
-
-        int gender = genderGroup.getCheckedRadioButtonId();
-        selectedGender = (RadioButton)findViewById(gender);
-
-        userID = idText.getText().toString().trim();
-        result = userID.replaceAll("[.]","");
-        userNickname = nicknameText.getText().toString().trim();
-        userAge = spinner.getSelectedItem().toString().trim();
-        userGender = selectedGender.getText().toString().trim();
-
-        createNewUser(result, userGender, userAge, userNickname);
     }
 
 }
