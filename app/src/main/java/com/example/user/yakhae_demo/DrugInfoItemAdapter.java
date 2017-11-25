@@ -1,7 +1,6 @@
 package com.example.user.yakhae_demo;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,7 +58,6 @@ public class DrugInfoItemAdapter extends BaseAdapter{
         DrugInfoItem drugInfoItem = drugInfoItemsList.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
-        drugImageView.setImageDrawable(drugInfoItem.getDrug_image());
         drugCompanyTextView.setText(drugInfoItem.getDrug_company());
         drugNameTextView.setText(drugInfoItem.getDrug_name());
         drugTypeTextView.setText(drugInfoItem.getDrug_type());
@@ -72,7 +70,7 @@ public class DrugInfoItemAdapter extends BaseAdapter{
         return convertView;
     }
 
-    public void addItem(Drawable img, String com, String name,String type,String category, String ingre, String taboo, Float rating) {
+    public void addItem(String img, String com, String name,String type,String category, String ingre, String taboo, Float rating) {
         DrugInfoItem item = new DrugInfoItem();
 
         item.setDrug_image(img);
@@ -86,6 +84,14 @@ public class DrugInfoItemAdapter extends BaseAdapter{
         item.setRating_number(rating);
 
         drugInfoItemsList.add(item);
+    }
+
+    public void setTaboo(String taboo,String ingr){
+        for(int i=0;i<drugInfoItemsList.size();i++){
+            if(drugInfoItemsList.get(i).getMain_ingredient().contains(ingr)){
+                drugInfoItemsList.get(i).setTaboo(taboo);
+            }
+        }
     }
 
 }

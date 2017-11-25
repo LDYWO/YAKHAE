@@ -1,13 +1,11 @@
 package com.example.user.yakhae_demo;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -45,7 +43,7 @@ public class DrugInfoItemDetailAdapter extends BaseAdapter{
         }
 
         // 화면에 표시될 View(Layout이 inflate된)으로부터 위젯에 대한 참조 획득
-        //ImageView drugImageView = (ImageView) convertView.findViewById(R.id.drug_image);
+        ImageView drugImageView = (ImageView) convertView.findViewById(R.id.drug_image);
         TextView drugTypeTextView = (TextView) convertView.findViewById(R.id.drug_type_textview);
         TextView drugCategoryTextView = (TextView) convertView.findViewById(R.id.drug_category_textview);
         TextView drugMainIngredientTextView = (TextView) convertView.findViewById(R.id.ingredient_textview);

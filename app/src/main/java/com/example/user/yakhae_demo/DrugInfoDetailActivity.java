@@ -3,7 +3,6 @@ package com.example.user.yakhae_demo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -24,32 +23,26 @@ public class DrugInfoDetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back_icon);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(DrugInfoDetailActivity.this,WriteReviewActivity.class);
-                startActivity(intent);
-            }
-        });
-        Intent intent = getIntent();
+        final Intent drug_intent = getIntent();
 
         TextView drug_company = (TextView)findViewById(R.id.drug_company);
         TextView drug_name = (TextView)findViewById(R.id.drug_name);
         RatingBar ratingBar = (RatingBar)findViewById(R.id.ratingbar);
         TextView rating_num = (TextView)findViewById(R.id.rating_num);
 
-        drug_company.setText("제약회사: "+intent.getStringExtra("durg_company").toString());
-        drug_name.setText("의약품: "+intent.getStringExtra("durg_name").toString());
-        ratingBar.setRating(Float.parseFloat(intent.getStringExtra("durg_rating")));
-        rating_num.setText("평점 "+intent.getStringExtra("durg_rating_num").toString());
+        drug_company.setText("제약회사: "+drug_intent.getStringExtra("durg_company").toString());
+        drug_name.setText("의약품: "+drug_intent.getStringExtra("durg_name").toString());
+        ratingBar.setRating(Float.parseFloat(drug_intent.getStringExtra("durg_rating")));
+        rating_num.setText("평점 "+drug_intent.getStringExtra("durg_rating_num").toString());
 
 
-        intent.getStringExtra("durg_category").toString();
-        intent.getStringExtra("durg_type").toString();
-        intent.getStringExtra("durg_main_ingre").toString();
-        intent.getStringExtra("durg_taboo").toString();
+        drug_intent.getStringExtra("durg_category").toString();
+        drug_intent.getStringExtra("durg_type").toString();
+        drug_intent.getStringExtra("durg_main_ingre").toString();
+        drug_intent.getStringExtra("durg_taboo").toString();
 
+        final String medicine_name = drug_intent.getStringExtra("durg_company").toString();
+        final String company_name = drug_intent.getStringExtra("durg_name").toString();
 
         ListView listView;
         DrugInfoItemDetailAdapter adapter;
@@ -57,12 +50,27 @@ public class DrugInfoDetailActivity extends AppCompatActivity {
         adapter = new DrugInfoItemDetailAdapter();
         listView = (ListView)findViewById(R.id.infor_detail);
         adapter.addItem(
-                intent.getStringExtra("durg_type").toString(),
-                intent.getStringExtra("durg_category").toString(),
-                intent.getStringExtra("durg_main_ingre").toString(),
-                intent.getStringExtra("durg_taboo").toString());
+                drug_intent.getStringExtra("durg_type").toString(),
+                drug_intent.getStringExtra("durg_category").toString(),
+                drug_intent.getStringExtra("durg_main_ingre").toString(),
+                drug_intent.getStringExtra("durg_taboo").toString());
         listView.setAdapter(adapter);
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(DrugInfoDetailActivity.this,WriteReviewActivity.class);
+                //intent.putExtra("drug_image",drug_image.toString());
+                intent.putExtra("drug_company",medicine_name);
+                intent.putExtra("drug_name",company_name);
+                /*intent.putExtra("durg_category",drug_intent.getStringExtra("durg_category").toString());
+                intent.putExtra("durg_type",drug_intent.getStringExtra("durg_type").toString());
+                intent.putExtra("durg_main_ingre",drug_intent.getStringExtra("durg_main_ingre").toString());
+                intent.putExtra("durg_taboo",drug_intent.getStringExtra("durg_taboo").toString());*/
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

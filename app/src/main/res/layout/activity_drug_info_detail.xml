@@ -21,7 +21,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="34dp"
         android:src="@drawable/pills"
-        android:id="@+id/imageView" />
+        android:id="@+id/drug_image" />
 
     <TextView
         android:id="@+id/drug_company"

@@ -1,21 +1,20 @@
 package com.example.user.yakhae_demo;
 
-import android.content.Context;
 import android.content.DialogInterface;
-import android.media.Rating;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class WriteReviewActivity extends AppCompatActivity {
@@ -32,6 +31,14 @@ public class WriteReviewActivity extends AppCompatActivity {
 
         //actionbar 객체 가져오기
         ActionBar actionBar = getSupportActionBar();
+
+        TextView company_name = (TextView)findViewById(R.id.company_name);
+        TextView medicine_name = (TextView)findViewById(R.id.medicine_name);
+
+        Intent intent = getIntent();
+
+        company_name.setText(intent.getStringExtra("drug_company").toString());
+        medicine_name.setText(intent.getStringExtra("drug_name").toString());
 
         RatingBar ratingBar = (RatingBar)findViewById(R.id.ratingbar);
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {

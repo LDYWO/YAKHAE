@@ -77,8 +77,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
               /*  Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show(); */
-                Intent intent=new Intent(MainActivity.this,WriteReviewActivity.class);
-                startActivity(intent);
+                //Intent intent=new Intent(MainActivity.this,WriteReviewActivity.class);
+                //startActivity(intent);
             }
         });
 
@@ -116,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if(id == R.id.action_search){
-
             searchView = (SearchView)menu_main.findItem(R.id.action_search).getActionView();
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override

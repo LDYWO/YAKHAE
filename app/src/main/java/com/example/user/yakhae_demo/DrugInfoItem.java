@@ -1,13 +1,11 @@
 package com.example.user.yakhae_demo;
 
-import android.graphics.drawable.Drawable;
-
 /**
  * Created by user on 2017-11-11.
  */
 
 public class DrugInfoItem {
-    private Drawable drug_image;
+    private String drug_image;
     private String drug_company;
     private String drug_name;
     private String drug_type;
@@ -17,7 +15,7 @@ public class DrugInfoItem {
     private Float rating;
     private String rating_number;
 
-    public void setDrug_image(Drawable drugImage){
+    public void setDrug_image(String drugImage){
         drug_image = drugImage;
     }
     public void setDrug_company(String drugCompany){
@@ -41,11 +39,9 @@ public class DrugInfoItem {
     public void setRating(Float rate){
         rating = rate;
     }
-    public void setRating_number(Float rate){
-        rating_number=rate.toString();
-    }
+    public void setRating_number(Float rate){rating_number=rate.toString();}
 
-    public Drawable getDrug_image(){
+    public String getDrug_image(){
         return this.drug_image;
     }
     public String getDrug_company(){
