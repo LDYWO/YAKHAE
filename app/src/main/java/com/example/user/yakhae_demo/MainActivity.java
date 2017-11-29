@@ -9,6 +9,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -27,6 +29,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -147,31 +152,15 @@ public class MainActivity extends AppCompatActivity {
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
+        private static final String TAG_RESULTS="posts";
+        private static final String TAG_WRITER = "writer";
+        private static final String TAG_TITLE = "title";
+        private static final String TAG_TYPE = "using_drug_type";
+        private static final String TAG_CONTENT = "content";
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("community");
-        RecyclerAdapter adapter =new RecyclerAdapter();
 
         public PlaceholderFragment() {
-            mDatabase.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    Iterable<DataSnapshot> childcontact = dataSnapshot.getChildren();
-                    for (DataSnapshot contact:childcontact){
-                        Log.i("contact:",contact.child("posts").getValue().toString());
-                        adapter.addItem(
-                                contact.child("posts_title").getValue().toString(),
-                                contact.child("using_drug_type").getValue().toString(),
-                                contact.child("posts").getValue().toString()
-                        );
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-
 
         }
 
@@ -187,7 +176,8 @@ public class MainActivity extends AppCompatActivity {
             return fragment;
         }
 
-
+        ArrayList<HashMap<String,String>> noticeList;
+        NoticeAdapter noticeAdapter;
 
         @Override
         public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
@@ -197,8 +187,6 @@ public class MainActivity extends AppCompatActivity {
                 case 1:
                 {
                     View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-                    ListView listView = (ListView) rootView.findViewById(R.id.community_listview);
-                    listView.setAdapter(adapter);
 
                     Button category = (Button)rootView.findViewById(R.id.category);
                     category.setOnClickListener(new View.OnClickListener() {
@@ -231,6 +219,61 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(new Intent(getContext(), ReviewSearchListActivity.class));
                         }
                     });
+
+                    final RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv);
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                    recyclerView.setHasFixedSize(true);
+                    recyclerView.setLayoutManager(layoutManager);
+
+                    noticeList = new ArrayList<HashMap<String, String>>();
+
+                    mDatabase.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            Iterable<DataSnapshot> childcontact = dataSnapshot.getChildren();
+                            for (DataSnapshot contact:childcontact){
+                                Log.i("contact:",contact.child("posts").getValue().toString());
+
+                                String title = contact.child("posts_title").getValue().toString();
+                                String writer = contact.child("userNickname").getValue().toString();
+                                String using_drug_type =contact.child("using_drug_type").getValue().toString();
+                                String content = contact.child("posts").getValue().toString();
+                                if(content.length() > 50 ) {
+                                    content = content.substring(0,50) + "..."; //50자 자르고 ... 붙이기
+                                }
+                                if(title.length() > 16 ) {
+                                    title = title.substring(0,16) + "..."; //18자 자르고 ... 붙이기
+                                }
+
+
+                                //HashMap에 붙이기
+                                HashMap<String,String> posts = new HashMap<String,String>();
+
+                                posts.put(TAG_TITLE,title);
+                                posts.put(TAG_WRITER,writer);
+                                posts.put(TAG_TYPE,using_drug_type);
+                                posts.put(TAG_CONTENT, content);
+
+                                noticeList.add(posts);
+
+                                noticeAdapter = new NoticeAdapter(getActivity(),noticeList);
+                                Log.e("onCreate[noticeList]", "" + noticeList.size());
+                                recyclerView.setAdapter(noticeAdapter);
+                                noticeAdapter.notifyDataSetChanged();
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                    //카드 리스트뷰 어댑터에 연결
+                    /*Log.e("onCreate[noticeList]", "" + noticeList.size());
+                    recyclerView.setAdapter(noticeAdapter);
+                    noticeAdapter.notifyDataSetChanged();*/
 
                     return rootView;
                 }
@@ -276,33 +319,12 @@ public class MainActivity extends AppCompatActivity {
                 case 3:
                 {
                     View rootView = inflater.inflate(R.layout.fragment_community, container, false);
-                    /*RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview);
-                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-                    recyclerView.setHasFixedSize(true);
-                    recyclerView.setLayoutManager(layoutManager);
 
-                    List<Item> items = new ArrayList<>();
-                    Item[] item = new Item[ITEM_SIZE];
-
-                    item[0] = new Item("#1","일반의약품","리뷰1...........................");
-                    item[1] = new Item("#2","전문의약품","리뷰2...........................");
-                    item[2] = new Item("#3","전문의약품","리뷰3...........................");
-                    item[3] = new Item("#4","일반의약품","리뷰4...........................");
-                    item[4] = new Item("#5","일반의약품","리뷰5...........................");
-                    item[5] = new Item("#6","전문의약품","리뷰6...........................");
-
-                    for (int i = 0; i < ITEM_SIZE; i++) {
-                        items.add(item[i]);
-                    }
-
-                    recyclerView.setAdapter(new RecyclerAdapter(getContext(), items, R.layout.fragment_community));*/
                     return rootView;
                 }
                 default:
                 {
                     View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-                    ListView listView = (ListView) rootView.findViewById(R.id.community_listview);
-                    listView.setAdapter(adapter);
 
                     Button category = (Button)rootView.findViewById(R.id.category);
                     category.setOnClickListener(new View.OnClickListener() {
@@ -340,6 +362,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to

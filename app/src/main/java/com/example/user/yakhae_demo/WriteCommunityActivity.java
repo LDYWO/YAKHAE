@@ -27,14 +27,14 @@ import com.google.firebase.database.ValueEventListener;
 public class WriteCommunityActivity extends AppCompatActivity {
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    String userID, post_title, using_drug_type, posts;
+    String userID,userNickname, post_title, using_drug_type, posts;
     EditText community_title, community_content;
     Button Using_drug_type;
     static int posts_count = 0;
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("community");
 
-    private void createCommuintyPosts(String userID, String posts_title,String using_drug_type, String posts){
-        CommunityPosts communityposts = new CommunityPosts(userID, posts_title, using_drug_type, posts);
+    private void createCommuintyPosts(String userID,String userNickname, String posts_title,String using_drug_type, String posts){
+        CommunityPosts communityposts = new CommunityPosts(userID,userNickname, posts_title, using_drug_type, posts);
         DatabaseManager.databaseReference.child("community").push().setValue(communityposts);
         posts_count++;
     }
@@ -126,12 +126,27 @@ public class WriteCommunityActivity extends AppCompatActivity {
             }
             case R.id.newPost:{
                 userID = user.getUid();
-                post_title = community_title.getText().toString().trim();
-                using_drug_type = Using_drug_type.getText().toString().trim();
-                posts = community_content.getText().toString().trim();
-                createCommuintyPosts(userID, post_title, using_drug_type,posts);
-                Toast.makeText(WriteCommunityActivity.this, "게시글이 등록 되었습니다.", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplication(), MainActivity.class));
+
+                mDatabase = FirebaseDatabase.getInstance().getReference("users").child(userID).child("nickname");
+                mDatabase.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        userNickname = dataSnapshot.getValue().toString();
+                        post_title = community_title.getText().toString().trim();
+                        using_drug_type = Using_drug_type.getText().toString().trim();
+                        posts = community_content.getText().toString().trim();
+                        createCommuintyPosts(userID,userNickname, post_title, using_drug_type,posts);
+                        Toast.makeText(WriteCommunityActivity.this, "게시글이 등록 되었습니다.", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplication(), MainActivity.class));
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
                 return true;
             }
             default:

@@ -3,12 +3,14 @@ package com.example.user.yakhae_demo;
 public class CommunityPosts {
 
     private String UserID;
+    private String UserNickname;
     private String Posts_title;
     private String Using_drug_type;
     private String Posts;
 
-    public CommunityPosts(String userID, String posts_title,String using_drug_type, String posts) {
+    public CommunityPosts(String userID,String userNickname, String posts_title,String using_drug_type, String posts) {
         UserID = userID;
+        UserNickname = userNickname;
         Posts_title = posts_title;
         Using_drug_type = using_drug_type;
         Posts = posts;
@@ -20,6 +22,14 @@ public class CommunityPosts {
 
     public void setUserID(String userID) {
         UserID = userID;
+    }
+
+    public String getUserNickname() {
+        return UserNickname;
+    }
+
+    public void setUserNickname(String userNickname) {
+        UserNickname = userNickname;
     }
 
     public String getPosts_title() {
