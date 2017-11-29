@@ -48,15 +48,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:drawableRight="@drawable/ic_navigate_next"
-            android:text="인기 있는 리뷰"
+            android:text="의약품 커뮤니티"
             android:background="@drawable/large_button"
             android:textColor="@color/WHITE"/>
-        <ListView
-            android:id="@+id/review_listview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp">
-        </ListView>
-
+    <ListView
+        android:id="@+id/community_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

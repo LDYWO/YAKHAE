@@ -1,71 +1,67 @@
 package com.example.user.yakhae_demo;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.List;
+import java.util.ArrayList;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
-    Context context;
-    List<Item> items;
-    int item_layout;
+public class RecyclerAdapter extends BaseAdapter {
 
-    public RecyclerAdapter(Context context, List<Item> items, int item_layout) {
-        this.context = context;
-        this.items = items;
-        this.item_layout = item_layout;
+    ArrayList<Item> items =new ArrayList<Item>();
+
+    public void addItem(String title, String drug_type, String posts) {
+        Item item = new Item();
+
+        item.setTitle(title);
+        item.setDrugtype(drug_type);
+        item.setReview(posts);
+
+        items.add(item);
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cardview, null);
-        return new ViewHolder(v);
+    public int getCount() {
+        return items.size();
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        final Item item = items.get(position);
-        Drawable drawable = ContextCompat.getDrawable(context, item.getImage());
-        holder.image.setImageDrawable(drawable);
-        holder.title.setText(item.getTitle());
-        holder.drugtype.setText(item.getDrugType());
-        holder.review.setText(item.getReview());
-        holder.cardview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, item.getTitle(), Toast.LENGTH_SHORT).show();
-            }
-        });
+    public Object getItem(int position) {
+        return items.get(position);
     }
 
     @Override
-    public int getItemCount() {
-        return this.items.size();
+    public long getItemId(int position) {
+        return position;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView image;
-        TextView title;
-        TextView drugtype;
-        TextView review;
-        CardView cardview;
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        final int pos = position;
+        final Context context = parent.getContext();
 
-        public ViewHolder(View itemView) {
-            super(itemView);
-            image = (ImageView) itemView.findViewById(R.id.image);
-            title = (TextView) itemView.findViewById(R.id.title);
-            drugtype =(TextView)itemView.findViewById(R.id.drug_type_cardview);
-            review = (TextView)itemView.findViewById(R.id.review_cardview);
-            cardview = (CardView) itemView.findViewById(R.id.cardview);
+        // "listview_item" Layout을 inflate하여 convertView 참조 획득.
+        if (convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.item_cardview, parent, false);
         }
+
+        // 화면에 표시될 View(Layout이 inflate된)으로부터 위젯에 대한 참조 획득
+        TextView title = (TextView) convertView.findViewById(R.id.title);
+        TextView drug_type_cardview = (TextView) convertView.findViewById(R.id.drug_type_cardview);
+        TextView review_cardview = (TextView) convertView.findViewById(R.id.review_cardview);
+
+        // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
+        Item item = items.get(position);
+
+        // 아이템 내 각 위젯에 데이터 반영
+        title.setText(item.getTitle());
+        drug_type_cardview.setText(item.getDrugType());
+        review_cardview.setText(item.getReview());
+
+        return convertView;
     }
 }

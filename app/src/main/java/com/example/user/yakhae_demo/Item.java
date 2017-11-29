@@ -2,14 +2,10 @@ package com.example.user.yakhae_demo;
 
 
 public class Item {
-    int image;
     String title;
     String drugtype;
     String review;
 
-    int getImage() {
-        return this.image;
-    }
     String getTitle() {
         return this.title;
     }
@@ -20,10 +16,19 @@ public class Item {
         return this.review;
     }
 
-    Item(int image, String title,String drugtype,String review) {
-        this.image = image;
+    void setTitle(String title) {this.title = title;}
+    void setDrugtype(String drugtype) {
+        this.drugtype=drugtype;
+    }
+    void setReview(String review) {
+        this.review=review;
+    }
+
+    Item(String title,String drugtype,String review) {
         this.title = title;
         this.drugtype = drugtype;
         this.review = review;
     }
+
+    Item(){}
 }

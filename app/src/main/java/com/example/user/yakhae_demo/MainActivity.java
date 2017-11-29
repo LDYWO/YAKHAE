@@ -9,10 +9,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,9 +22,11 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -77,8 +78,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
               /*  Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show(); */
-                //Intent intent=new Intent(MainActivity.this,WriteReviewActivity.class);
-                //startActivity(intent);
+                Intent intent=new Intent(MainActivity.this,WriteCommunityActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -146,9 +147,32 @@ public class MainActivity extends AppCompatActivity {
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
-        private static final int ITEM_SIZE = 6;
+
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("community");
+        RecyclerAdapter adapter =new RecyclerAdapter();
 
         public PlaceholderFragment() {
+            mDatabase.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Iterable<DataSnapshot> childcontact = dataSnapshot.getChildren();
+                    for (DataSnapshot contact:childcontact){
+                        Log.i("contact:",contact.child("posts").getValue().toString());
+                        adapter.addItem(
+                                contact.child("posts_title").getValue().toString(),
+                                contact.child("using_drug_type").getValue().toString(),
+                                contact.child("posts").getValue().toString()
+                        );
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+
         }
 
         /**
@@ -163,18 +187,18 @@ public class MainActivity extends AppCompatActivity {
             return fragment;
         }
 
+
+
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+        public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                                  Bundle savedInstanceState) {
 
             switch (getArguments().getInt(ARG_SECTION_NUMBER)){
                 case 1:
                 {
                     View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-                    ArrayAdapter Adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, LIST_MENU) ;
-
-                    ListView listview = (ListView) rootView.findViewById(R.id.review_listview) ;
-                    listview.setAdapter(Adapter);
+                    ListView listView = (ListView) rootView.findViewById(R.id.community_listview);
+                    listView.setAdapter(adapter);
 
                     Button category = (Button)rootView.findViewById(R.id.category);
                     category.setOnClickListener(new View.OnClickListener() {
@@ -252,34 +276,33 @@ public class MainActivity extends AppCompatActivity {
                 case 3:
                 {
                     View rootView = inflater.inflate(R.layout.fragment_community, container, false);
-                    RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview);
+                    /*RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview);
                     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
                     recyclerView.setHasFixedSize(true);
                     recyclerView.setLayoutManager(layoutManager);
 
                     List<Item> items = new ArrayList<>();
                     Item[] item = new Item[ITEM_SIZE];
-                    item[0] = new Item(R.drawable.login_icon, "#1","일반의약품","리뷰1...........................");
-                    item[1] = new Item(R.drawable.login_icon, "#2","전문의약품","리뷰2...........................");
-                    item[2] = new Item(R.drawable.nickname_icon, "#3","전문의약품","리뷰3...........................");
-                    item[3] = new Item(R.drawable.nickname_icon, "#4","일반의약품","리뷰4...........................");
-                    item[4] = new Item(R.drawable.login_icon, "#5","일반의약품","리뷰5...........................");
-                    item[5] = new Item(R.drawable.nickname_icon, "#6","전문의약품","리뷰6...........................");
+
+                    item[0] = new Item("#1","일반의약품","리뷰1...........................");
+                    item[1] = new Item("#2","전문의약품","리뷰2...........................");
+                    item[2] = new Item("#3","전문의약품","리뷰3...........................");
+                    item[3] = new Item("#4","일반의약품","리뷰4...........................");
+                    item[4] = new Item("#5","일반의약품","리뷰5...........................");
+                    item[5] = new Item("#6","전문의약품","리뷰6...........................");
 
                     for (int i = 0; i < ITEM_SIZE; i++) {
                         items.add(item[i]);
                     }
 
-                    recyclerView.setAdapter(new RecyclerAdapter(getContext(), items, R.layout.fragment_community));
+                    recyclerView.setAdapter(new RecyclerAdapter(getContext(), items, R.layout.fragment_community));*/
                     return rootView;
                 }
                 default:
                 {
                     View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-                    ArrayAdapter Adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, LIST_MENU) ;
-
-                    ListView listview = (ListView) rootView.findViewById(R.id.review_listview) ;
-                    listview.setAdapter(Adapter);
+                    ListView listView = (ListView) rootView.findViewById(R.id.community_listview);
+                    listView.setAdapter(adapter);
 
                     Button category = (Button)rootView.findViewById(R.id.category);
                     category.setOnClickListener(new View.OnClickListener() {

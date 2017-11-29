@@ -40,6 +40,13 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
+            android:name=".WriteCommunityActivity"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
             android:name=".SearchResultActivity"
             android:label="@string/title_activity_search_result"
             android:launchMode="singleTop">
