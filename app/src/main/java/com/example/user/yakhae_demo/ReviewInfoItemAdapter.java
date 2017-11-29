@@ -59,6 +59,9 @@ public class ReviewInfoItemAdapter extends BaseAdapter{
         drugCompanyTextView.setText(reviewInfoItem.getDrug_company());
         drugNameTextView.setText(reviewInfoItem.getDrug_name());
         drugRatingBar.setRating(reviewInfoItem.getRating());
+        drugAdvantageTextView.setText(reviewInfoItem.getAdvantage());
+        drugDisadvantageTextView.setText(reviewInfoItem.getDisadvantage());
+        userNameTextView.setText(reviewInfoItem.getUser_name());
 
         return convertView;
     }

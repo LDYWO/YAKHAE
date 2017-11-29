@@ -19,16 +19,24 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class WriteReviewActivity extends AppCompatActivity {
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    String company_name, medicine_name, userID, using_date, good_review, bad_review, drug_index;
+    String company_name, medicine_name, userID, using_date, good_review, bad_review, drug_index, drug_image;
     float rating;
     TextView Company_name, Medicine_name;
     Button Using_date_button;
     EditText Good_review_edittext, Bad_review_edittext;
     RatingBar RatingBar;
+    DatabaseReference mUserDatabase = FirebaseDatabase.getInstance().getReference("users");
+    String Uid,userNickname;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +56,7 @@ public class WriteReviewActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
+        drug_image = intent.getStringExtra("drug_image").toString();
         drug_index = intent.getStringExtra("drug_index").toString();
         Company_name.setText(intent.getStringExtra("drug_company").toString());
         Medicine_name.setText(intent.getStringExtra("drug_name").toString());
@@ -100,10 +109,23 @@ public class WriteReviewActivity extends AppCompatActivity {
             }
         });
 
+        Uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        mUserDatabase.child(Uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                userNickname = dataSnapshot.child("nickname").getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
-    private void createReview(String company_name, String medicine_name, String userID, String using_date, String good_review, String bad_review, String drug_id, float rating){
-        Review review = new Review(company_name, medicine_name, userID, using_date, good_review, bad_review, drug_id, rating);
+
+    private void createReview(String company_name, String medicine_name, String userID, String using_date, String good_review, String bad_review, String drug_id, String drug_image, float rating){
+        Review review = new Review(company_name, medicine_name, userID, using_date, good_review, bad_review, drug_id, drug_image, rating);
         DatabaseManager.databaseReference.child("reviews").child(drug_id).child(userID).setValue(review);
     }
 
@@ -124,12 +146,12 @@ public class WriteReviewActivity extends AppCompatActivity {
             case R.id.newPost:{
                 company_name = Company_name.getText().toString().trim();
                 medicine_name = Medicine_name.getText().toString().trim();
-                userID = user.getUid();
+                userID = userNickname;
                 using_date = Using_date_button.getText().toString().trim();
                 good_review = Good_review_edittext.getText().toString().trim();
                 bad_review = Bad_review_edittext.getText().toString().trim();
                 rating = RatingBar.getRating();
-                createReview(company_name, medicine_name, userID, using_date, good_review, bad_review, drug_index, rating);
+                createReview(company_name, medicine_name, userID, using_date, good_review, bad_review, drug_index, drug_image, rating);
                 Toast.makeText(WriteReviewActivity.this, "리뷰가 등록 되었습니다.", Toast.LENGTH_SHORT).show();
 
                 return true;
