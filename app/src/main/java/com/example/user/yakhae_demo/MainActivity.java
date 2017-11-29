@@ -19,9 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -152,11 +150,14 @@ public class MainActivity extends AppCompatActivity {
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
-        private static final String TAG_RESULTS="posts";
+
+        private static final String TAG_POSTID = "postID";
         private static final String TAG_WRITER = "writer";
+        private static final String TAG_USERTYPE="user_type";
         private static final String TAG_TITLE = "title";
-        private static final String TAG_TYPE = "using_drug_type";
+        private static final String TAG_DRUGTYPE = "drug_type";
         private static final String TAG_CONTENT = "content";
+        private static final String TAG_DATE="date";
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("community");
 
@@ -176,8 +177,8 @@ public class MainActivity extends AppCompatActivity {
             return fragment;
         }
 
-        ArrayList<HashMap<String,String>> noticeList;
-        NoticeAdapter noticeAdapter;
+        ArrayList<HashMap<String,String>> postList;
+        PostAdapter postAdapter= new PostAdapter(getActivity(),postList);
 
         @Override
         public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
@@ -225,42 +226,40 @@ public class MainActivity extends AppCompatActivity {
                     recyclerView.setHasFixedSize(true);
                     recyclerView.setLayoutManager(layoutManager);
 
-                    noticeList = new ArrayList<HashMap<String, String>>();
+                    postList = new ArrayList<HashMap<String, String>>();
 
                     mDatabase.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
+                            postList.clear();
                             Iterable<DataSnapshot> childcontact = dataSnapshot.getChildren();
                             for (DataSnapshot contact:childcontact){
+                                Log.i("getKey:",contact.getKey());
                                 Log.i("contact:",contact.child("posts").getValue().toString());
-
-                                String title = contact.child("posts_title").getValue().toString();
+                                String postID = contact.getKey().toString();
                                 String writer = contact.child("userNickname").getValue().toString();
+                                String user_type = contact.child("userType").getValue().toString();
+                                String title = contact.child("posts_title").getValue().toString();
                                 String using_drug_type =contact.child("using_drug_type").getValue().toString();
                                 String content = contact.child("posts").getValue().toString();
-                                if(content.length() > 50 ) {
-                                    content = content.substring(0,50) + "..."; //50자 자르고 ... 붙이기
-                                }
-                                if(title.length() > 16 ) {
-                                    title = title.substring(0,16) + "..."; //18자 자르고 ... 붙이기
-                                }
-
+                                String date = contact.child("posted_date").getValue().toString();
 
                                 //HashMap에 붙이기
                                 HashMap<String,String> posts = new HashMap<String,String>();
-
-                                posts.put(TAG_TITLE,title);
+                                posts.put(TAG_POSTID,postID);
                                 posts.put(TAG_WRITER,writer);
-                                posts.put(TAG_TYPE,using_drug_type);
+                                posts.put(TAG_USERTYPE,user_type);
+                                posts.put(TAG_TITLE,title);
+                                posts.put(TAG_DRUGTYPE,using_drug_type);
                                 posts.put(TAG_CONTENT, content);
+                                posts.put(TAG_DATE,date);
 
-                                noticeList.add(posts);
+                                postList.add(posts);
 
-                                noticeAdapter = new NoticeAdapter(getActivity(),noticeList);
-                                Log.e("onCreate[noticeList]", "" + noticeList.size());
-                                recyclerView.setAdapter(noticeAdapter);
-                                noticeAdapter.notifyDataSetChanged();
-
+                                postAdapter = new PostAdapter(getActivity(),postList);
+                                Log.e("onCreate[noticeList]", "" + postList.size());
+                                recyclerView.setAdapter(postAdapter);
+                                postAdapter.notifyDataSetChanged();
                             }
                         }
 
@@ -270,10 +269,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
 
-                    //카드 리스트뷰 어댑터에 연결
-                    /*Log.e("onCreate[noticeList]", "" + noticeList.size());
-                    recyclerView.setAdapter(noticeAdapter);
-                    noticeAdapter.notifyDataSetChanged();*/
 
                     return rootView;
                 }

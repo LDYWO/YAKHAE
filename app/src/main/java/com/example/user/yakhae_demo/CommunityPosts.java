@@ -4,16 +4,20 @@ public class CommunityPosts {
 
     private String UserID;
     private String UserNickname;
+    private String UserType;
     private String Posts_title;
     private String Using_drug_type;
     private String Posts;
+    private String Posted_date;
 
-    public CommunityPosts(String userID,String userNickname, String posts_title,String using_drug_type, String posts) {
+    public CommunityPosts(String userID,String userNickname,String userType, String posts_title,String using_drug_type, String posts,String posted_date) {
         UserID = userID;
         UserNickname = userNickname;
+        UserType = userType;
         Posts_title = posts_title;
         Using_drug_type = using_drug_type;
         Posts = posts;
+        Posted_date=posted_date;
     }
 
     public String getUserID() {
@@ -30,6 +34,14 @@ public class CommunityPosts {
 
     public void setUserNickname(String userNickname) {
         UserNickname = userNickname;
+    }
+
+    public String getUserType() {
+        return UserType;
+    }
+
+    public void setUserType(String userType) {
+        UserType = userType;
     }
 
     public String getPosts_title() {
@@ -49,4 +61,10 @@ public class CommunityPosts {
     }
 
     public void setPosts(String posts) {Posts = posts;}
+
+    public String getPosted_date() {
+        return Posted_date;
+    }
+
+    public void setPosted_date(String posted_date) {Posted_date = posted_date;}
 }

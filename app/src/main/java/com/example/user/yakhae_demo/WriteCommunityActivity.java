@@ -24,19 +24,21 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class WriteCommunityActivity extends AppCompatActivity {
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    String userID,userNickname, post_title, using_drug_type, posts;
+    String userID,userNickname,userType, post_title, using_drug_type, posts,posted_date;
     EditText community_title, community_content;
     Button Using_drug_type;
-    static int posts_count = 0;
+
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("community");
 
-    private void createCommuintyPosts(String userID,String userNickname, String posts_title,String using_drug_type, String posts){
-        CommunityPosts communityposts = new CommunityPosts(userID,userNickname, posts_title, using_drug_type, posts);
+    private void createCommuintyPosts(String userID,String userNickname,String userType, String posts_title,String using_drug_type, String posts,String posted_date){
+        CommunityPosts communityposts = new CommunityPosts(userID,userNickname,userType, posts_title,using_drug_type, posts,posted_date);
         DatabaseManager.databaseReference.child("community").push().setValue(communityposts);
-        posts_count++;
     }
 
     @Override
@@ -127,15 +129,22 @@ public class WriteCommunityActivity extends AppCompatActivity {
             case R.id.newPost:{
                 userID = user.getUid();
 
-                mDatabase = FirebaseDatabase.getInstance().getReference("users").child(userID).child("nickname");
+                mDatabase = FirebaseDatabase.getInstance().getReference("users").child(userID);
                 mDatabase.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        userNickname = dataSnapshot.getValue().toString();
+                        userNickname = dataSnapshot.child("nickname").getValue().toString();
+                        userType= dataSnapshot.child("type").getValue().toString();
                         post_title = community_title.getText().toString().trim();
                         using_drug_type = Using_drug_type.getText().toString().trim();
                         posts = community_content.getText().toString().trim();
-                        createCommuintyPosts(userID,userNickname, post_title, using_drug_type,posts);
+
+                        long now = System.currentTimeMillis();
+                        Date date = new Date(now);
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        posted_date = sdf.format(date);
+
+                        createCommuintyPosts(userID,userNickname,userType,post_title, using_drug_type,posts,posted_date);
                         Toast.makeText(WriteCommunityActivity.this, "게시글이 등록 되었습니다.", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getApplication(), MainActivity.class));
                     }
