@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
     SearchView searchView;
-    static final String[] LIST_MENU = {"LIST1", "LIST2", "LIST3","LIST1", "LIST2", "LIST3","LIST1", "LIST2", "LIST3","LIST1", "LIST2", "LIST3"} ;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
 
@@ -79,8 +78,6 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              /*  Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show(); */
                 Intent intent=new Intent(MainActivity.this,WriteCommunityActivity.class);
                 startActivity(intent);
             }
