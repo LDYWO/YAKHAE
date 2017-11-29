@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context="com.example.user.yakhae_demo.DrugInfoDetailActivity">
 
     <android.support.v7.widget.Toolbar
@@ -19,20 +22,9 @@
         android:layout_height="150dp"
         android:layout_below="@+id/toolbar"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="30dp"
         android:src="@drawable/pills"
         android:id="@+id/drug_image" />
-
-    <TextView
-        android:id="@+id/drug_company"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/drug_name"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:padding="3dp"
-        android:text="제약회사"
-        android:textColor="@color/GREY" />
 
     <TextView
         android:id="@+id/drug_name"
@@ -40,11 +32,23 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_gravity="center"
         android:padding="3dp"
+        android:layout_below="@id/drug_image"
         android:text="약품명"
         android:textColor="@color/colorPrimaryDark"
         android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/drug_company"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/drug_name"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:padding="5dp"
+        android:text="제약회사"
+        android:textColor="@color/GREY" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -53,7 +57,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="27dp"
+        android:layout_marginBottom="25dp"
         android:layout_marginEnd="21dp"
         android:layout_marginRight="21dp"
         app:backgroundTint="@color/colorPrimary"
@@ -65,7 +69,7 @@
         style="?android:attr/ratingBarStyleIndicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/drug_name"
+        android:layout_below="@+id/drug_company"
         android:layout_centerHorizontal="true"
         android:isIndicator="true"
         android:numStars="5"
@@ -84,7 +88,7 @@
         android:id="@+id/infor_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ratingbar"
+        android:layout_below="@+id/rating_num"
         android:layout_marginTop="20dp">
 
     </ListView>
@@ -99,13 +103,14 @@
         android:textColor="@color/colorPrimary"
         android:background="#dddddd"/>
 
+
     <ListView
         android:id="@+id/review_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/review_title"
         android:layout_marginTop="10dp">
-
     </ListView>
 
 </RelativeLayout>
+</ScrollView>

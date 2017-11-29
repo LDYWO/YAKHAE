@@ -9,9 +9,10 @@ public class Review {
     private String Good_review;
     private String Bad_review;
     private String Drug_id;
+    private String Drug_image;
     private float Rating;
 
-    public Review(String company_name, String medicine_name, String userID, String using_date, String good_review, String bad_review, String drug_id, float rating) {
+    public Review(String company_name, String medicine_name, String userID, String using_date, String good_review, String bad_review, String drug_id, String drug_image, float rating) {
         Company_name = company_name;
         Medicine_name = medicine_name;
         UserID = userID;
@@ -19,6 +20,7 @@ public class Review {
         Good_review = good_review;
         Bad_review = bad_review;
         Drug_id = drug_id;
+        Drug_image = drug_image;
         Rating = rating;
     }
 
@@ -76,6 +78,14 @@ public class Review {
 
     public void setDrug_id(String drug_id) {
         Drug_id = drug_id;
+    }
+
+    public String getDrug_image() {
+        return Drug_image;
+    }
+
+    public void setDrug_image(String drug_image) {
+        Drug_image = drug_image;
     }
 
     public float getRating() {

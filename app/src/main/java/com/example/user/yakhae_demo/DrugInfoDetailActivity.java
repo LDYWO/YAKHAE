@@ -6,21 +6,26 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class DrugInfoDetailActivity extends AppCompatActivity {
 
-    private List<DatabaseReference> mDatabaseList_review = new ArrayList<DatabaseReference>();
     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("reviews");
 
     @Override
@@ -53,6 +58,7 @@ public class DrugInfoDetailActivity extends AppCompatActivity {
         final String medicine_name = drug_intent.getStringExtra("drug_name").toString();
         final String company_name = drug_intent.getStringExtra("drug_company").toString();
         final String drug_index = drug_intent.getStringExtra("drug_index").toString();
+        final String drug_image = drug_intent.getStringExtra("drug_image").toString();
 
         ListView DrugInfolistView;
         DrugInfoItemDetailAdapter DrugInfoItemadapter;
@@ -72,16 +78,48 @@ public class DrugInfoDetailActivity extends AppCompatActivity {
         ReviewInfoItemadapter = new ReviewInfoItemAdapter();
         ReviewInfolistView = (ListView)findViewById(R.id.review_listview);
 
-        //mDatabase.child(drug_index).addValueEventListener()
-       // ReviewInfoItemadapter.addItem();
-//        ReviewInfolistView.setAdapter(ReviewInfoItemadapter);
+        ArrayList<HashMap<String,String>> review;
+
+        mDatabase.child(drug_index).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> childcontact = dataSnapshot.getChildren();
+                for (DataSnapshot contact:childcontact){
+                    String drug_index = contact.child("drug_id").getValue().toString();
+                    String img = contact.child("drug_image").getValue().toString();
+                    String name = contact.child("medicine_name").getValue().toString();
+                    String com = contact.child("company_name").getValue().toString();
+                    String adv = contact.child("good_review").getValue().toString();
+                    String dis = contact.child("bad_review").getValue().toString();
+                    String id = contact.child("userID").getValue().toString();
+                    if(adv.length() > 7 ) {
+                        adv = adv.substring(0,7) + "...";
+                    }
+                    if(dis.length() > 7 ) {
+                        dis = dis.substring(0,7) + "...";
+                    }
+                    Float rating = Float.parseFloat(contact.child("rating").getValue().toString());
+
+                    ReviewInfoItemadapter.addItem(
+                            drug_index,img,com,name,id,adv,dis,rating
+                    );
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+          ReviewInfolistView.setAdapter(ReviewInfoItemadapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(DrugInfoDetailActivity.this,WriteReviewActivity.class);
-                //intent.putExtra("drug_image",drug_image.toString());
+                intent.putExtra("drug_image",drug_image);
                 intent.putExtra("drug_name",medicine_name);
                 intent.putExtra("drug_company",company_name);
                 intent.putExtra("drug_index",drug_index);

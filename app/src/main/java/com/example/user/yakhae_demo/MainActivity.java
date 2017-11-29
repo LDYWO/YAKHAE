@@ -232,7 +232,6 @@ public class MainActivity extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             Iterable<DataSnapshot> childcontact = dataSnapshot.getChildren();
                             for (DataSnapshot contact:childcontact){
-                                Log.i("contact:",contact.child("posts").getValue().toString());
 
                                 String title = contact.child("posts_title").getValue().toString();
                                 String writer = contact.child("userNickname").getValue().toString();
