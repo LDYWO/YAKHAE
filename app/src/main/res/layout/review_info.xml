@@ -96,12 +96,29 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="내용"
+                android:id="@+id/review_advantage_detail"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:padding="3dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="단점:"
                 android:id="@+id/review_disadvantage"
                 android:layout_gravity="center"
-                android:layout_marginLeft="110dp"
                 android:padding="3dp"
                 android:textColor="@color/RED"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="내용"
+                android:id="@+id/review_disadvantage_detail"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:padding="3dp" />
 
         </LinearLayout>
     </LinearLayout>

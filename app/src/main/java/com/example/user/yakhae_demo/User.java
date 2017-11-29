@@ -6,12 +6,22 @@ public class User {
     private String Gender;
     private String Nickname;
     private String Age;
+    private String Type;
 
-    public User(String userID, String gender, String nickname, String age) {
+    public User(String userID, String gender, String nickname, String age, String type) {
         UserID = userID;
         Gender = gender;
         Nickname = nickname;
         Age = age;
+        Type = type;
+    }
+
+    public String getType() {
+        return Type;
+    }
+
+    public void setType(String type) {
+        Type = type;
     }
 
     public String getUserID() {

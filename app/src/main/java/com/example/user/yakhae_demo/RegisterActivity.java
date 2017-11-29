@@ -32,16 +32,18 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     EditText idText;
     EditText textPassword;
     EditText nicknameText;
-    RadioGroup genderGroup;
-    RadioButton selectedGender;
+    RadioGroup genderGroup, usertypeGroup;
+    RadioButton selectedGender, selectedType;
 
-    private String Uid, userID, userPassword, userNickname, userGender, userAge;
+    private String Uid, userID, userPassword, userNickname, userGender, userAge, userType;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        firebaseAuth = FirebaseAuth.getInstance();
 
         if (user != null){
             finish();
@@ -53,6 +55,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         nicknameText = (EditText)findViewById(R.id.nicknameText);
 
         genderGroup = (RadioGroup)findViewById(R.id.genderGroup);
+        usertypeGroup = (RadioGroup)findViewById(R.id.usertypeGroup);
 
         registerButton = (Button)findViewById(R.id.submitButton);
         registerButton.setOnClickListener(this);
@@ -64,8 +67,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         progressDialog = new ProgressDialog(this);
     }
 
-    private void createNewUser(String userID, String userGender, String userAge, String userNickname, String Uid){
-        User user = new User(userID, userGender, userNickname, userAge);
+    private void createNewUser(String userID, String userGender, String userAge, String userNickname, String userType, String Uid){
+        User user = new User(userID, userGender, userNickname, userAge, userType);
         DatabaseManager.databaseReference.child("users").child(Uid).setValue(user);
     }
 
@@ -97,19 +100,24 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            Toast.makeText(RegisterActivity.this, "등록이 완료되었습니다!", Toast.LENGTH_SHORT).show();
-                            finish();
 
-                            Uid = user.getUid();
                             int gender = genderGroup.getCheckedRadioButtonId();
                             selectedGender = (RadioButton)findViewById(gender);
+                            int type = usertypeGroup.getCheckedRadioButtonId();
+                            selectedType = (RadioButton)findViewById(type);
 
                             userID = idText.getText().toString().trim();
                             userNickname = nicknameText.getText().toString().trim();
                             userAge = spinner.getSelectedItem().toString().trim();
                             userGender = selectedGender.getText().toString().trim();
+                            userType = selectedType.getText().toString().trim();
 
-                            createNewUser(userID, userGender, userAge, userNickname, Uid);
+                            Uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                            createNewUser(userID, userGender, userAge, userNickname, userType, Uid);
+
+                            Toast.makeText(RegisterActivity.this, "등록이 완료되었습니다!", Toast.LENGTH_SHORT).show();
+                            finish();
 
                             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                         } else {

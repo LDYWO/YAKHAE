@@ -9,7 +9,7 @@
         android:id="@+id/ingre_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="   성분"
+        android:text="   정보"
         android:textSize="20dp"
         android:textColor="@color/colorPrimary"
         android:background="#dddddd"/>
@@ -49,16 +49,5 @@
         android:background="@drawable/review_border"
         android:textAlignment="center"
         android:text="금기사항"/>
-
-    <TextView
-        android:id="@+id/effect_textview"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/taboo_textview"
-        android:background="@drawable/review_border"
-        android:textAlignment="center"
-        android:text="효능 및 효과"/>
-
-
 
 </RelativeLayout>

@@ -15,6 +15,7 @@ public class DrugInfoItem {
     private String taboo;
     private Float rating;
     private String rating_number;
+
     public void setDrug_index(String drug_index){
         this.drug_index = drug_index;
     }

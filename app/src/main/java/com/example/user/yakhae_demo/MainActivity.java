@@ -280,39 +280,6 @@ public class MainActivity extends AppCompatActivity {
                 case 2:
                 {
                     View rootView = inflater.inflate(R.layout.fragment_ranking, container, false);
-                    ArrayAdapter Adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, LIST_MENU) ;
-
-                    ListView category_listview = (ListView) rootView.findViewById(R.id.category_listview) ;
-                    category_listview.setAdapter(Adapter) ;
-                    ListView specialty_medicine_listview = (ListView) rootView.findViewById(R.id.specialty_medicine_listview) ;
-                    specialty_medicine_listview.setAdapter(Adapter) ;
-                    ListView general_medicine_listview = (ListView) rootView.findViewById(R.id.general_medicine_listview) ;
-                    general_medicine_listview.setAdapter(Adapter) ;
-
-                    Button category = (Button)rootView.findViewById(R.id.more_ranking_category);
-                    category.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            startActivity(new Intent(getContext(), DrugSearchActivity.class));
-                        }
-                    });
-
-                    Button generalmedicine = (Button)rootView.findViewById(R.id.more_ranking_general);
-                    generalmedicine.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            startActivity(new Intent(getContext(), DrugSearchActivity.class));
-                        }
-                    });
-
-                    Button specialtymedicine = (Button)rootView.findViewById(R.id.more_ranking_special);
-                    specialtymedicine.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            startActivity(new Intent(getContext(), DrugSearchActivity.class));
-                        }
-                    });
-
 
                     return rootView;
                 }

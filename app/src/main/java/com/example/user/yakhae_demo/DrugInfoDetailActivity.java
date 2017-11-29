@@ -12,7 +12,16 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class DrugInfoDetailActivity extends AppCompatActivity {
+
+    private List<DatabaseReference> mDatabaseList_review = new ArrayList<DatabaseReference>();
+    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("reviews");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,17 +54,27 @@ public class DrugInfoDetailActivity extends AppCompatActivity {
         final String company_name = drug_intent.getStringExtra("drug_company").toString();
         final String drug_index = drug_intent.getStringExtra("drug_index").toString();
 
-        ListView listView;
-        DrugInfoItemDetailAdapter adapter;
+        ListView DrugInfolistView;
+        DrugInfoItemDetailAdapter DrugInfoItemadapter;
 
-        adapter = new DrugInfoItemDetailAdapter();
-        listView = (ListView)findViewById(R.id.infor_detail);
-        adapter.addItem(
+        DrugInfoItemadapter = new DrugInfoItemDetailAdapter();
+        DrugInfolistView = (ListView)findViewById(R.id.infor_detail);
+        DrugInfoItemadapter.addItem(
                 drug_intent.getStringExtra("drug_type").toString(),
                 drug_intent.getStringExtra("drug_category").toString(),
                 drug_intent.getStringExtra("drug_main_ingre").toString(),
                 drug_intent.getStringExtra("drug_taboo").toString());
-        listView.setAdapter(adapter);
+        DrugInfolistView.setAdapter(DrugInfoItemadapter);
+
+        ListView ReviewInfolistView;
+        final ReviewInfoItemAdapter ReviewInfoItemadapter;
+
+        ReviewInfoItemadapter = new ReviewInfoItemAdapter();
+        ReviewInfolistView = (ListView)findViewById(R.id.review_listview);
+
+        //mDatabase.child(drug_index).addValueEventListener()
+       // ReviewInfoItemadapter.addItem();
+//        ReviewInfolistView.setAdapter(ReviewInfoItemadapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

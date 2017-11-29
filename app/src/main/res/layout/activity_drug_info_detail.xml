@@ -89,4 +89,23 @@
 
     </ListView>
 
+    <TextView
+        android:id="@+id/review_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="   리뷰"
+        android:textSize="20dp"
+        android:layout_below="@+id/infor_detail"
+        android:textColor="@color/colorPrimary"
+        android:background="#dddddd"/>
+
+    <ListView
+        android:id="@+id/review_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/review_title"
+        android:layout_marginTop="10dp">
+
+    </ListView>
+
 </RelativeLayout>

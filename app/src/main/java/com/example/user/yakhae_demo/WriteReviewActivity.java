@@ -131,7 +131,7 @@ public class WriteReviewActivity extends AppCompatActivity {
                 rating = RatingBar.getRating();
                 createReview(company_name, medicine_name, userID, using_date, good_review, bad_review, drug_index, rating);
                 Toast.makeText(WriteReviewActivity.this, "리뷰가 등록 되었습니다.", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplication(), DrugInfoDetailActivity.class));
+
                 return true;
             }
             default:

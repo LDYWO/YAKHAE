@@ -23,7 +23,6 @@ import java.util.List;
 
 public class SearchResultActivity extends AppCompatActivity {
 
-    private DatabaseReference mDatabase;
     private List<DatabaseReference> mDatabaseList_medicine = new ArrayList<DatabaseReference>();
     private List<DatabaseReference> mDatabaseList_ingr = new ArrayList<DatabaseReference>();
     ProgressDialog progressDialog1,progressDialog2;
@@ -75,8 +74,7 @@ public class SearchResultActivity extends AppCompatActivity {
                     Log.i("item_name", dataSnapshot.child("item_name").getValue().toString());
 
                     if(dataSnapshot.child("item_name").getValue().toString().contains(search))
-                    {
-                        adapter.addItem(
+                    {adapter.addItem(
                             Integer.toString(finalI +1),
                             dataSnapshot.child("item_image").getValue().toString(),
                             dataSnapshot.child("entp_name").getValue().toString(),
@@ -103,8 +101,7 @@ public class SearchResultActivity extends AppCompatActivity {
             mDatabaseList_ingr.get(i).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    if(dataSnapshot.child("ingr_name").getValue().toString().contains(search))
-                    {
+                    if(dataSnapshot.child("ingr_name").getValue().toString().contains(search)){
                         adapter.setTaboo(dataSnapshot.child("type_name_b").getValue().toString()+", "+
                                         dataSnapshot.child("type_name_h").getValue().toString()+", "+
                                         dataSnapshot.child("type_name_i").getValue().toString()+", "+

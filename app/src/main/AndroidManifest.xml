@@ -70,13 +70,6 @@
                 android:value=".SearchResultActivity" />
         </activity>
         <activity
-            android:name=".DrugSearchActivity"
-            android:windowSoftInputMode="stateHidden">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
-        <activity
             android:name=".CategorySearchResultActivity"
             android:windowSoftInputMode="stateHidden">
             <meta-data
