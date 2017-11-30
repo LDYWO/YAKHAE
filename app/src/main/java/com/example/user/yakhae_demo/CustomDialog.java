@@ -34,7 +34,7 @@ public class CustomDialog extends Dialog implements View.OnClickListener{
 
     private void createComment(String userID,String userNickname, String content,String comment_date){
         Comment comment_content = new Comment(userID,userNickname, content, comment_date);
-        DatabaseManager.databaseReference.child("comment").child(postID).child("comment").push().setValue(comment_content);
+        DatabaseManager.databaseReference.child("community").child(postID).child("comment").push().setValue(comment_content);
     }
 
     private static final int LAYOUT = R.layout.dialog_custom;
@@ -68,9 +68,11 @@ public class CustomDialog extends Dialog implements View.OnClickListener{
         comment_textinput.getBackground().setColorFilter(color, PorterDuff.Mode.SRC_IN);
         comment_send_button.setOnClickListener(this);
 
-        FirebaseDatabase.getInstance().getReference("comment").child(this.postID).child("comment").addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("community").child(this.postID).child("comment").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                adapter.removeItem();
+
                 Log.e("Dialog dataSnapshot::",dataSnapshot.getKey().toString());
 
                 Iterable<DataSnapshot> childcontact = dataSnapshot.getChildren();
@@ -89,8 +91,6 @@ public class CustomDialog extends Dialog implements View.OnClickListener{
 
             }
         });
-
-        adapter.removeItem();
     }
 
     @Override
@@ -109,7 +109,7 @@ public class CustomDialog extends Dialog implements View.OnClickListener{
 
                         long now = System.currentTimeMillis();
                         Date date = new Date(now);
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd   aa hh:mm:ss");
                         comment_date = sdf.format(date);
                         Toast.makeText(context, "댓글이 등록 되었습니다.", Toast.LENGTH_SHORT).show();
                         createComment(userID,userNickname,comment,comment_date);
