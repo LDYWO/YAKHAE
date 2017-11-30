@@ -18,14 +18,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class SearchResultActivity extends AppCompatActivity {
 
-    private List<DatabaseReference> mDatabaseList_medicine = new ArrayList<DatabaseReference>();
-    private List<DatabaseReference> mDatabaseList_ingr = new ArrayList<DatabaseReference>();
-    ProgressDialog progressDialog1,progressDialog2;
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("0").child("medicine");
+    private DatabaseReference mDatabase2 = FirebaseDatabase.getInstance().getReference("1").child("ingr");
+    ProgressDialog progressDialog1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,81 +41,73 @@ public class SearchResultActivity extends AppCompatActivity {
         else
             toolbar.setTitle(search);
 
-        ListView listView;
         final DrugInfoItemAdapter adapter;
 
-       progressDialog1 = new ProgressDialog(this);
-       progressDialog2 = new ProgressDialog(this);;
-
+        ListView listView = (ListView)findViewById(R.id.search_result_listview);
         adapter = new DrugInfoItemAdapter();
 
-        listView = (ListView)findViewById(R.id.search_result_listview);
+        progressDialog1 = new ProgressDialog(this);
+        progressDialog1.setMessage("검색 중 입니다...");
+        progressDialog1.show();
 
-        for(int i=1;i<=49524;i++){
-            mDatabaseList_medicine.add( FirebaseDatabase.getInstance().getReference("0").child("medicine").child(String.valueOf(i)));
-        }
+       mDatabase.addValueEventListener(new ValueEventListener() {
+               @Override
+               public void onDataChange(DataSnapshot dataSnapshot) {
+                   Iterable<DataSnapshot> childcontact = dataSnapshot.getChildren();
+                   for (DataSnapshot contact : childcontact){
+                       Log.i("contact_Drug_infof:::",contact.getKey().toString());
+                       Log.i("itme_name:::",contact.child("item_name").getValue().toString());
 
-        for(int i=1;i<=2328;i++){
-            mDatabaseList_ingr.add( FirebaseDatabase.getInstance().getReference("1").child("ingr").child(String.valueOf(i)));
-        }
+                       if(contact.child("item_name").getValue().toString().contains(search))
+                       {
+                           adapter.addItem(
+                                   contact.getKey().toString(),
+                                   contact.child("item_image").getValue().toString(),
+                                   contact.child("entp_name").getValue().toString(),
+                                   contact.child("item_name").getValue().toString(),
+                                   contact.child("spclty_pblc").getValue().toString(),
+                                   contact.child("prduct_type").getValue().toString(),
+                                   contact.child("item_ingr_name").getValue().toString(),
+                                   "없음",
+                                   Float.parseFloat(contact.child("rating").getValue().toString()));
+                           toolbar.setTitle(search);
+                       }
+                   }
+               }
 
+               @Override
+               public void onCancelled(DatabaseError databaseError) {
+               }
 
-        for(int i=0;i<49523;i++) {
-            progressDialog1.setMessage("검색 중 입니다. 기다려 주세요...");
-            progressDialog1.show();
-            final int finalI = i;
-            mDatabaseList_medicine.get(i).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+           });
 
-                    Log.i("item_name", dataSnapshot.child("item_name").getValue().toString());
-
-                    if(dataSnapshot.child("item_name").getValue().toString().contains(search))
-                    {adapter.addItem(
-                            Integer.toString(finalI +1),
-                            dataSnapshot.child("item_image").getValue().toString(),
-                            dataSnapshot.child("entp_name").getValue().toString(),
-                            dataSnapshot.child("item_name").getValue().toString(),
-                            dataSnapshot.child("spclty_pblc").getValue().toString(),
-                            dataSnapshot.child("prduct_type").getValue().toString(),
-                            dataSnapshot.child("item_ingr_name").getValue().toString(),
-                            "없음",
-                            Float.parseFloat(dataSnapshot.child("rating").getValue().toString()));
-                        toolbar.setTitle(search);
-                    }
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-        }
-        for(int i=0;i<2327;i++){
-            progressDialog2.setMessage("검색 중 입니다. 기다려 주세요...");
-            progressDialog2.show();
-            mDatabaseList_ingr.get(i).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if(dataSnapshot.child("ingr_name").getValue().toString().contains(search)){
-                        adapter.setTaboo(dataSnapshot.child("type_name_b").getValue().toString()+", "+
-                                        dataSnapshot.child("type_name_h").getValue().toString()+", "+
-                                        dataSnapshot.child("type_name_i").getValue().toString()+", "+
-                                        dataSnapshot.child("type_name_n").getValue().toString()+", "+
-                                        dataSnapshot.child("type_name_t").getValue().toString()+", "+
-                                        dataSnapshot.child("type_name_ty").getValue().toString()+", "+
-                                        dataSnapshot.child("type_name_y").getValue().toString(),
-                                dataSnapshot.child("ingr_name").getValue().toString());
+        mDatabase2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> childcontact = dataSnapshot.getChildren();
+                for (DataSnapshot contact : childcontact){
+                    Log.i("contact_Drug_infof:::",contact.getKey().toString());
+                    Log.i("type_name_b:::",contact.child("type_name_b").getValue().toString());
+                    if(contact.child("ingr_name").getValue().toString().contains(search)){
+                        adapter.setTaboo(contact.child("type_name_b").getValue().toString()+", "+
+                                        contact.child("type_name_h").getValue().toString()+", "+
+                                        contact.child("type_name_i").getValue().toString()+", "+
+                                        contact.child("type_name_n").getValue().toString()+", "+
+                                        contact.child("type_name_t").getValue().toString()+", "+
+                                        contact.child("type_name_ty").getValue().toString()+", "+
+                                        contact.child("type_name_y").getValue().toString(),
+                                contact.child("ingr_name").getValue().toString());
                     }
                 }
+                progressDialog1.dismiss();
+            }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-                }
-            });
-        }
+            }
+        });
+
 
 
 

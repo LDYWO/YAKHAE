@@ -120,8 +120,6 @@ public class CustomDialog extends Dialog implements View.OnClickListener{
 
                     }
                 });
-
-                comment_textinput.clearComposingText();
                 adapter.removeItem();
             }
                 break;
