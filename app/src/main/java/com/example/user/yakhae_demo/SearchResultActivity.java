@@ -55,8 +55,8 @@ public class SearchResultActivity extends AppCompatActivity {
                public void onDataChange(DataSnapshot dataSnapshot) {
                    Iterable<DataSnapshot> childcontact = dataSnapshot.getChildren();
                    for (DataSnapshot contact : childcontact){
-                       Log.i("contact_Drug_infof:::",contact.getKey().toString());
-                       Log.i("itme_name:::",contact.child("item_name").getValue().toString());
+                      // Log.i("contact_Drug_infof:::",contact.getKey().toString());
+                    //   Log.i("itme_name:::",contact.child("item_name").getValue().toString());
 
                        if(contact.child("item_name").getValue().toString().contains(search))
                        {
@@ -107,9 +107,6 @@ public class SearchResultActivity extends AppCompatActivity {
 
             }
         });
-
-
-
 
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

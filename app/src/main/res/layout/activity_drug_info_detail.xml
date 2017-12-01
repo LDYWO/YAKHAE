@@ -2,32 +2,33 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_content"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:fitsSystemWindows="true"
-    tools:context="com.example.user.yakhae_demo.DrugInfoDetailActivity">
-        <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/PopupOverlay"
-                app:title="약품 정보"/>
+    android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main_content"
+        android:fitsSystemWindows="true"
+        tools:context="com.example.user.yakhae_demo.DrugInfoDetailActivity">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/PopupOverlay"
+            app:title="약품 정보"/>
+
     <ImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_gravity="center"
         android:src="@drawable/pills"
-        android:layout_marginTop="110dp"
+        android:layout_marginTop="25dp"
         android:layout_marginBottom="10dp"
         android:id="@+id/drug_image" />
 
@@ -87,23 +88,23 @@
         android:textColor="@color/colorPrimary"
         android:background="#dddddd"/>
 
-    <ListView
-        android:id="@+id/review_listview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
-    </ListView>
+        <ListView
+            android:id="@+id/review_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+        </ListView>
+
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
-            android:layout_marginBottom="55dp"
-            android:layout_marginRight="27dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
             app:srcCompat="@drawable/ic_edit"
             app:backgroundTint="@color/colorPrimary"
             tools:ignore="VectorDrawableCompat" />
     </LinearLayout>
 
-</RelativeLayout>
 </ScrollView>

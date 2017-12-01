@@ -66,7 +66,7 @@ public class ReviewInfoItemAdapter extends BaseAdapter{
         return convertView;
     }
 
-    public void addItem(String drug_index, String img, String com, String name, String username, String adv, String dis, Float rating) {
+    public void addItem(String drug_index, String img, String com, String name, String username, String adv, String dis, String Uid, Float rating) {
         ReviewInfoItem item = new ReviewInfoItem();
 
         item.setDrug_index(drug_index);
@@ -76,6 +76,7 @@ public class ReviewInfoItemAdapter extends BaseAdapter{
         item.setUser_name(username);
         item.setAdvantage(adv);
         item.setDisadvantage(dis);
+        item.setUid(Uid);
         item.setRating(rating);
 
         reviewInfoItemsList.add(item);

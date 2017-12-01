@@ -183,15 +183,6 @@
                         android:padding="3dp"
                         android:textColor="@color/colorPrimary" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="금기 사항"
-                        android:id="@+id/taboo"
-                        android:layout_gravity="center"
-                        android:padding="3dp"
-                        android:textColor="@color/RED"/>
-
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

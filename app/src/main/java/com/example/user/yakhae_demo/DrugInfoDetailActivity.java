@@ -9,24 +9,21 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 public class DrugInfoDetailActivity extends AppCompatActivity {
 
-    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("reviews");
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("reviews");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,47 +69,69 @@ public class DrugInfoDetailActivity extends AppCompatActivity {
                 drug_intent.getStringExtra("drug_taboo").toString());
         DrugInfolistView.setAdapter(DrugInfoItemadapter);
 
-        ListView ReviewInfolistView;
+        final ListView ReviewInfolistView;
         final ReviewInfoItemAdapter ReviewInfoItemadapter;
 
+        ReviewInfolistView = (ListView) findViewById(R.id.review_listview);
         ReviewInfoItemadapter = new ReviewInfoItemAdapter();
-        ReviewInfolistView = (ListView)findViewById(R.id.review_listview);
-
-        ArrayList<HashMap<String,String>> review;
 
         mDatabase.child(drug_index).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> childcontact = dataSnapshot.getChildren();
-                for (DataSnapshot contact:childcontact){
-                    String drug_index = contact.child("drug_id").getValue().toString();
-                    String img = contact.child("drug_image").getValue().toString();
-                    String name = contact.child("medicine_name").getValue().toString();
-                    String com = contact.child("company_name").getValue().toString();
-                    String adv = contact.child("good_review").getValue().toString();
-                    String dis = contact.child("bad_review").getValue().toString();
-                    String id = contact.child("userID").getValue().toString();
-                    if(adv.length() > 7 ) {
-                        adv = adv.substring(0,7) + "...";
-                    }
-                    if(dis.length() > 7 ) {
-                        dis = dis.substring(0,7) + "...";
-                    }
-                    Float rating = Float.parseFloat(contact.child("rating").getValue().toString());
+                for (DataSnapshot contact : childcontact){
 
                     ReviewInfoItemadapter.addItem(
-                            drug_index,img,com,name,id,adv,dis,rating
-                    );
+                                contact.child("drug_id").getValue().toString(),
+                                contact.child("drug_image").getValue().toString(),
+                                contact.child("company_name").getValue().toString(),
+                                contact.child("medicine_name").getValue().toString(),
+                                contact.child("userID").getValue().toString(),
+                                contact.child("good_review").getValue().toString(),
+                                contact.child("bad_review").getValue().toString(),
+                                contact.getKey().toString(),
+                                Float.parseFloat(contact.child("rating").getValue().toString()));
                 }
+                setListViewHeightBasedOnChildren(ReviewInfolistView);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
+
         });
 
-          ReviewInfolistView.setAdapter(ReviewInfoItemadapter);
+        ReviewInfolistView.setAdapter(ReviewInfoItemadapter);
+        ReviewInfolistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("whatthe", String.valueOf(position));
+
+                ReviewInfoItem item = (ReviewInfoItem) parent.getItemAtPosition(position);
+
+                String drug_index = item.getDrug_index();
+                String drug_image = item.getDrug_image();
+                String drug_company = item.getDrug_company();
+                String drug_name = item.getDrug_name();
+                String user_name = item.getUser_name();
+                Float rating = item.getRating();
+                String advantage = item.getAdvantage();
+                String disadvantage = item.getDisadvantage();
+                String Uid = item.getUid();
+
+                Intent intent = new Intent(DrugInfoDetailActivity.this,ReviewActivity.class);
+                intent.putExtra("drug_index",drug_index.toString());
+                intent.putExtra("drug_image",drug_image.toString());
+                intent.putExtra("drug_company",drug_company.toString());
+                intent.putExtra("drug_name",drug_name.toString());
+                intent.putExtra("user_name",user_name.toString());
+                intent.putExtra("rating",rating.toString());
+                intent.putExtra("advantage",advantage.toString());
+                intent.putExtra("disadvantage",disadvantage.toString());
+                intent.putExtra("Uid",Uid.toString());
+                startActivity(intent);
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -130,6 +149,30 @@ public class DrugInfoDetailActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ReviewInfoItemAdapter listAdapter = (ReviewInfoItemAdapter) listView.getAdapter();
+        if (listAdapter == null) {
+            // pre-condition
+            return;
+        }
+
+        int totalHeight = 0;
+
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            //listItem.measure(0, 0);
+            listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += 300;
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+
+        params.height = totalHeight;
+        listView.setLayoutParams(params);
+
+        listView.requestLayout();
     }
 
     @Override
