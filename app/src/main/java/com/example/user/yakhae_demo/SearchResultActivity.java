@@ -89,23 +89,39 @@ public class SearchResultActivity extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     Iterable<DataSnapshot> childcontact = dataSnapshot.getChildren();
                     for (DataSnapshot contact : childcontact){
-                        Log.i("contact_Drug_infof:::",contact.getKey().toString());
-                        Log.i("item_name:::",contact.child("item_name").getValue().toString());
+                       // Log.i("contact_Drug_infof:::",contact.getKey().toString());
+                       // Log.i("item_name:::",contact.child("item_name").getValue().toString());
 
                         if(contact.child("item_name").getValue().toString().contains(search))
                         {
-                            adapter.addItem(
-                                    contact.getKey().toString(),
-                                    contact.child("item_image").getValue().toString(),
-                                    contact.child("entp_name").getValue().toString(),
-                                    contact.child("item_name").getValue().toString(),
-                                    contact.child("spclty_pblc").getValue().toString(),
-                                    contact.child("prduct_type").getValue().toString(),
-                                    contact.child("item_ingr_name").getValue().toString(),
-                                    "없음",
-                                    Float.parseFloat(contact.child("rating").getValue().toString()),
-                                    search);
+                            if(contact.child("item_image").getValue().toString().trim().contains("NA")){
+                                Log.i("item_name:::",contact.child("item_name").getValue().toString());
+                                adapter.addItem(
+                                        contact.getKey().toString(),
+                                        "http://drug.mfds.go.kr/html/images/noimages.png",
+                                        contact.child("entp_name").getValue().toString(),
+                                        contact.child("item_name").getValue().toString(),
+                                        contact.child("spclty_pblc").getValue().toString(),
+                                        contact.child("prduct_type").getValue().toString(),
+                                        contact.child("item_ingr_name").getValue().toString(),
+                                        "없음",
+                                        Float.parseFloat(contact.child("rating").getValue().toString()),
+                                        search);
+                            }
+                            else{
+                                adapter.addItem(
+                                        contact.getKey().toString(),
+                                        contact.child("item_image").getValue().toString(),
+                                        contact.child("entp_name").getValue().toString(),
+                                        contact.child("item_name").getValue().toString(),
+                                        contact.child("spclty_pblc").getValue().toString(),
+                                        contact.child("prduct_type").getValue().toString(),
+                                        contact.child("item_ingr_name").getValue().toString(),
+                                        "없음",
+                                        Float.parseFloat(contact.child("rating").getValue().toString()),
+                                        search);
 
+                                }
                         }
 
                             toolbar.setTitle(search);
@@ -124,8 +140,8 @@ public class SearchResultActivity extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     Iterable<DataSnapshot> childcontact = dataSnapshot.getChildren();
                     for (DataSnapshot contact : childcontact){
-                        Log.i("contact_Drug_infof:::",contact.getKey().toString());
-                        Log.i("type_name_b:::",contact.child("type_name_b").getValue().toString());
+                        //Log.i("contact_Drug_infof:::",contact.getKey().toString());
+                        //Log.i("type_name_b:::",contact.child("type_name_b").getValue().toString());
                         if(contact.child("ingr_name").getValue().toString().contains(search)){
                             adapter.setTaboo(contact.child("type_name_b").getValue().toString()+", "+
                                             contact.child("type_name_h").getValue().toString()+", "+
