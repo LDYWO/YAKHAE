@@ -15,30 +15,6 @@
         app:popupTheme="@style/PopupOverlay"
         app:title="전문 의약품"/>
 
-    <RadioGroup
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/courseUniversityGroup"
-        android:layout_gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp">
-
-        <RadioButton
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="전문의약품"
-            android:checked="true"/>
-
-        <RadioButton
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="일반의약품"
-            android:checked="false"/>
-
-    </RadioGroup>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -10,4 +10,149 @@
         <item>60대 이상</item>
     </string-array>
 
+    <string-array name="Category"> <!-- 카테고리 선택 어레이 -->
+        <item>진해거담제</item>
+        <item>해열.진통.소염제</item>
+        <item>혈액대용제</item>
+        <item>당류제</item>
+        <item>건위소화제</item>
+        <item>용해제</item>
+        <item>강심제</item>
+        <item>기생성 피부질환용제</item>
+        <item>기타의 자양강장변질제</item>
+        <item>통경제</item>
+        <item>진경제</item>
+        <item>정장제</item>
+        <item>이뇨제</item>
+        <item>피부연화제(부식제를 포함)</item>
+        <item>제산제</item>
+        <item>주로 그람양성, 음성균, 리케치아, 비루스에 작용하는 것</item>
+        <item>부신호르몬제</item>
+        <item>항히스타민제</item>
+        <item>주로 항산성균에 작용하는 것</item>
+        <item>항결핵제</item>
+        <item>혼합비타민제(비타민AD 혼합제제를 제외)</item>
+        <item>정신신경용제</item>
+        <item>자궁수축제</item>
+        <item>자율신경제</item>
+        <item>진통.진양.수렴.소염제</item>
+        <item>갑상선, 부갑상선호르몬제</item>
+        <item>비타민 C 및 P제</item>
+        <item>비타민 B제(비타민 B을 제외)</item>
+        <item>항원충제</item>
+        <item>전신마취제</item>
+        <item>각성제,흥분제</item>
+        <item>기타의 순환계용약</item>
+        <item>연고기제</item>
+        <item>기타의 중추신경용약</item>
+        <item>소화성궤양용제</item>
+        <item>방사성 의약품</item>
+        <item>항전간제</item>
+        <item>주로 곰팡이, 원충에 작용하는 것</item>
+        <item>비타민 E 및 K제</item>
+        <item>기타의 소화기관용약</item>
+        <item>비타민 B제</item>
+        <item>주로 그람양성, 음성균에 작용하는 것</item>
+        <item>간장질환용제</item>
+        <item>설화제</item>
+        <item>통풍치료제</item>
+        <item>당뇨병용제</item>
+        <item>최토제, 진토제</item>
+        <item>혈액제제류</item>
+        <item>백신류</item>
+        <item>칼슘제</item>
+        <item>최면진정제</item>
+        <item>해독제</item>
+        <item>주로 그람양성균, 리케치아, 비루스에 작용하는 것</item>
+        <item>효소제제</item>
+        <item>기타의 항생물질제제(복합항생물질제제를 포함)</item>
+        <item>지혈제</item>
+        <item>따로 분류되지 않는 대사성 의약품</item>
+        <item>기타의 종양치료제</item>
+        <item>골격근이완제</item>
+        <item>남성호르몬제</item>
+        <item>기타의 비타민제</item>
+        <item>구충제</item>
+        <item>혈액응고저지제</item>
+        <item>주로 그람양성균에 작용하는 것</item>
+        <item>하제, 완장제</item>
+        <item>기타의 공중위생용약</item>
+        <item>기타의 신경계및 감각기관용 의약품</item>
+        <item>치질용제</item>
+        <item>부정맥용제</item>
+        <item>동맥경화용제</item>
+        <item>화농성질환용제</item>
+        <item>기타의 비뇨생식기관 및 항문용약</item>
+        <item>혈관확장제</item>
+        <item>합성마약</item>
+        <item>기타의 조직세포의 기능용의약품</item>
+        <item>항악성종양제</item>
+        <item>비뇨생식기관용제(성병예방제포함)</item>
+        <item>치나제</item>
+        <item>국소마취제</item>
+        <item>생화화적 검사용 시약</item>
+        <item>혈액검사용 시약</item>
+        <item>외피용살균소독제</item>
+        <item>방역용 살균소독제</item>
+        <item>세균학적 검사용제</item>
+        <item>일반검사용 시약</item>
+        <item>치과구강용약</item>
+        <item>기타의 조제용약</item>
+        <item>기타의 호흡기관용약</item>
+        <item>기타의 화학요법제</item>
+        <item>단백아미노산제제</item>
+        <item>진훈제</item>
+        <item>창상보호제</item>
+        <item>이비과용제</item>
+        <item>주로 그람음성균에 작용하는 것</item>
+        <item>함소흡입제</item>
+        <item>기타의 외피용약</item>
+        <item>기타의 조직세포의 치료 및 진단</item>
+        <item>이담제</item>
+        <item>기타의 세포부활용약</item>
+        <item>혈압강하제</item>
+        <item>기타의 개개의 기관용 의약품</item>
+        <item>안과용제</item>
+        <item>혈관보강제</item>
+        <item>호흡촉진제</item>
+        <item>기타의 혈액 및 체액용약</item>
+        <item>단백동화스테로이드제</item>
+        <item>독소류 및 톡소이드류</item>
+        <item>병리조직 검사용 시약</item>
+        <item>기타의 알레르기용약</item>
+        <item>X선조영제</item>
+        <item>기타의 인공관류용제</item>
+        <item>난포호르몬제 및 황체호르몬제</item>
+        <item>뇌하수체호르몬제</item>
+        <item>아편알카로이드계 제제</item>
+        <item>무기질제제</item>
+        <item>자격요법제(비특이성면역억제제를 포함)</item>
+        <item>종합대사성제제</item>
+        <item>장기제제</item>
+        <item>비타민 A 및 D제</item>
+        <item>주로 악성종양에 작용하는 것</item>
+        <item>모발용제(발모, 탈모, 염모, 양모제)</item>
+        <item>피임제</item>
+        <item>기타의 호르몬제(항호르몬제를 포함)</item>
+        <item>캅셀류</item>
+        <item>따로 분류되지 않고 치료를 주목적으로 하지않는 의약품</item>
+        <item>기타의 생물학적 제제</item>
+        <item>인공신장관류용제</item>
+        <item>기능 검사용 시약</item>
+        <item>혈관수축제</item>
+        <item>항독소 및 렙토스피라혈청류</item>
+        <item>기타의 진단용약</item>
+        <item>면역혈청학적 검사용 시약</item>
+        <item>생물학적 시험용제제류</item>
+        <item>발한제,지한제</item>
+        <item>기타의 감각기관용약</item>
+        <item>기타의 말초신경용약</item>
+        <item>항생물질제제</item>
+        <item>비타민제</item>
+        <item>호흡기관용약</item>
+        <item>중추신경계용약</item>
+        <item>소화기관용약</item>
+        <item>말초신경계용약</item>
+    </string-array>
+
 </resources>

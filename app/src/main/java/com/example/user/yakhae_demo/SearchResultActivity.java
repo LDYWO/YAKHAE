@@ -106,8 +106,7 @@ public class SearchResultActivity extends AppCompatActivity {
                                         contact.child("prduct_type").getValue().toString(),
                                         contact.child("item_ingr_name").getValue().toString(),
                                         "없음",
-                                        Float.parseFloat(contact.child("rating").getValue().toString()),
-                                        search);
+                                        Float.parseFloat(contact.child("rating").getValue().toString()));
                             }
                             else{
                                 adapter.addItem(
@@ -119,8 +118,7 @@ public class SearchResultActivity extends AppCompatActivity {
                                         contact.child("prduct_type").getValue().toString(),
                                         contact.child("item_ingr_name").getValue().toString(),
                                         "없음",
-                                        Float.parseFloat(contact.child("rating").getValue().toString()),
-                                        search);
+                                        Float.parseFloat(contact.child("rating").getValue().toString()));
 
                                 }
                         }

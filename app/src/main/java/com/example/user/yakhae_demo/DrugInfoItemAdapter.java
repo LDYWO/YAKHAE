@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class DrugInfoItemAdapter extends BaseAdapter{
 
-    private ArrayList<DrugInfoItem> drugInfoItemsList = new ArrayList<DrugInfoItem>();
+    ArrayList<DrugInfoItem> drugInfoItemsList = new ArrayList<DrugInfoItem>();
 
 
     public DrugInfoItemAdapter(){}
@@ -78,7 +78,7 @@ public class DrugInfoItemAdapter extends BaseAdapter{
         return convertView;
     }
 
-    public void addItem(String drug_index, String img, String com, String name,String type,String category, String ingre, String taboo, Float rating,String search) {
+    public void addItem(String drug_index, String img, String com, String name,String type,String category, String ingre, String taboo, Float rating) {
         DrugInfoItem item = new DrugInfoItem();
 
         item.setDrug_index(drug_index);
@@ -91,7 +91,6 @@ public class DrugInfoItemAdapter extends BaseAdapter{
         item.setTaboo(taboo);
         item.setRating(rating);
         item.setRating_number(rating);
-        item.setSearch(search);
 
         drugInfoItemsList.add(item);
     }
