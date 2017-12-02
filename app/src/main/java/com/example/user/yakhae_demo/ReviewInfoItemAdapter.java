@@ -1,7 +1,6 @@
 package com.example.user.yakhae_demo;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +56,7 @@ public class ReviewInfoItemAdapter extends BaseAdapter{
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         ReviewInfoItem reviewInfoItem = reviewInfoItemsList.get(position);
 
-        Log.e("drugURL:;",reviewInfoItem.getDrug_image());
+       // Log.e("drugURL:;",reviewInfoItem.getDrug_image());
         Glide.with(context).load(reviewInfoItem.getDrug_image()).into(drugImageView);
 
         // 아이템 내 각 위젯에 데이터 반영
