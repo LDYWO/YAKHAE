@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,16 +26,21 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class WriteReviewActivity extends AppCompatActivity {
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    String company_name, medicine_name, userID, using_date, good_review, bad_review, drug_index, drug_image;
-    float rating;
+    String company_name, medicine_name, userID, using_date, good_review, bad_review, drug_index, drug_image, drug_type, write_date;
+    float rating, Rating_average = 0;
     TextView Company_name, Medicine_name;
     Button Using_date_button;
     EditText Good_review_edittext, Bad_review_edittext;
     RatingBar RatingBar;
     DatabaseReference mUserDatabase = FirebaseDatabase.getInstance().getReference("users");
+    DatabaseReference mReviewDatabase = FirebaseDatabase.getInstance().getReference("reviews");
+    DatabaseReference mDrugDatabase = FirebaseDatabase.getInstance().getReference("0").child("medicine");
     String Uid,userNickname;
 
 
@@ -121,11 +127,44 @@ public class WriteReviewActivity extends AppCompatActivity {
 
             }
         });
+
+        mDrugDatabase.child(drug_index).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                drug_type = dataSnapshot.child("prduct_type").getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
-    private void createReview(String company_name, String medicine_name, String userID, String using_date, String good_review, String bad_review, String drug_id, String drug_image, float rating){
-        Review review = new Review(company_name, medicine_name, userID, using_date, good_review, bad_review, drug_id, drug_image, rating);
+    private void createReview(String company_name, String medicine_name, String userID, String using_date, String good_review, String bad_review, String drug_id, String drug_image, String drug_type, String write_date, float rating){
+        Review review = new Review(company_name, medicine_name, userID, using_date, good_review, bad_review, drug_id, drug_image, drug_type, write_date, rating);
         DatabaseManager.databaseReference.child("reviews").child(drug_id).child(Uid).setValue(review);
+    }
+
+    private void updateRating(){
+        mReviewDatabase.child(drug_index).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> childcontact = dataSnapshot.getChildren();
+                long childrenNum = dataSnapshot.getChildrenCount();
+                for (DataSnapshot contact:childcontact){
+                    Rating_average += Float.parseFloat(contact.child("rating").getValue().toString());
+                }
+                Rating_average = Rating_average/childrenNum;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mDrugDatabase.child(drug_index).child("rating").setValue(Rating_average);
     }
 
     @Override
@@ -150,7 +189,13 @@ public class WriteReviewActivity extends AppCompatActivity {
                 good_review = Good_review_edittext.getText().toString().trim();
                 bad_review = Bad_review_edittext.getText().toString().trim();
                 rating = RatingBar.getRating();
-                createReview(company_name, medicine_name, userID, using_date, good_review, bad_review, drug_index, drug_image, rating);
+                long now = System.currentTimeMillis();
+                Date date = new Date(now);
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd   aa hh:mm:ss");
+                write_date = sdf.format(date);
+                createReview(company_name, medicine_name, userID, using_date, good_review, bad_review, drug_index, drug_image, drug_type, write_date, rating);
+                updateRating();
+
                 Toast.makeText(WriteReviewActivity.this, "리뷰가 등록 되었습니다.", Toast.LENGTH_SHORT).show();
                 NavUtils.navigateUpFromSameTask(this);
                 return true;

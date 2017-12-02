@@ -10,9 +10,11 @@ public class Review {
     private String Bad_review;
     private String Drug_id;
     private String Drug_image;
+    private String Drug_type;
+    private String Write_date;
     private float Rating;
 
-    public Review(String company_name, String medicine_name, String userID, String using_date, String good_review, String bad_review, String drug_id, String drug_image, float rating) {
+    public Review(String company_name, String medicine_name, String userID, String using_date, String good_review, String bad_review, String drug_id, String drug_image, String drug_type, String write_date, float rating) {
         Company_name = company_name;
         Medicine_name = medicine_name;
         UserID = userID;
@@ -21,11 +23,29 @@ public class Review {
         Bad_review = bad_review;
         Drug_id = drug_id;
         Drug_image = drug_image;
+        Drug_type = drug_type;
+        Write_date = write_date;
         Rating = rating;
     }
 
     public String getCompany_name() {
         return Company_name;
+    }
+
+    public String getDrug_type() {
+        return Drug_type;
+    }
+
+    public void setDrug_type(String drug_type) {
+        Drug_type = drug_type;
+    }
+
+    public String getWrite_date() {
+        return Write_date;
+    }
+
+    public void setWrite_date(String write_date) {
+        Write_date = write_date;
     }
 
     public void setCompany_name(String company_name) {

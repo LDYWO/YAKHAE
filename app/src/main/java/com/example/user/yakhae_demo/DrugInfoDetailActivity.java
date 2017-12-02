@@ -174,7 +174,7 @@ public class DrugInfoDetailActivity extends AppCompatActivity {
             View listItem = listAdapter.getView(i, null, listView);
             //listItem.measure(0, 0);
             listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-            totalHeight += 300;
+            totalHeight += 285;
         }
         ViewGroup.LayoutParams params = listView.getLayoutParams();
 

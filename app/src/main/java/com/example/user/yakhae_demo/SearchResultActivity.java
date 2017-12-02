@@ -23,6 +23,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("0").child("medicine");
     private DatabaseReference mDatabase2 = FirebaseDatabase.getInstance().getReference("1").child("ingr");
+
     ProgressDialog progressDialog1;
 
     ListView listView;
@@ -160,6 +161,8 @@ public class SearchResultActivity extends AppCompatActivity {
 
                 }
             });
+
+
             return null;
         }
 

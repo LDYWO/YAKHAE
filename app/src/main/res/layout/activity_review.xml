@@ -59,6 +59,15 @@
                         android:textColor="@color/WHITE"
                         android:textStyle="bold" />
 
+                    <TextView
+                        android:id="@+id/user_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="3dp"
+                        android:text="작성자 타입"
+                        android:textColor="@color/WHITE" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -324,9 +333,12 @@
 
         <ListView
             android:id="@+id/comment_list"
-            android:layout_width="match_parent"
+            android:layout_width="365dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/comment">
+            android:layout_below="@id/comment"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp">
         </ListView>
 
         <LinearLayout
