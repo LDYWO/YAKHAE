@@ -85,6 +85,7 @@ public class DrugInfoDetailActivity extends AppCompatActivity {
         mDatabase.child(drug_index).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                ReviewInfoItemadapter.reviewInfoItemsList.clear();
                 Iterable<DataSnapshot> childcontact = dataSnapshot.getChildren();
                 for (DataSnapshot contact : childcontact){
                     if(contact.child("drug_image").getValue().toString().trim().contains("NA")){

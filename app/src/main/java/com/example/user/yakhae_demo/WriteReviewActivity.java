@@ -142,7 +142,7 @@ public class WriteReviewActivity extends AppCompatActivity {
 
     private void createReview(String company_name, String medicine_name, String userID, String using_date, String good_review, String bad_review, String drug_id, String drug_image, String drug_type, String write_date, float rating){
         Review review = new Review(company_name, medicine_name, userID, using_date, good_review, bad_review, drug_id, drug_image, drug_type, write_date, rating);
-        DatabaseManager.databaseReference.child("reviews").child(drug_id).child(Uid).setValue(review);
+        DatabaseManager.databaseReference.child("reviews").child(drug_index).child(Uid).setValue(review);
     }
 
     private void updateRating(){
@@ -194,7 +194,6 @@ public class WriteReviewActivity extends AppCompatActivity {
                 write_date = sdf.format(date);
                 createReview(company_name, medicine_name, userID, using_date, good_review, bad_review, drug_index, drug_image, drug_type, write_date, rating);
                 updateRating();
-
                 Toast.makeText(WriteReviewActivity.this, "리뷰가 등록 되었습니다.", Toast.LENGTH_SHORT).show();
                 NavUtils.navigateUpFromSameTask(this);
                 return true;

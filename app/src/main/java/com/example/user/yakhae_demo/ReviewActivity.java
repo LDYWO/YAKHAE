@@ -33,7 +33,7 @@ import java.util.Date;
 
 public class ReviewActivity extends AppCompatActivity implements View.OnClickListener {
 
-    String company_name, medicine_name, userID, user_gender, user_age, user_type, using_date, good_review, bad_review, drug_index, drug_image, Uid, drug_type, drug_category, drug_ingredient;
+    String company_name, medicine_name, userID, CommentUserID, user_gender, user_age, user_type, using_date, good_review, bad_review, drug_index, drug_image, Uid, drug_type, drug_category, drug_ingredient;
     float rating;
     TextView User_name, User_Age, User_Gender, User_Type, Company_name, Drug_name, Drug_type, Drug_category, Drug_ingredient, Good_review, Bad_review;
     EditText Comment_Text;
@@ -83,15 +83,15 @@ public class ReviewActivity extends AppCompatActivity implements View.OnClickLis
 
         Log.e("review_intent::",intent.getExtras().getString("drug_company").toString());
 
-        final String drug_image = intent.getStringExtra("drug_image");
-        final String drug_index = intent.getStringExtra("drug_index").toString();
-        final String company_name = intent.getStringExtra("drug_company").toString();
-        final String medicine_name = intent.getStringExtra("drug_name").toString();
-        final String Uid = intent.getStringExtra("Uid").toString();
-        final String userID = intent.getStringExtra("user_name").toString();
-        final float rating = Float.parseFloat(intent.getStringExtra("rating").toString());
-        final String good_review = intent.getStringExtra("advantage").toString();
-        final String bad_review = intent.getStringExtra("disadvantage").toString();
+        drug_image = intent.getStringExtra("drug_image");
+        drug_index = intent.getStringExtra("drug_index").toString();
+        company_name = intent.getStringExtra("drug_company").toString();
+        medicine_name = intent.getStringExtra("drug_name").toString();
+        Uid = intent.getStringExtra("Uid").toString();
+        userID = intent.getStringExtra("user_name").toString();
+        rating = Float.parseFloat(intent.getStringExtra("rating").toString());
+        good_review = intent.getStringExtra("advantage").toString();
+        bad_review = intent.getStringExtra("disadvantage").toString();
 
         Company_name.setText(intent.getExtras().getString("drug_company").toString());
         Drug_name.setText(intent.getExtras().getString("drug_name").toString());
@@ -189,9 +189,9 @@ public class ReviewActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.send_button:{
-                final String commentUserID = user.getUid();
+                CommentUserID = user.getUid();
 
-                mUserDatabase.child(commentUserID).addValueEventListener(new ValueEventListener() {
+                mUserDatabase.child(CommentUserID).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         String commentUserNickname = dataSnapshot.child("nickname").getValue().toString();
@@ -202,7 +202,7 @@ public class ReviewActivity extends AppCompatActivity implements View.OnClickLis
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd   aa hh:mm:ss");
                         String commentDate = sdf.format(date);
                         Toast.makeText(ReviewActivity.this,"댓글이 등록 되었습니다.", Toast.LENGTH_SHORT).show();
-                        createComment(commentUserID,commentUserNickname,commentContent,commentDate);
+                        createComment(CommentUserID,commentUserNickname,commentContent,commentDate);
                     }
 
                     @Override
