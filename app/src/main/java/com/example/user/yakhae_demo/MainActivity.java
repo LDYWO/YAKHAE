@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, MainActivity.class));
         }
         if (id == R.id.action_settings) {
-
+            startActivity(new Intent(this, MyPageActivity.class));
             return true;
         }
         if (id == R.id.Log_out) {

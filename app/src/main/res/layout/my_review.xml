@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/my_review_border">
+
+    <LinearLayout
+        android:id="@+id/medicine_info"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="1dp"
+        android:onClick="onClick">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:src="@drawable/pills"
+            android:id="@+id/drug_image"
+            android:background="@color/WHITE"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@color/WHITE"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/drug_company"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="3dp"
+                    android:text="제약회사"
+                    android:textColor="@color/WHITE" />
+
+                <TextView
+                    android:id="@+id/drug_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="3dp"
+                    android:text="약품명"
+                    android:textColor="@color/WHITE"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/WHITE"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/drug_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="3dp"
+                    android:text="약품 분류"
+                    android:textColor="@color/BLACK" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/rataing_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/ratingbar"
+        android:layout_marginEnd="29dp"
+        android:layout_marginRight="29dp"
+        android:layout_toLeftOf="@+id/ratingbar"
+        android:layout_toStartOf="@+id/ratingbar"
+        android:layout_marginBottom="5dp"
+        android:text="평점"
+        android:textSize="20dp" />
+
+    <RatingBar
+        android:id="@+id/ratingbar"
+        style="?android:attr/ratingBarStyleIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/medicine_info"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:stepSize="0.5"
+        android:isIndicator="false"
+        android:numStars="5"
+        android:rating="0"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/rataing_title"
+        android:layout_alignStart="@+id/rataing_title"
+        android:layout_below="@+id/rataing_title"
+        android:layout_marginTop="28dp"
+        app:srcCompat="@drawable/ic_date_range"
+        android:id="@+id/date_range_image" />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@+id/date_range_image"
+        android:layout_alignLeft="@+id/ratingbar"
+        android:layout_alignStart="@+id/ratingbar"
+        android:background="@drawable/border"
+        android:text="사용기간: 2주"
+        android:textStyle="bold"
+        android:textColor="@color/BLACK"
+        android:enabled="false"
+        android:id="@+id/using_date_button" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/date_range_image"
+        android:layout_alignStart="@+id/date_range_image"
+        android:layout_below="@+id/date_range_image"
+        android:layout_marginTop="27dp"
+        app:srcCompat="@drawable/ic_thumb_up"
+        android:id="@+id/thumb_up_image" />
+
+    <TextView
+        android:id="@+id/good_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/using_date_button"
+        android:layout_alignBottom="@id/thumb_up_image"
+        android:layout_alignStart="@+id/using_date_button"
+        android:layout_marginBottom="5dp"
+        android:text="좋았던 점"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/good_review"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/edit_text_box"
+        android:layout_below="@id/thumb_up_image"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:hint="내가 작성한 좋았던 점"
+        android:textColor="@color/GREY"
+        android:textSize="15dp"
+        android:padding="10dp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/date_range_image"
+        android:layout_alignStart="@+id/date_range_image"
+        android:layout_below="@+id/good_review"
+        android:layout_marginTop="27dp"
+        app:srcCompat="@drawable/ic_thumb_down"
+        android:id="@+id/thumb_down_image" />
+
+    <TextView
+        android:id="@+id/bad_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/using_date_button"
+        android:layout_alignBottom="@id/thumb_down_image"
+        android:layout_alignStart="@+id/using_date_button"
+        android:layout_marginBottom="5dp"
+        android:text="아쉬웠던 점"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/bad_review"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/edit_text_box"
+        android:layout_below="@id/thumb_down_image"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:hint="내가 작성한 아쉬웠던 점"
+        android:textColor="@color/GREY"
+        android:textSize="15dp"
+        android:padding="10dp"/>
+
+</RelativeLayout>

@@ -8,6 +8,7 @@
     tools:context="com.example.user.yakhae_demo.MainActivity$PlaceholderFragment">
 
     <Button
+        android:enabled="false"
         android:id="@+id/more_review_btn"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="10dp"
