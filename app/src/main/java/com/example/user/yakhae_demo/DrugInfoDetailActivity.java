@@ -105,7 +105,7 @@ public class DrugInfoDetailActivity extends AppCompatActivity {
         ReviewInfolistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("whatthe", String.valueOf(position));
+
 
                 ReviewInfoItem item = (ReviewInfoItem) parent.getItemAtPosition(position);
 
@@ -119,17 +119,19 @@ public class DrugInfoDetailActivity extends AppCompatActivity {
                 String disadvantage = item.getDisadvantage();
                 String Uid = item.getUid();
 
-                Intent intent = new Intent(DrugInfoDetailActivity.this,ReviewActivity.class);
-                intent.putExtra("drug_index",drug_index.toString());
-                intent.putExtra("drug_image",drug_image.toString());
-                intent.putExtra("drug_company",drug_company.toString());
-                intent.putExtra("drug_name",drug_name.toString());
-                intent.putExtra("user_name",user_name.toString());
-                intent.putExtra("rating",rating.toString());
-                intent.putExtra("advantage",advantage.toString());
-                intent.putExtra("disadvantage",disadvantage.toString());
-                intent.putExtra("Uid",Uid.toString());
-                startActivity(intent);
+                Log.e("review_item::", drug_name);
+
+                Intent reviewintent = new Intent(DrugInfoDetailActivity.this,ReviewActivity.class);
+                reviewintent.putExtra("drug_index",drug_index.toString());
+                reviewintent.putExtra("drug_image",drug_image.toString());
+                reviewintent.putExtra("drug_company",drug_company.toString());
+                reviewintent.putExtra("drug_name",drug_name.toString());
+                reviewintent.putExtra("user_name",user_name.toString());
+                reviewintent.putExtra("rating",rating.toString());
+                reviewintent.putExtra("advantage",advantage.toString());
+                reviewintent.putExtra("disadvantage",disadvantage.toString());
+                reviewintent.putExtra("Uid",Uid.toString());
+                startActivity(reviewintent);
             }
         });
 

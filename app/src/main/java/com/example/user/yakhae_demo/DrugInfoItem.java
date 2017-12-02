@@ -1,5 +1,7 @@
 package com.example.user.yakhae_demo;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by user on 2017-11-11.
  */
@@ -15,6 +17,8 @@ public class DrugInfoItem {
     private String taboo;
     private Float rating;
     private String rating_number;
+    private String search;
+    private Bitmap Bitmap;
 
     public void setDrug_index(String drug_index){
         this.drug_index = drug_index;
@@ -44,6 +48,8 @@ public class DrugInfoItem {
         rating = rate;
     }
     public void setRating_number(Float rate){rating_number=rate.toString();}
+    public void setSearch(String search){this.search = search;}
+    public void setBitmap(Bitmap bitmap){this.Bitmap = bitmap;}
 
     public String getDrug_index(){return this.drug_index;}
     public String getDrug_image(){return this.drug_image;}
@@ -71,5 +77,7 @@ public class DrugInfoItem {
     public String getRating_number(){
         return this.rating_number;
     }
+    public String getSearch(){return this.search;}
+    public Bitmap getBitmap(){return this.Bitmap;}
 
 }
