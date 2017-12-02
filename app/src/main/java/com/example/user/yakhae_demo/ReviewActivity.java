@@ -230,7 +230,7 @@ public class ReviewActivity extends AppCompatActivity implements View.OnClickLis
             View listItem = listAdapter.getView(i, null, listView);
             //listItem.measure(0, 0);
             listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-            totalHeight += 180;
+            totalHeight += 185;
         }
         ViewGroup.LayoutParams params = listView.getLayoutParams();
 

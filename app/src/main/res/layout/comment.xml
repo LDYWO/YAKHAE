@@ -3,12 +3,12 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/WHITE">
+    android:background="#00ff0000">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:background="@color/WHITE">
+                android:background="#00ff0000">
 
                 <TextView
                     android:id="@+id/user_nickname"
@@ -37,7 +37,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/WHITE">
+                android:background="#00ff0000">
 
                 <TextView
                     android:layout_width="wrap_content"
