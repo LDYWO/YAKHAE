@@ -48,7 +48,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.comment_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CustomDialog dialog = new CustomDialog(context,noticeItem.get("postID"));
+                CustomDialog dialog = new CustomDialog(context,noticeItem.get("postID"),"community");
                 dialog.show();
             }
         });

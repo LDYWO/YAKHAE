@@ -55,8 +55,8 @@ public class FragmentReviewAdapter extends RecyclerView.Adapter<FragmentReviewAd
         holder.comment_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //CustomDialog dialog = new CustomDialog(context,noticeItem.get("postID"));
-                //dialog.show();
+                CustomDialog dialog = new CustomDialog(context,noticeItem.get("postID"),noticeItem.get("drug_index"),"review");
+                dialog.show();
             }
         });
     }

@@ -162,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
         private static final String TAG_BAD_CONTENT="bad_content";
         private static final String TAG_DRUG_COMPANY="drug_company";
         private static final String TAG_IMAGE="drug_image";
+        private static final String TAG_DRUG_INDEX="drug_index";
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("community");
         DatabaseReference mReviewDatabase = FirebaseDatabase.getInstance().getReference("reviews");
@@ -299,12 +300,13 @@ public class MainActivity extends AppCompatActivity {
                     mReviewDatabase.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            //reviewList.clear();
+                            reviewList.clear();
                             Iterable<DataSnapshot> childcontact = dataSnapshot.getChildren();
                             for (DataSnapshot contact:childcontact){
+                                Log.i("reviews_key:",contact.getKey());
                                 Iterable<DataSnapshot> childchildcontact= contact.getChildren();
                                 for(DataSnapshot contact2 :childchildcontact){
-                                    Log.i("reviews_drug:",contact2.child("medicine_name").getValue().toString());
+                                    Log.i("reviews_drug:",contact2.getKey());
 
                                     String image;
                                     if(contact2.child("drug_image").getValue().toString().trim().contains("NA"))
@@ -312,6 +314,8 @@ public class MainActivity extends AppCompatActivity {
                                     else {
                                         image = contact2.child("drug_image").getValue().toString();
                                     }
+                                    String drug_index = contact.getKey();
+                                    String userID = contact2.getKey();
                                     String writer = contact2.child("userID").getValue().toString();
                                     String company = contact2.child("company_name").getValue().toString();
                                     String title = contact2.child("medicine_name").getValue().toString();
@@ -322,6 +326,8 @@ public class MainActivity extends AppCompatActivity {
                                     String date = contact2.child("write_date").getValue().toString();
 
                                     HashMap<String,String> reviews = new HashMap<String,String>();
+                                    reviews.put(TAG_DRUG_INDEX,drug_index);
+                                    reviews.put(TAG_POSTID,userID);
                                     reviews.put(TAG_IMAGE,image);
                                     reviews.put(TAG_WRITER,writer);
                                     reviews.put(TAG_DRUG_COMPANY,company);
