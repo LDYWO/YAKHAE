@@ -87,8 +87,21 @@ public class DrugInfoDetailActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> childcontact = dataSnapshot.getChildren();
                 for (DataSnapshot contact : childcontact){
+                    if(contact.child("drug_image").getValue().toString().trim().contains("NA")){
+                        ReviewInfoItemadapter.addItem(
+                                contact.child("drug_id").getValue().toString(),
+                                "http://drug.mfds.go.kr/html/images/noimages.png",
+                                contact.child("company_name").getValue().toString(),
+                                contact.child("medicine_name").getValue().toString(),
+                                contact.child("userID").getValue().toString(),
+                                contact.child("good_review").getValue().toString(),
+                                contact.child("bad_review").getValue().toString(),
+                                contact.getKey().toString(),
+                                Float.parseFloat(contact.child("rating").getValue().toString()));
+                    }
 
-                    ReviewInfoItemadapter.addItem(
+                    else{
+                        ReviewInfoItemadapter.addItem(
                                 contact.child("drug_id").getValue().toString(),
                                 contact.child("drug_image").getValue().toString(),
                                 contact.child("company_name").getValue().toString(),
@@ -98,7 +111,9 @@ public class DrugInfoDetailActivity extends AppCompatActivity {
                                 contact.child("bad_review").getValue().toString(),
                                 contact.getKey().toString(),
                                 Float.parseFloat(contact.child("rating").getValue().toString()));
-                }
+                        }
+                    }
+
                 setListViewHeightBasedOnChildren(ReviewInfolistView);
             }
 

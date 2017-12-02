@@ -155,8 +155,16 @@ public class MainActivity extends AppCompatActivity {
         private static final String TAG_DRUGTYPE = "drug_type";
         private static final String TAG_CONTENT = "content";
         private static final String TAG_DATE="date";
+        private static final String TAG_RATING ="rating";
+        private static final String TAG_DRUG_TITLE="drug_title";
+        private static final String TAG_DRUG_CATEGORY="drug_category";
+        private static final String TAG_GOOD_CONTENT="good_content";
+        private static final String TAG_BAD_CONTENT="bad_content";
+        private static final String TAG_DRUG_COMPANY="drug_company";
+        private static final String TAG_IMAGE="drug_image";
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("community");
+        DatabaseReference mReviewDatabase = FirebaseDatabase.getInstance().getReference("reviews");
 
         public PlaceholderFragment() {
 
@@ -176,6 +184,9 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<HashMap<String,String>> postList;
         PostAdapter postAdapter= new PostAdapter(getActivity(),postList);
+
+        ArrayList<HashMap<String,String>> reviewList;
+        FragmentReviewAdapter fragmentReviewAdapter= new FragmentReviewAdapter(getActivity(),reviewList);
 
         @Override
         public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
@@ -278,6 +289,65 @@ public class MainActivity extends AppCompatActivity {
                 case 3:
                 {
                     View rootView = inflater.inflate(R.layout.fragment_community, container, false);
+                    final RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.review_recyclerview);
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                    recyclerView.setHasFixedSize(true);
+                    recyclerView.setLayoutManager(layoutManager);
+
+                    reviewList = new ArrayList<HashMap<String, String>>();
+
+                    mReviewDatabase.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            //reviewList.clear();
+                            Iterable<DataSnapshot> childcontact = dataSnapshot.getChildren();
+                            for (DataSnapshot contact:childcontact){
+                                Iterable<DataSnapshot> childchildcontact= contact.getChildren();
+                                for(DataSnapshot contact2 :childchildcontact){
+                                    Log.i("reviews_drug:",contact2.child("medicine_name").getValue().toString());
+
+                                    String image;
+                                    if(contact2.child("drug_image").getValue().toString().trim().contains("NA"))
+                                        image ="http://drug.mfds.go.kr/html/images/noimages.png";
+                                    else {
+                                        image = contact2.child("drug_image").getValue().toString();
+                                    }
+                                    String writer = contact2.child("userID").getValue().toString();
+                                    String company = contact2.child("company_name").getValue().toString();
+                                    String title = contact2.child("medicine_name").getValue().toString();
+                                    String drug_category =contact2.child("drug_type").getValue().toString();
+                                    String good_content = contact2.child("good_review").getValue().toString();
+                                    String bad_content = contact2.child("bad_review").getValue().toString();
+                                    String rating = contact2.child("rating").getValue().toString();
+                                    String date = contact2.child("write_date").getValue().toString();
+
+                                    HashMap<String,String> reviews = new HashMap<String,String>();
+                                    reviews.put(TAG_IMAGE,image);
+                                    reviews.put(TAG_WRITER,writer);
+                                    reviews.put(TAG_DRUG_COMPANY,company);
+                                    reviews.put(TAG_DRUG_TITLE,title);
+                                    reviews.put(TAG_GOOD_CONTENT,good_content);
+                                    reviews.put(TAG_BAD_CONTENT, bad_content);
+                                    reviews.put(TAG_RATING,rating);
+                                    reviews.put(TAG_DRUG_CATEGORY,drug_category);
+                                    reviews.put(TAG_DATE,date);
+
+                                    reviewList.add(reviews);
+
+                                    fragmentReviewAdapter = new FragmentReviewAdapter(getActivity(),reviewList);
+                                    Log.e("onCreate[reviewList]", "" + reviewList.size());
+                                    recyclerView.setAdapter(fragmentReviewAdapter);
+                                    fragmentReviewAdapter.notifyDataSetChanged();
+
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
 
                     return rootView;
                 }
@@ -316,6 +386,55 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(new Intent(getContext(), ReviewSearchListActivity.class));
                         }
                     });
+
+                    final RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv);
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                    recyclerView.setHasFixedSize(true);
+                    recyclerView.setLayoutManager(layoutManager);
+
+                    postList = new ArrayList<HashMap<String, String>>();
+
+                    mDatabase.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            postList.clear();
+                            Iterable<DataSnapshot> childcontact = dataSnapshot.getChildren();
+                            for (DataSnapshot contact:childcontact){
+                                Log.i("getKey:",contact.getKey());
+                                Log.i("contact:",contact.child("posts").getValue().toString());
+                                String postID = contact.getKey().toString();
+                                String writer = contact.child("userNickname").getValue().toString();
+                                String user_type = contact.child("userType").getValue().toString();
+                                String title = contact.child("posts_title").getValue().toString();
+                                String using_drug_type =contact.child("using_drug_type").getValue().toString();
+                                String content = contact.child("posts").getValue().toString();
+                                String date = contact.child("posted_date").getValue().toString();
+
+                                //HashMap에 붙이기
+                                HashMap<String,String> posts = new HashMap<String,String>();
+                                posts.put(TAG_POSTID,postID);
+                                posts.put(TAG_WRITER,writer);
+                                posts.put(TAG_USERTYPE,user_type);
+                                posts.put(TAG_TITLE,title);
+                                posts.put(TAG_DRUGTYPE,using_drug_type);
+                                posts.put(TAG_CONTENT, content);
+                                posts.put(TAG_DATE,date);
+
+                                postList.add(posts);
+
+                                postAdapter = new PostAdapter(getActivity(),postList);
+                                Log.e("onCreate[noticeList]", "" + postList.size());
+                                recyclerView.setAdapter(postAdapter);
+                                postAdapter.notifyDataSetChanged();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
                     return rootView;
                 }
             }
