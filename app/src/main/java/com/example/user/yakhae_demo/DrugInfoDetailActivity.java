@@ -11,10 +11,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -57,12 +59,17 @@ public class DrugInfoDetailActivity extends AppCompatActivity {
         final String drug_index = drug_intent.getStringExtra("drug_index").toString();
         final String drug_image = drug_intent.getStringExtra("drug_image").toString();
 
+        ImageView drugImageView = (ImageView)findViewById(R.id.drug_image);
+        Log.e("drugURL:;",drug_image);
+        Glide.with(this).load(drug_image).into(drugImageView);
+
         ListView DrugInfolistView;
         DrugInfoItemDetailAdapter DrugInfoItemadapter;
 
         DrugInfoItemadapter = new DrugInfoItemDetailAdapter();
         DrugInfolistView = (ListView)findViewById(R.id.infor_detail);
         DrugInfoItemadapter.addItem(
+                drug_intent.getStringExtra("drug_image").toString(),
                 drug_intent.getStringExtra("drug_type").toString(),
                 drug_intent.getStringExtra("drug_category").toString(),
                 drug_intent.getStringExtra("drug_main_ingre").toString(),
