@@ -30,7 +30,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
-                android:src="@drawable/login_icon"
+                android:src="@drawable/ic_account_circle"
                 android:id="@+id/user_image"
                 android:background="@color/WHITE"
                 android:layout_marginRight="8dp"

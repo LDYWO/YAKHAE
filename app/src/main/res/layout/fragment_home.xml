@@ -42,21 +42,22 @@
     </LinearLayout>
         <Button
             android:id="@+id/more_review_btn"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="30dp"
             android:layout_marginRight="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:drawableRight="@drawable/ic_navigate_next"
-            android:text="의약품 커뮤니티"
-            android:background="@drawable/large_button"
-            android:textColor="@color/WHITE"/>
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/community"
+            android:text="   의약품 커뮤니티"
+            android:textAlignment="textStart"
+            android:background="#00ff0000"
+            android:textColor="@color/BLACK"
+            android:layout_gravity="start"/>
 
     <android.support.v7.widget.RecyclerView
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:id="@+id/rv"
-        android:layout_marginTop="20dp"
         ></android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

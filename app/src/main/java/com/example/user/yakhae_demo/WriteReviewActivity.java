@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,7 +33,7 @@ public class WriteReviewActivity extends AppCompatActivity {
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     String company_name, medicine_name, userID, using_date, good_review, bad_review, drug_index, drug_image, drug_type, write_date;
-    float rating, Rating_average = 0;
+    float rating, Rating_average;
     TextView Company_name, Medicine_name;
     Button Using_date_button;
     EditText Good_review_edittext, Bad_review_edittext;
@@ -149,12 +150,18 @@ public class WriteReviewActivity extends AppCompatActivity {
         mReviewDatabase.child(drug_index).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.e("Rating_average::", String.valueOf(Rating_average));
                 Iterable<DataSnapshot> childcontact = dataSnapshot.getChildren();
                 long childrenNum = dataSnapshot.getChildrenCount();
+                float Sum = 0;
                 for (DataSnapshot contact:childcontact){
-                    Rating_average += Float.parseFloat(contact.child("rating").getValue().toString());
+                    Rating_average = Float.parseFloat(contact.child("rating").getValue().toString());
+                    Sum += Rating_average;
+                    Log.e("Rating_average::", String.valueOf(Float.parseFloat(contact.child("rating").getValue().toString())));
                 }
-                Rating_average = Rating_average/childrenNum;
+                Rating_average = Sum/childrenNum;
+                Log.e("Rating_average::", String.valueOf(Rating_average));
+                mDrugDatabase.child(drug_index).child("rating").setValue(Rating_average);
             }
 
             @Override
@@ -162,8 +169,6 @@ public class WriteReviewActivity extends AppCompatActivity {
 
             }
         });
-
-        mDrugDatabase.child(drug_index).child("rating").setValue(Rating_average);
     }
 
     @Override

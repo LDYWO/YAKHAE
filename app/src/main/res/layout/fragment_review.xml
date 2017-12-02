@@ -7,11 +7,24 @@
     android:orientation="vertical"
     tools:context="com.example.user.yakhae_demo.MainActivity$PlaceholderFragment">
 
+    <Button
+        android:id="@+id/more_review_btn"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:drawableLeft="@drawable/ic_review2"
+        android:text="   작성된 리뷰"
+        android:textAlignment="textStart"
+        android:background="#00ff0000"
+        android:textColor="@color/BLACK"
+        android:layout_gravity="start"/>
+
     <android.support.v7.widget.RecyclerView
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:id="@+id/review_recyclerview"
-        android:layout_marginTop="20dp">
+        android:id="@+id/review_recyclerview">
     </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

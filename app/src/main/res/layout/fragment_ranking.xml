@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,85 +6,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_marginTop="10dp"
     tools:context="com.example.user.yakhae_demo.MainActivity$PlaceholderFragment">
 
-    <RadioGroup
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/courseUniversityGroup"
-        android:layout_gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp">
-
-        <RadioButton
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="전문의약품"/>
-
-        <RadioButton
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="일반의약품"/>
-
-    </RadioGroup>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingRight="10dp">
-
-
-        <Spinner
-            android:id="@+id/termSpinner"
-            android:layout_width="300dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"></Spinner>
-    </LinearLayout>
-
-    <LinearLayout
+    <Button
+        android:id="@+id/more_ranking_btn1"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingRight="10dp">
+        android:layout_marginTop="20dp"
+        android:drawableLeft="@drawable/ic_local_hospital"
+        android:text="  일반의약품 랭킹"
+        android:textAlignment="textStart"
+        android:background="#00ff0000"
+        android:textColor="@color/BLACK"
+        android:layout_gravity="start"/>
 
-        <Button
-            android:layout_width="300dp"
-            android:layout_height="40dp"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            android:textColor="@color/WHITE"
-            android:background="@color/colorPrimary"
-            android:text="랭킹 검색"
-            android:layout_gravity="center"
-            android:id="@+id/searchButton"
-            android:layout_marginLeft="30dp"/>
-    </LinearLayout>
-
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        android:background="#ffffff">
+        android:id="@+id/ranking_recyclerview1"
+        android:layout_marginTop="20dp">
+    </android.support.v7.widget.RecyclerView>
 
-        <ListView
-            android:id="@+id/courseListView"
-            android:layout_width="match_parent"
-            android:layout_height="375dp"
-            android:layout_marginTop="15dp"
-            android:divider="@color/WHITE"
-            android:dividerHeight="10dp"></ListView>
-    </LinearLayout>
+    <Button
+        android:id="@+id/more_ranking_btn2"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:drawableLeft="@drawable/ic_local_hospital"
+        android:text="  전문의약품 랭킹"
+        android:textAlignment="textStart"
+        android:background="#00ff0000"
+        android:textColor="@color/BLACK"
+        android:layout_gravity="start" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/ranking_recyclerview2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"></android.support.v7.widget.RecyclerView>
 
 </LinearLayout>
-</ScrollView>

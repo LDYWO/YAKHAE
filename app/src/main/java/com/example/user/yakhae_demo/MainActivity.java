@@ -289,7 +289,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 case 3:
                 {
-                    View rootView = inflater.inflate(R.layout.fragment_community, container, false);
+                    View rootView = inflater.inflate(R.layout.fragment_review, container, false);
                     final RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.review_recyclerview);
                     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
                     recyclerView.setHasFixedSize(true);
