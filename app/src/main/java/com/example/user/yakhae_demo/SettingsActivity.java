@@ -118,13 +118,17 @@ public class SettingsActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            //mUserDatabase.child(Uid).getRef().removeValue();
             user.delete()
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 Log.e("Delete::", "User account deleted.");
+                                Intent intent  = new Intent(SettingsActivity.this, LoginActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                startActivity(intent);
+                                finish();
                             }
                         }
                     });

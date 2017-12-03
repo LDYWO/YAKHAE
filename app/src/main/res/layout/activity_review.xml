@@ -33,7 +33,7 @@
                 android:layout_gravity="center"
                 app:srcCompat="@drawable/ic_account_circle"
                 android:id="@+id/user_image"
-                android:background="@color/WHITE"
+                android:background="#00ff0000"
                 android:layout_marginRight="8dp"
                 android:layout_marginLeft="8dp"/>
 
@@ -115,7 +115,7 @@
                 android:layout_gravity="center"
                 android:src="@drawable/pills"
                 android:id="@+id/drug_image"
-                android:background="@color/WHITE"
+                android:background="#00ff0000"
                 android:layout_marginRight="8dp"
                 android:layout_marginLeft="8dp"/>
 
@@ -334,12 +334,13 @@
 
         <ListView
             android:id="@+id/comment_list"
-            android:layout_width="365dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/comment"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp">
+            android:dividerHeight="5dp"
+            android:divider="#00ff0000">
         </ListView>
 
         <LinearLayout

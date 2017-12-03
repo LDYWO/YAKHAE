@@ -12,11 +12,11 @@
         android:id="@+id/more_ranking_btn1"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:drawableLeft="@drawable/ic_local_hospital"
-        android:text="  일반의약품 랭킹"
+        android:text="  모든 의약품 랭킹"
         android:textAlignment="textStart"
         android:background="#00ff0000"
         android:textColor="@color/BLACK"
@@ -25,28 +25,7 @@
     <android.support.v7.widget.RecyclerView
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:id="@+id/ranking_recyclerview1"
-        android:layout_marginTop="20dp">
+        android:id="@+id/ranking_recyclerview1">
     </android.support.v7.widget.RecyclerView>
-
-    <Button
-        android:id="@+id/more_ranking_btn2"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:drawableLeft="@drawable/ic_local_hospital"
-        android:text="  전문의약품 랭킹"
-        android:textAlignment="textStart"
-        android:background="#00ff0000"
-        android:textColor="@color/BLACK"
-        android:layout_gravity="start" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/ranking_recyclerview2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"></android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

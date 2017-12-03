@@ -29,6 +29,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
@@ -159,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("community");
         DatabaseReference mReviewDatabase = FirebaseDatabase.getInstance().getReference("reviews");
+        DatabaseReference mDrugDatabase = FirebaseDatabase.getInstance().getReference("0").child("medicine");
 
         public PlaceholderFragment() {
 
@@ -181,6 +184,12 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<HashMap<String,String>> reviewList;
         FragmentReviewAdapter fragmentReviewAdapter= new FragmentReviewAdapter(getActivity(),reviewList);
+
+        ArrayList<HashMap<String,String>> rankList1;
+        RankAdapter rankAdapter1= new RankAdapter(getActivity(),rankList1);
+
+        ArrayList<HashMap<String,String>> rankList2;
+        RankAdapter rankAdapter2= new RankAdapter(getActivity(),rankList2);
 
         @Override
         public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
@@ -277,6 +286,59 @@ public class MainActivity extends AppCompatActivity {
                 case 2:
                 {
                     View rootView = inflater.inflate(R.layout.fragment_ranking, container, false);
+                    final RecyclerView recyclerView1 = (RecyclerView) rootView.findViewById(R.id.ranking_recyclerview1);
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                    recyclerView1.setHasFixedSize(true);
+                    recyclerView1.setLayoutManager(layoutManager);
+
+                    rankList1 = new ArrayList<HashMap<String, String>>(); // 일반의약품 순위
+
+                    mDrugDatabase.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            rankList1.clear();
+                            Iterable<DataSnapshot> childcontact = dataSnapshot.getChildren();
+                            for (DataSnapshot contact:childcontact){
+                                    String image;
+                                    if(contact.child("item_image").getValue().toString().trim().contains("NA"))
+                                        image ="http://drug.mfds.go.kr/html/images/noimages.png";
+                                    else {
+                                        image = contact.child("item_image").getValue().toString();
+                                    }
+                                    String drug_index = contact.getKey();
+                                    String company = contact.child("entp_name").getValue().toString();
+                                    String title = contact.child("item_name").getValue().toString();
+                                    String drug_category =contact.child("prduct_type").getValue().toString();
+                                    String rating = contact.child("rating").getValue().toString();
+
+                                    HashMap<String,String> rankings = new HashMap<String,String>();
+                                    rankings.put(TAG_DRUG_INDEX,drug_index);
+                                    rankings.put(TAG_IMAGE,image);
+                                    rankings.put(TAG_DRUG_COMPANY,company);
+                                    rankings.put(TAG_DRUG_TITLE,title);
+                                    rankings.put(TAG_RATING,rating);
+                                    rankings.put(TAG_DRUG_CATEGORY,drug_category);
+
+                                    // Hashmap을 rating 순으로 정렬;
+                                    rankList1.add(rankings);
+
+                                    Log.e("rankList", String.valueOf(rankList1));
+                                    rankAdapter1 = new RankAdapter(getActivity(),rankList1);
+                                    Log.e("onCreate[rankList]", "" + rankList1.size());
+                                    recyclerView1.setAdapter(rankAdapter1);
+                                    rankAdapter1.notifyDataSetChanged();
+
+                                    if (rankList1.size() == 20){
+                                        break;
+                                    }
+                                }
+                            }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
 
                     return rootView;
                 }

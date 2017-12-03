@@ -37,7 +37,7 @@
             android:layout_height="match_parent"
             android:id="@+id/courseListView"
             android:dividerHeight="10dp"
-            android:divider="@color/WHITE"
+            android:divider="#00ff0000"
             android:layout_marginTop="15dp"></ListView>
     </LinearLayout>
 
