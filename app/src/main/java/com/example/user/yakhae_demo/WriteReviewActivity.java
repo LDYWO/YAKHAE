@@ -13,10 +13,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -65,6 +67,10 @@ public class WriteReviewActivity extends AppCompatActivity {
         drug_index = intent.getStringExtra("drug_index").toString();
         Company_name.setText(intent.getStringExtra("drug_company").toString());
         Medicine_name.setText(intent.getStringExtra("drug_name").toString());
+
+        ImageView drugImageView = (ImageView)findViewById(R.id.medicine_image);
+        Log.e("drugURL:;",drug_image);
+        Glide.with(this).load(drug_image).into(drugImageView);
 
         RatingBar = (RatingBar)findViewById(R.id.ratingbar);
         RatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {

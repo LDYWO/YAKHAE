@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
     SearchView searchView;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -185,11 +184,8 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<HashMap<String,String>> reviewList;
         FragmentReviewAdapter fragmentReviewAdapter= new FragmentReviewAdapter(getActivity(),reviewList);
 
-        ArrayList<HashMap<String,String>> rankList1;
-        RankAdapter rankAdapter1= new RankAdapter(getActivity(),rankList1);
-
-        ArrayList<HashMap<String,String>> rankList2;
-        RankAdapter rankAdapter2= new RankAdapter(getActivity(),rankList2);
+        ArrayList<HashMap<String,String>> rankList;
+        RankAdapter rankAdapter= new RankAdapter(getActivity(),rankList);
 
         @Override
         public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
@@ -228,7 +224,6 @@ public class MainActivity extends AppCompatActivity {
                     morereviewbtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startActivity(new Intent(getContext(), ReviewSearchListActivity.class));
                         }
                     });
 
@@ -286,52 +281,69 @@ public class MainActivity extends AppCompatActivity {
                 case 2:
                 {
                     View rootView = inflater.inflate(R.layout.fragment_ranking, container, false);
-                    final RecyclerView recyclerView1 = (RecyclerView) rootView.findViewById(R.id.ranking_recyclerview1);
+                    final RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.ranking_recyclerview);
                     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-                    recyclerView1.setHasFixedSize(true);
-                    recyclerView1.setLayoutManager(layoutManager);
+                    recyclerView.setHasFixedSize(true);
+                    recyclerView.setLayoutManager(layoutManager);
 
-                    rankList1 = new ArrayList<HashMap<String, String>>(); // 일반의약품 순위
+                    rankList = new ArrayList<HashMap<String, String>>();
 
                     mDrugDatabase.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            rankList1.clear();
+                            rankList.clear();
                             Iterable<DataSnapshot> childcontact = dataSnapshot.getChildren();
                             for (DataSnapshot contact:childcontact){
+
+                                if (Float.parseFloat(contact.child("rating").getValue().toString()) > 0.1 ) {
+
                                     String image;
-                                    if(contact.child("item_image").getValue().toString().trim().contains("NA"))
-                                        image ="http://drug.mfds.go.kr/html/images/noimages.png";
+                                    if (contact.child("item_image").getValue().toString().trim().contains("NA"))
+                                        image = "http://drug.mfds.go.kr/html/images/noimages.png";
                                     else {
                                         image = contact.child("item_image").getValue().toString();
                                     }
                                     String drug_index = contact.getKey();
                                     String company = contact.child("entp_name").getValue().toString();
                                     String title = contact.child("item_name").getValue().toString();
-                                    String drug_category =contact.child("prduct_type").getValue().toString();
+                                    String drug_category = contact.child("prduct_type").getValue().toString();
                                     String rating = contact.child("rating").getValue().toString();
 
-                                    HashMap<String,String> rankings = new HashMap<String,String>();
-                                    rankings.put(TAG_DRUG_INDEX,drug_index);
-                                    rankings.put(TAG_IMAGE,image);
-                                    rankings.put(TAG_DRUG_COMPANY,company);
-                                    rankings.put(TAG_DRUG_TITLE,title);
-                                    rankings.put(TAG_RATING,rating);
-                                    rankings.put(TAG_DRUG_CATEGORY,drug_category);
+                                    HashMap<String, String> rankings = new HashMap<String, String>();
+                                    rankings.put(TAG_DRUG_INDEX, drug_index);
+                                    rankings.put(TAG_IMAGE, image);
+                                    rankings.put(TAG_DRUG_COMPANY, company);
+                                    rankings.put(TAG_DRUG_TITLE, title);
+                                    rankings.put(TAG_RATING, rating);
+                                    rankings.put(TAG_DRUG_CATEGORY, drug_category);
 
-                                    // Hashmap을 rating 순으로 정렬;
-                                    rankList1.add(rankings);
-
-                                    Log.e("rankList", String.valueOf(rankList1));
-                                    rankAdapter1 = new RankAdapter(getActivity(),rankList1);
-                                    Log.e("onCreate[rankList]", "" + rankList1.size());
-                                    recyclerView1.setAdapter(rankAdapter1);
-                                    rankAdapter1.notifyDataSetChanged();
-
-                                    if (rankList1.size() == 20){
-                                        break;
-                                    }
+                                    rankList.add(rankings);
                                 }
+                                        Collections.sort(rankList, new Comparator<HashMap<String, String >>() {
+                                            @Override
+                                            public int compare(HashMap<String, String> first,
+                                                               HashMap<String, String> second) {
+
+                                                float firstValue = Float.parseFloat(first.get(TAG_RATING));
+                                                float secondValue = Float.parseFloat(second.get(TAG_RATING));
+
+                                                // 내림차순 정렬
+                                                if (firstValue > secondValue) {
+                                                    return -1;
+                                                } else if (firstValue < secondValue) {
+                                                    return 1;
+                                                } else /* if (firstValue == secondValue) */ {
+                                                    return 0;
+                                                }
+                                            }
+                                        });
+
+                                        Log.e("rankList", String.valueOf(rankList));
+                                        rankAdapter = new RankAdapter(getActivity(),rankList);
+                                        recyclerView.setAdapter(rankAdapter);
+                                        rankAdapter.notifyDataSetChanged();
+
+                                    }
                             }
 
                         @Override
@@ -339,6 +351,7 @@ public class MainActivity extends AppCompatActivity {
 
                         }
                     });
+
 
                     return rootView;
                 }
@@ -444,7 +457,6 @@ public class MainActivity extends AppCompatActivity {
                     morereviewbtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startActivity(new Intent(getContext(), ReviewSearchListActivity.class));
                         }
                     });
 

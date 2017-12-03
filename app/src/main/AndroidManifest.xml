@@ -94,21 +94,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity
-            android:name=".ReviewSearchListActivity"
-            android:windowSoftInputMode="stateHidden">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
         <activity android:name=".ReviewActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".SearchResultActivity" />
         </activity>
-        <activity android:name=".MyReviewActivity" />
-        <activity android:name=".FavoriteListActivity" />
-        <activity android:name=".MyReviewListActivity" />
         <activity
             android:name=".MyPageActivity"
             android:label="@string/title_activity_settings" />
