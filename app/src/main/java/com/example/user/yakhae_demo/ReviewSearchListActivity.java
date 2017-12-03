@@ -1,8 +1,7 @@
 package com.example.user.yakhae_demo;
 
-import android.support.v4.app.NavUtils;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
@@ -23,7 +22,7 @@ public class ReviewSearchListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case android.R.id.home:{
-                NavUtils.navigateUpFromSameTask(this);
+                onBackPressed();
                 return true;
             }
             default:

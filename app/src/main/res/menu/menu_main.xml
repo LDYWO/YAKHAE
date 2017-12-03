@@ -8,14 +8,7 @@
         android:icon="@drawable/ic_menu"
         android:orderInCategory="100"
         android:title="My Page"
-        app:showAsAction="never"/>
-
-    <item
-        android:id="@+id/Log_out"
-        android:icon="@drawable/ic_menu"
-        android:orderInCategory="100"
-        android:title="@string/action_logout"
-        app:showAsAction="never"/>
+        app:showAsAction="always"/>
 
     <item
         android:id="@+id/action_search"

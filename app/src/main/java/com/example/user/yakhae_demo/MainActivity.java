@@ -109,13 +109,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, MyPageActivity.class));
             return true;
         }
-        if (id == R.id.Log_out) {
-            firebaseAuth.signOut();
-            finish();
-            startActivity(new Intent(this, LoginActivity.class));
-
-            return true;
-        }
         if(id == R.id.action_search){
             searchView = (SearchView)menu_main.findItem(R.id.action_search).getActionView();
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

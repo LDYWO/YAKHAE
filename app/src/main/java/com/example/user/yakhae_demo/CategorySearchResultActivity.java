@@ -3,7 +3,6 @@ package com.example.user.yakhae_demo;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -76,7 +75,7 @@ public class CategorySearchResultActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case android.R.id.home:{
-                NavUtils.navigateUpFromSameTask(this);
+                onBackPressed();
                 return true;
             }
             default:

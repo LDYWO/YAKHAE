@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -22,7 +23,7 @@ public class MyPageActivity extends AppCompatActivity {
     String UserID, user_gender,userNickname, user_age, user_type,drug_index, drug_image, drug_type, drug_category;
     TextView User_name, User_Age, User_Gender, User_Type;
     ListView My_review_List;
-    Button settings_button;
+    Button settings_button,setting_user_info_button;
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -129,6 +130,26 @@ public class MyPageActivity extends AppCompatActivity {
                 startActivity(new Intent(MyPageActivity.this, SettingsActivity.class));
             }
         });
+
+        setting_user_info_button=(Button)findViewById(R.id.setting_user_info_button);
+        setting_user_info_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MyPageActivity.this, EditMyInfoActivity.class));
+            }
+        });
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case android.R.id.home:{
+                onBackPressed();
+                return true;
+            }
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
     }
 
 }

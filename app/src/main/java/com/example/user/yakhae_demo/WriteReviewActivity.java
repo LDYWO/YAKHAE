@@ -3,7 +3,6 @@ package com.example.user.yakhae_demo;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -182,7 +181,7 @@ public class WriteReviewActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case android.R.id.home:{
-                NavUtils.navigateUpFromSameTask(this);
+                onBackPressed();
                 return true;
             }
             case R.id.newPost:{
@@ -200,7 +199,7 @@ public class WriteReviewActivity extends AppCompatActivity {
                 createReview(company_name, medicine_name, userID, using_date, good_review, bad_review, drug_index, drug_image, drug_type, write_date, rating);
                 updateRating();
                 Toast.makeText(WriteReviewActivity.this, "리뷰가 등록 되었습니다.", Toast.LENGTH_SHORT).show();
-                NavUtils.navigateUpFromSameTask(this);
+                onBackPressed();
                 return true;
             }
             default:

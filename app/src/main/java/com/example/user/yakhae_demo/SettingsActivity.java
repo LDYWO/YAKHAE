@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -49,9 +50,32 @@ public class SettingsActivity extends AppCompatActivity {
         log_out_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                firebaseAuth.signOut();
-                finish();
-                startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
+                AlertDialog.Builder alertdialog = new AlertDialog.Builder(SettingsActivity.this);
+                //다이얼로그의 내용을 설정합니다.
+                alertdialog.setTitle("약해 로그아웃");
+                alertdialog.setMessage("로그아웃 하시겠습니까?");
+
+                //확인 버튼
+                alertdialog.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        firebaseAuth.signOut();
+                        finish();
+                        startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
+                    }
+                });
+
+                //취소 버튼
+                alertdialog.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //취소 버튼이 눌렸을 때 토스트를 띄워줍니다.
+                        Toast.makeText(SettingsActivity.this, "취소", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                AlertDialog alert = alertdialog.create();
+                alert.show();
             }
         });
 
@@ -61,7 +85,7 @@ public class SettingsActivity extends AppCompatActivity {
 
                 AlertDialog.Builder alertdialog = new AlertDialog.Builder(SettingsActivity.this);
                 //다이얼로그의 내용을 설정합니다.
-                alertdialog.setTitle("약회 탈퇴");
+                alertdialog.setTitle("약해 탈퇴");
                 alertdialog.setMessage("탈퇴 하시겠습니까?");
 
                 //확인 버튼
@@ -109,11 +133,23 @@ public class SettingsActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void result) {
-            Intent intent  = new Intent(SettingsActivity.this, LoginActivity.class);
+            Intent intent  = new Intent(SettingsActivity.this, SplashActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
             finish();
         }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case android.R.id.home:{
+                onBackPressed();
+                return true;
+            }
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
     }
 }
