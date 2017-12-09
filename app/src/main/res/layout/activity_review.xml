@@ -212,6 +212,7 @@
 
         <RatingBar
             android:id="@+id/ratingbar"
+            android:theme="@style/RatingBar"
             style="?android:attr/ratingBarStyleIndicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

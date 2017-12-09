@@ -73,6 +73,7 @@
     <RatingBar
         android:id="@+id/ratingbar"
         style="?android:attr/ratingBarStyleIndicator"
+        android:theme="@style/RatingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/medicine_image"
