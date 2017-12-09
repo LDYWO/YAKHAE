@@ -101,6 +101,8 @@
             android:layout_marginRight="20dp"
             android:layout_marginLeft="30dp"
             android:text="하얀부엉이"
+            android:inputType="text"
+            android:imeOptions="actionDone"
             android:textColor="@color/BLACK"
             android:textSize="15dp"/>
 
