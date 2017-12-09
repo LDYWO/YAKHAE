@@ -149,13 +149,13 @@ public class WriteReviewActivity extends AppCompatActivity {
     private void createReview(String company_name, String medicine_name, String userID, String using_date, String good_review, String bad_review, String drug_id, String drug_image, String drug_type, String write_date, float rating){
         Review review = new Review(company_name, medicine_name, userID, using_date, good_review, bad_review, drug_id, drug_image, drug_type, write_date, rating);
         DatabaseManager.databaseReference.child("reviews").child(drug_index).child(Uid).setValue(review);
+        updateRating();
     }
 
     private void updateRating(){
         mReviewDatabase.child(drug_index).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.e("Rating_average::", String.valueOf(Rating_average));
                 Iterable<DataSnapshot> childcontact = dataSnapshot.getChildren();
                 long childrenNum = dataSnapshot.getChildrenCount();
                 float Sum = 0;
@@ -203,7 +203,7 @@ public class WriteReviewActivity extends AppCompatActivity {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd   aa hh:mm:ss");
                 write_date = sdf.format(date);
                 createReview(company_name, medicine_name, userID, using_date, good_review, bad_review, drug_index, drug_image, drug_type, write_date, rating);
-                updateRating();
+                //updateRating();
                 Toast.makeText(WriteReviewActivity.this, "리뷰가 등록 되었습니다.", Toast.LENGTH_SHORT).show();
                 onBackPressed();
                 return true;

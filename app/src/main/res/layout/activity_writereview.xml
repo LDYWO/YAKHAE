@@ -101,9 +101,9 @@
         android:layout_alignBottom="@+id/date_range_image"
         android:layout_alignLeft="@+id/ratingbar"
         android:layout_alignStart="@+id/ratingbar"
-        android:background="@drawable/date_range_button"
+        android:background="@drawable/border"
         android:text="사용기간"
-        android:textColor="@color/colorButton"
+        android:textColor="@color/colorPrimaryDark"
         android:id="@+id/using_date_button" />
 
     <ImageView

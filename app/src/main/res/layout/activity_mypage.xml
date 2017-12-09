@@ -34,16 +34,17 @@
             android:layout_marginLeft="8dp"/>
 
         <LinearLayout
+            android:layout_marginLeft="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@color/WHITE">
+            android:background="#00ff0000">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:orientation="horizontal"
-                android:background="@color/GREY"
+                android:background="#00ff0000"
                 android:layout_weight="1">
 
                 <TextView
@@ -53,7 +54,7 @@
                     android:layout_gravity="center"
                     android:padding="3dp"
                     android:text="작성자 닉네임"
-                    android:textColor="@color/WHITE"
+                    android:textColor="@color/BLACK"
                     android:textStyle="bold" />
 
                 <TextView
@@ -63,7 +64,7 @@
                     android:layout_gravity="center"
                     android:padding="3dp"
                     android:text="작성자 타입"
-                    android:textColor="@color/WHITE" />
+                    android:textColor="@color/BLACK" />
 
             </LinearLayout>
 
@@ -71,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:orientation="horizontal"
-                android:background="@color/WHITE"
+                android:background="#00ff0000"
                 android:layout_weight="1">
 
                 <TextView
