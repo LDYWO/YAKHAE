@@ -17,7 +17,7 @@
             android:layout_weight="1"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/PopupOverlay"
-            app:title="글쓰기" />
+            app:title="커뮤니티 글쓰기" />
 
         <EditText
             android:id="@+id/community_title"
@@ -52,7 +52,9 @@
             android:layout_below="@+id/using_drug_type"
             android:layout_marginTop="34dp"
             android:background="@drawable/edit_text_box"
-            android:hint="\n*여기를 눌러서 글을 작성할 수 있습니다.\n 아래 내용을 지켜서 작성해 주시면 감사하겠습니다.\n\n[정보통신망법에 의한 홍보 게시물 작성 금지]\n1. 쇼핑몰, 오픈마켓, 쇼셜커머스 등 홍보 \n2. 광고가 있는 카페, 블로그, 커뮤니티, 앱의 추천, 홍보, 방문 유도 등\n3. 토익, 한자 등 어학원\n4. 연극, 영화 티켓 할인 서비스\n5. 안과, 치과, 피부과 등 의료업체\n\n[커뮤니티 이용규칙에 어긋나는 행위 금지]\n1. 욕설, 비하, 음란물, 개인정보가 포함된 게시물 게시 \n2. 특정인이나 단체/지역을 비방하는 행위\n3. 기타 현행법에 어긋나는 행위\n\n 사용한 의약품의 자세한 리뷰를 남겨주세요.\n\n일반의약품 - 임상소감 공유\n전문의약품 - 부작용과 약효정보 공유\n"
+            android:inputType="text"
+            android:imeOptions="actionDone"
+            android:hint="\n**사용한 의약품의 자세한 리뷰를 남겨주세요.**\n\n*일반의약품 - 임상소감 공유\n*전문의약품 - 부작용과 약효정보 공유\n\n\n\n*여기를 눌러서 글을 작성할 수 있습니다.\n 아래 내용을 지켜서 작성해 주시면 감사하겠습니다.\n\n[정보통신망법에 의한 홍보 게시물 작성 금지]\n1. 쇼핑몰, 오픈마켓, 쇼셜커머스 등 홍보 \n2. 광고가 있는 카페, 블로그, 커뮤니티, 앱의 추천, 홍보, 방문 유도 등\n3. 토익, 한자 등 어학원\n4. 연극, 영화 티켓 할인 서비스\n5. 안과, 치과, 피부과 등 의료업체\n\n[커뮤니티 이용규칙에 어긋나는 행위 금지]\n1. 욕설, 비하, 음란물, 개인정보가 포함된 게시물 게시 \n2. 특정인이나 단체/지역을 비방하는 행위\n3. 기타 현행법에 어긋나는 행위\n"
             android:textColor="@color/GREY"
             android:textSize="12dp" />
 

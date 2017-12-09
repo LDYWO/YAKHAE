@@ -3,12 +3,13 @@ package com.example.user.yakhae_demo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,10 +20,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class MyPageActivity extends AppCompatActivity {
     String UserID, user_gender,userNickname, user_age, user_type,drug_index, drug_image, drug_type, drug_category;
     TextView User_name, User_Age, User_Gender, User_Type;
-    ListView My_review_List;
     Button settings_button,setting_user_info_button;
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -30,7 +33,20 @@ public class MyPageActivity extends AppCompatActivity {
     DatabaseReference mUserDatabase = FirebaseDatabase.getInstance().getReference("users");
     DatabaseReference mReviewDatabase = FirebaseDatabase.getInstance().getReference("reviews");
 
-    MyReviewItemAdapter adapter = new MyReviewItemAdapter();
+    MyReviewItemAdapter adapter;
+    ArrayList<HashMap<String, String>> reviewList;
+
+    private static final String TAG_POSTID = "postID";
+    private static final String TAG_WRITER = "writer";
+    private static final String TAG_DATE="date";
+    private static final String TAG_RATING ="rating";
+    private static final String TAG_DRUG_TITLE="drug_title";
+    private static final String TAG_DRUG_CATEGORY="drug_category";
+    private static final String TAG_GOOD_CONTENT="good_content";
+    private static final String TAG_BAD_CONTENT="bad_content";
+    private static final String TAG_DRUG_COMPANY="drug_company";
+    private static final String TAG_IMAGE="drug_image";
+    private static final String TAG_DRUG_INDEX="drug_index";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +63,9 @@ public class MyPageActivity extends AppCompatActivity {
         User_Age = (TextView)findViewById(R.id.user_age);
         User_Type = (TextView)findViewById(R.id.user_type);
 
-        My_review_List = (ListView)findViewById(R.id.my_reviews);
+        //My_review_List = (ListView)findViewById(R.id.my_reviews);
 
         UserID = user.getUid();
-
         mUserDatabase.child(UserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -73,7 +88,14 @@ public class MyPageActivity extends AppCompatActivity {
             }
         });
 
-        mReviewDatabase.addValueEventListener(new ValueEventListener() {
+        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.review_recyclerview);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(layoutManager);
+
+        reviewList = new ArrayList<HashMap<String, String>>();
+
+       mReviewDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -92,6 +114,7 @@ public class MyPageActivity extends AppCompatActivity {
                             }
                             String drug_index = contact.getKey();
                             String userID = contact2.getKey();
+                            String writer = contact2.child("userID").getValue().toString();
                             String company = contact2.child("company_name").getValue().toString();
                             String title = contact2.child("medicine_name").getValue().toString();
                             String drug_category =contact2.child("drug_type").getValue().toString();
@@ -100,18 +123,27 @@ public class MyPageActivity extends AppCompatActivity {
                             String rating = contact2.child("rating").getValue().toString();
                             String date = contact2.child("using_date").getValue().toString();
 
-                            adapter.addItem(drug_index,image,
-                                    company, title,
-                                    drug_category, good_content,
-                                    bad_content,userID, Float.valueOf(rating),date);
+                            HashMap<String,String> reviews = new HashMap<String,String>();
+                            reviews.put(TAG_DRUG_INDEX,drug_index);
+                            reviews.put(TAG_POSTID,userID);
+                            reviews.put(TAG_IMAGE,image);
+                            reviews.put(TAG_WRITER,writer);
+                            reviews.put(TAG_DRUG_COMPANY,company);
+                            reviews.put(TAG_DRUG_TITLE,title);
+                            reviews.put(TAG_GOOD_CONTENT,good_content);
+                            reviews.put(TAG_BAD_CONTENT, bad_content);
+                            reviews.put(TAG_RATING,rating);
+                            reviews.put(TAG_DRUG_CATEGORY,drug_category);
+                            reviews.put(TAG_DATE,date);
+
+                            reviewList.add(reviews);
+
+                            adapter = new MyReviewItemAdapter(getApplicationContext(),reviewList);
+                            Log.e("onCreate[reviewList]", "" + reviewList.size());
+                            recyclerView.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
 
                         }
-
-                        My_review_List.setAdapter(adapter);
-
-                        Log.i("reviews_drug:",contact2.getKey());
-
-
                     }
                 }
 

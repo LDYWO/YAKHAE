@@ -30,7 +30,6 @@ public class SearchResultActivity extends AppCompatActivity {
     Intent intent;
     String search;
     Toolbar toolbar;
-    String encodeResult;
 
 
     @Override
@@ -55,7 +54,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
         progressDialog1 = new ProgressDialog(this);
         progressDialog1.setMessage("검색 중 입니다...");
-        progressDialog1.show();
+
 
         FirebaseAsyncTask firebaseAsyncTask = new FirebaseAsyncTask();
         firebaseAsyncTask.execute();
@@ -78,15 +77,20 @@ public class SearchResultActivity extends AppCompatActivity {
     private class FirebaseAsyncTask extends AsyncTask<Void, Void, Void>{
 
         @Override
-        protected void onPreExecute() {
+        protected void onPreExecute()
+        {
+            progressDialog1.show();
+            adapter.drugInfoItemsList.clear();
             super.onPreExecute();
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
+            adapter.drugInfoItemsList.clear();
             mDatabase.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
+                    adapter.drugInfoItemsList.clear();
                     Iterable<DataSnapshot> childcontact = dataSnapshot.getChildren();
                     for (DataSnapshot contact : childcontact){
                        // Log.i("contact_Drug_infof:::",contact.getKey().toString());
@@ -106,6 +110,7 @@ public class SearchResultActivity extends AppCompatActivity {
                                         contact.child("item_ingr_name").getValue().toString(),
                                         "없음",
                                         Float.parseFloat(contact.child("rating").getValue().toString()));
+                                adapter.initTaboo();
                             }
                             else{
                                 adapter.addItem(
@@ -118,12 +123,13 @@ public class SearchResultActivity extends AppCompatActivity {
                                         contact.child("item_ingr_name").getValue().toString(),
                                         "없음",
                                         Float.parseFloat(contact.child("rating").getValue().toString()));
-
+                                adapter.initTaboo();
                                 }
                         }
 
                             toolbar.setTitle(search);
                         }
+
                 }
 
 
@@ -138,9 +144,8 @@ public class SearchResultActivity extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     Iterable<DataSnapshot> childcontact = dataSnapshot.getChildren();
                     for (DataSnapshot contact : childcontact){
-                        //Log.i("contact_Drug_infof:::",contact.getKey().toString());
-                        //Log.i("type_name_b:::",contact.child("type_name_b").getValue().toString());
                         if(contact.child("ingr_name").getValue().toString().contains(search)){
+                            adapter.initTaboo();
                             adapter.setTaboo(contact.child("type_name_b").getValue().toString()+", "+
                                             contact.child("type_name_h").getValue().toString()+", "+
                                             contact.child("type_name_i").getValue().toString()+", "+
@@ -148,8 +153,13 @@ public class SearchResultActivity extends AppCompatActivity {
                                             contact.child("type_name_t").getValue().toString()+", "+
                                             contact.child("type_name_ty").getValue().toString()+", "+
                                             contact.child("type_name_y").getValue().toString(),
-                                    contact.child("ingr_name").getValue().toString());
+                                    contact.child("ingr_name").getValue().toString(),
+                                    contact.child("prohbt_content").getValue().toString());
+                            Log.e("prohbt::",contact.child("prohbt_content").getValue().toString());
                         }
+                    }
+                    if (dataSnapshot.exists()){
+                        progressDialog1.dismiss();
                     }
                 }
 
@@ -180,6 +190,7 @@ public class SearchResultActivity extends AppCompatActivity {
                     String drug_type = item.getDrug_type();
                     String drug_main_ingre = item.getMain_ingredient();
                     String drug_taboo = item.getTaboo();
+                    String drug_prohibit = item.getProhibited_content();
                     Float drug_rating = item.getRating();
                     String drug_rating_num = item.getRating_number();
 
@@ -194,12 +205,12 @@ public class SearchResultActivity extends AppCompatActivity {
                     intent.putExtra("drug_taboo",drug_taboo.toString());
                     intent.putExtra("drug_rating",drug_rating.toString());
                     intent.putExtra("drug_rating_num",drug_rating_num.toString());
+                    intent.putExtra("drug_prohibit",drug_prohibit.toString());
                     startActivity(intent);
                 }
             });
 
-            progressDialog1.dismiss();
-
+            adapter.drugInfoItemsList.clear();
         }
     }
 

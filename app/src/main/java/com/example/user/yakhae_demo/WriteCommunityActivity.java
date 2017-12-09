@@ -69,6 +69,7 @@ public class WriteCommunityActivity extends AppCompatActivity {
         });
 
 
+
         Using_drug_type = (Button)findViewById(R.id.using_drug_type);
         Using_drug_type.setOnClickListener(new View.OnClickListener() {
             @Override

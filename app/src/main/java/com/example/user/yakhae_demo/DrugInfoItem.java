@@ -15,6 +15,7 @@ public class DrugInfoItem {
     private String drug_category;
     private String main_ingredient;
     private String taboo;
+    private String prohibited_content;
     private Float rating;
     private String rating_number;
     private String search;
@@ -44,6 +45,7 @@ public class DrugInfoItem {
     public void setTaboo(String Taboo){
         taboo = Taboo;
     }
+    public void setProhibited_content(String prohibited_content){this.prohibited_content = prohibited_content;}
     public void setRating(Float rate){
         rating = rate;
     }
@@ -71,6 +73,7 @@ public class DrugInfoItem {
     public String getTaboo(){
         return this.taboo;
     }
+    public String getProhibited_content(){return  this.prohibited_content;}
     public Float getRating (){
         return this.rating;
     }

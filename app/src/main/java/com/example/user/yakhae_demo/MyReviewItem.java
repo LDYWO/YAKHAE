@@ -5,24 +5,15 @@ package com.example.user.yakhae_demo;
  */
 
 public class MyReviewItem {
-    private String using_date;
     private String drug_index;
     private String drug_image;
     private String drug_company;
     private String drug_name;
-    private String drug_type;
+    private String user_name;
     private Float rating;
     private String advantage;
     private String disadvantage;
     private String Uid;
-
-    public String getUsing_date() {
-        return this.using_date;
-    }
-
-    public void setUsing_date(String using_date) {
-        this.using_date = using_date;
-    }
 
     public String getUid() {
         return Uid;
@@ -64,12 +55,12 @@ public class MyReviewItem {
         drug_name = drugname;
     }
 
-    public String getDrug_type() {
-        return this.drug_type;
+    public String getUser_name() {
+        return user_name;
     }
 
-    public void setDrug_type(String drug_type) {
-        this.drug_type = drug_type;
+    public void setUser_name(String username) {
+        user_name = username;
     }
 
     public Float getRating() {

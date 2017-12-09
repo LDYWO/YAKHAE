@@ -9,24 +9,31 @@
         android:id="@+id/ingre_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="   정보"
-        android:textSize="20dp"
+        android:text="   의약품 정보"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:padding="5dp"
         android:textColor="@color/colorPrimary"
         android:background="#dddddd"/>
 
     <TextView
         android:id="@+id/drug_type_textview"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
         android:layout_below="@+id/ingre_title"
         android:background="@drawable/review_border"
         android:textAlignment="center"
+        android:gravity="center"
         android:text="일반의약품/전문의약품"/>
 
     <TextView
         android:id="@+id/drug_category_textview"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:gravity="center"
         android:layout_below="@+id/drug_type_textview"
         android:background="@drawable/review_border"
         android:textAlignment="center"
@@ -35,7 +42,9 @@
     <TextView
         android:id="@+id/ingredient_textview"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:gravity="center"
         android:layout_below="@+id/drug_category_textview"
         android:background="@drawable/review_border"
         android:textAlignment="center"
@@ -44,7 +53,9 @@
     <TextView
         android:id="@+id/taboo_textview"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:gravity="center"
         android:layout_below="@+id/ingredient_textview"
         android:background="@drawable/review_border"
         android:textAlignment="center"

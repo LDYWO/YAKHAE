@@ -47,7 +47,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:orientation="horizontal"
-                    android:background="@color/colorPrimaryDark"
+                    android:background="@color/GREY"
                     android:layout_weight="1">
 
                     <TextView
@@ -231,7 +231,7 @@
             android:layout_alignStart="@+id/rataing_title"
             android:layout_below="@+id/rataing_title"
             android:layout_marginTop="28dp"
-            android:src="@drawable/ic_date_range"
+            app:srcCompat="@drawable/ic_date_range"
             android:id="@+id/date_range_image" />
 
         <Button
@@ -254,7 +254,7 @@
             android:layout_alignStart="@+id/date_range_image"
             android:layout_below="@+id/date_range_image"
             android:layout_marginTop="27dp"
-            android:src="@drawable/ic_thumb_up"
+            app:srcCompat="@drawable/ic_thumb_up"
             android:id="@+id/thumb_up_image" />
 
         <TextView
@@ -288,7 +288,7 @@
             android:layout_alignStart="@+id/date_range_image"
             android:layout_below="@+id/good_review_edittext"
             android:layout_marginTop="27dp"
-            android:src="@drawable/ic_thumb_down"
+            app:srcCompat="@drawable/ic_thumb_down"
             android:id="@+id/thumb_down_image" />
 
         <TextView
@@ -352,6 +352,8 @@
 
             <EditText
                 android:id="@+id/send_message"
+                android:inputType="text"
+                android:imeOptions="actionDone"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="40dp"

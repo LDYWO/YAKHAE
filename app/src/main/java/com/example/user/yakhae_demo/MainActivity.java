@@ -1,5 +1,6 @@
 package com.example.user.yakhae_demo;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -191,6 +192,10 @@ public class MainActivity extends AppCompatActivity {
         public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                                  Bundle savedInstanceState) {
 
+            final ProgressDialog progressDialog = new ProgressDialog(getContext());
+            progressDialog.setMessage("로딩 중 입니다. 기다려 주세요...");
+            progressDialog.show();
+
             switch (getArguments().getInt(ARG_SECTION_NUMBER)){
                 case 1:
                 {
@@ -267,6 +272,10 @@ public class MainActivity extends AppCompatActivity {
                                 recyclerView.setAdapter(postAdapter);
                                 postAdapter.notifyDataSetChanged();
                             }
+                            if (dataSnapshot.exists()){
+                                progressDialog.dismiss();
+                            }
+
                         }
 
                         @Override
@@ -288,38 +297,42 @@ public class MainActivity extends AppCompatActivity {
 
                     rankList = new ArrayList<HashMap<String, String>>();
 
-                    mDrugDatabase.addValueEventListener(new ValueEventListener() {
+                    mReviewDatabase.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             rankList.clear();
                             Iterable<DataSnapshot> childcontact = dataSnapshot.getChildren();
                             for (DataSnapshot contact:childcontact){
+                                String getKey = contact.getKey();
 
-                                if (Float.parseFloat(contact.child("rating").getValue().toString()) > 0.1 ) {
+                                mDrugDatabase.child(getKey).addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        Log.e("???::", dataSnapshot.toString());
+                                        String image;
+                                        if (dataSnapshot.child("item_image").getValue().toString().trim().contains("NA"))
+                                            image = "http://drug.mfds.go.kr/html/images/noimages.png";
+                                        else {
+                                            image = dataSnapshot.child("item_image").getValue().toString();
+                                        }
 
-                                    String image;
-                                    if (contact.child("item_image").getValue().toString().trim().contains("NA"))
-                                        image = "http://drug.mfds.go.kr/html/images/noimages.png";
-                                    else {
-                                        image = contact.child("item_image").getValue().toString();
-                                    }
-                                    String drug_index = contact.getKey();
-                                    String company = contact.child("entp_name").getValue().toString();
-                                    String title = contact.child("item_name").getValue().toString();
-                                    String drug_category = contact.child("prduct_type").getValue().toString();
-                                    String rating = contact.child("rating").getValue().toString();
+                                        String drug_index = dataSnapshot.getKey();
+                                        String company = dataSnapshot.child("entp_name").getValue().toString();
+                                        String title = dataSnapshot.child("item_name").getValue().toString();
+                                        String drug_category = dataSnapshot.child("prduct_type").getValue().toString();
+                                        String rating = dataSnapshot.child("rating").getValue().toString();
 
-                                    HashMap<String, String> rankings = new HashMap<String, String>();
-                                    rankings.put(TAG_DRUG_INDEX, drug_index);
-                                    rankings.put(TAG_IMAGE, image);
-                                    rankings.put(TAG_DRUG_COMPANY, company);
-                                    rankings.put(TAG_DRUG_TITLE, title);
-                                    rankings.put(TAG_RATING, rating);
-                                    rankings.put(TAG_DRUG_CATEGORY, drug_category);
+                                        HashMap<String, String> rankings = new HashMap<String, String>();
+                                        rankings.put(TAG_DRUG_INDEX, drug_index);
+                                        rankings.put(TAG_IMAGE, image);
+                                        rankings.put(TAG_DRUG_COMPANY, company);
+                                        rankings.put(TAG_DRUG_TITLE, title);
+                                        rankings.put(TAG_RATING, rating);
+                                        rankings.put(TAG_DRUG_CATEGORY, drug_category);
 
-                                    rankList.add(rankings);
-                                }
-                                        Collections.sort(rankList, new Comparator<HashMap<String, String >>() {
+                                        rankList.add(rankings);
+
+                                        Collections.sort(rankList, new Comparator<HashMap<String, String>>() {
                                             @Override
                                             public int compare(HashMap<String, String> first,
                                                                HashMap<String, String> second) {
@@ -338,13 +351,24 @@ public class MainActivity extends AppCompatActivity {
                                             }
                                         });
 
-                                        Log.e("rankList", String.valueOf(rankList));
-                                        rankAdapter = new RankAdapter(getActivity(),rankList);
+                                        //  Log.e("rankList", String.valueOf(rankList));
+                                        rankAdapter = new RankAdapter(getActivity(), rankList);
                                         recyclerView.setAdapter(rankAdapter);
+
                                         rankAdapter.notifyDataSetChanged();
 
+                                        if (dataSnapshot.exists()){
+                                            progressDialog.dismiss();
+                                        }
                                     }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
                             }
+                        }
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
@@ -375,7 +399,6 @@ public class MainActivity extends AppCompatActivity {
                                 Iterable<DataSnapshot> childchildcontact= contact.getChildren();
                                 for(DataSnapshot contact2 :childchildcontact){
                                     Log.i("reviews_drug:",contact2.getKey());
-
                                     String image;
                                     if(contact2.child("drug_image").getValue().toString().trim().contains("NA"))
                                         image ="http://drug.mfds.go.kr/html/images/noimages.png";
@@ -414,6 +437,9 @@ public class MainActivity extends AppCompatActivity {
                                     fragmentReviewAdapter.notifyDataSetChanged();
 
                                 }
+                            }
+                            if (dataSnapshot.exists()){
+                                progressDialog.dismiss();
                             }
                         }
 

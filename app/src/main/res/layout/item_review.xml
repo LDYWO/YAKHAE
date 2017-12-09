@@ -115,7 +115,7 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/ic_thumb_up"
+                        card_view:srcCompat="@drawable/ic_thumb_up"
                         android:id="@+id/thumb_up_image"/>
 
                     <TextView
@@ -140,7 +140,7 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/ic_thumb_down"
+                        card_view:srcCompat="@drawable/ic_thumb_down"
                         android:id="@+id/thumb_down_image"
                         android:layout_below="@+id/tv_good_content"/>
 
@@ -208,7 +208,7 @@
                         android:layout_toRightOf="@+id/rating_text"
                         android:layout_marginLeft="5dp"
                         android:layout_below="@id/tv_writer"
-                        android:stepSize="0.5"
+                        android:stepSize="0.1"
                         android:isIndicator="true"
                         android:numStars="5"
                         android:rating="0"
@@ -234,7 +234,7 @@
                         android:layout_marginTop="27dp"
                         android:layout_below="@+id/tv_bad_content"
                         android:layout_toLeftOf="@+id/comment_button"
-                        android:src="@drawable/ic_mode_comment" />
+                        card_view:srcCompat="@drawable/ic_mode_comment" />
 
                     <Button
                         android:id="@+id/comment_button"

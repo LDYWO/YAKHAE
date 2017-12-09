@@ -42,12 +42,29 @@ public class FragmentReviewAdapter extends RecyclerView.Adapter<FragmentReviewAd
 
         Glide.with(context).load(noticeItem.get("drug_image")).into(holder.tv_drug_image);
 
+        String drug_company = noticeItem.get("drug_company");
+        String drug_name = noticeItem.get("drug_title");
+        String drug_category = noticeItem.get("drug_category");
+
+         if(drug_name.length() > 10){
+            drug_name = drug_name.trim().substring(0,10)+"...";
+        }
+        if(drug_name.contains("\n")){
+            int index = drug_name.indexOf("\n");
+            drug_name = drug_name.trim().substring(0,index)+"...";
+        }
+        if(drug_category.trim().contains("]")) {
+            int index = drug_category.indexOf("]");
+            drug_category = drug_category.substring(index+1,drug_category.length());
+        }
+
+
         holder.tv_writer.setText(noticeItem.get("writer")); //작성자
-        holder.tv_drug_title.setText(noticeItem.get("drug_title")); //약 이름
-        holder.tv_drug_category.setText(noticeItem.get("drug_category"));//의약품 종류
+        holder.tv_drug_title.setText(drug_name); //약 이름
+        holder.tv_drug_category.setText(drug_category);//의약품 종류
         holder.tv_good_content.setText(noticeItem.get("good_content")); //좋았던 점
         holder.tv_bad_content.setText(noticeItem.get("bad_content")); //아쉬웠던 점
-        holder.tv_drug_company.setText(noticeItem.get("drug_company")); //제약회사
+        holder.tv_drug_company.setText(drug_company); //제약회사
         holder.ratingBar.setRating(Float.valueOf(noticeItem.get("rating")));
         holder.tv_date.setText(noticeItem.get("date"));
         holder.tv_ratingnum.setText(noticeItem.get("rating"));

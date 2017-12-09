@@ -52,18 +52,30 @@ public class DrugInfoItemDetailAdapter extends BaseAdapter{
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         DrugInfoItem drugInfoItem = drugInfoItemsList.get(position);
 
+        String drug_category = drugInfoItem.getDrug_category();
+        String drug_taboo = drugInfoItem.getTaboo();
+        String drug_prohibit = drugInfoItem.getProhibited_content();
 
+        drug_taboo=drug_taboo.trim().replaceAll(", ","");
+        drug_taboo=drug_taboo.trim().replaceAll("NA","");
+        drug_taboo=drug_taboo.trim()+" / "+drug_prohibit;
+
+        if(drug_category.trim().contains("]")) {
+            int index = drug_category.indexOf("]");
+            drug_category = drug_category.substring(index+1,drug_category.length());
+        }
 
         // 아이템 내 각 위젯에 데이터 반영
         drugTypeTextView.setText("일반의약품/전문의약품: "+drugInfoItem.getDrug_type());
-        drugCategoryTextView.setText("약품 분류: "+drugInfoItem.getDrug_category());
+        drugCategoryTextView.setText("약품 분류: "+drug_category);
         drugMainIngredientTextView.setText("성분 구성: "+drugInfoItem.getMain_ingredient());
-        drugTabooTextView.setText("금기 사항: "+drugInfoItem.getTaboo());
+
+        drugTabooTextView.setText("금기 사항: "+drug_taboo);
 
         return convertView;
     }
 
-    public void addItem(String imageURL, String type, String category, String ingre, String taboo) {
+    public void addItem(String imageURL, String type, String category, String ingre, String taboo,String prohibit) {
         DrugInfoItem item = new DrugInfoItem();
 
         item.setDrug_image(imageURL);
@@ -71,6 +83,7 @@ public class DrugInfoItemDetailAdapter extends BaseAdapter{
         item.setDrug_category(category);
         item.setMain_ingredient(ingre);
         item.setTaboo(taboo);
+        item.setProhibited_content(prohibit);
 
         drugInfoItemsList.add(item);
     }

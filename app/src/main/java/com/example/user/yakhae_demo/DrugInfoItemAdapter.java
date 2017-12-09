@@ -65,13 +65,44 @@ public class DrugInfoItemAdapter extends BaseAdapter{
         Log.e("drugURL:;",drugInfoItem.getDrug_image());
         Glide.with(context).load(drugInfoItem.getDrug_image()).into(drugImageView);
 
+        String drug_company = drugInfoItem.getDrug_company();
+        String drug_name = drugInfoItem.getDrug_name();
+        String drug_type = drugInfoItem.getDrug_type();
+        String drug_category = drugInfoItem.getDrug_category();
+        String drug_ingr = drugInfoItem.getMain_ingredient();
+        String drug_taboo = drugInfoItem.getTaboo();
+
+        drug_taboo=drug_taboo.trim().replaceAll(",","");
+        drug_taboo=drug_taboo.trim().replaceAll("NA","");
+
+        if(drug_name.contains("(") && drug_name.length() > 25) {
+            int index = drug_name.indexOf("(");
+            drug_name = drug_name.trim().substring(0,index)+"...";
+        }
+        else if(drug_name.length() > 15){
+            drug_name = drug_name.trim().substring(0,15)+"...";
+        }
+        if(drug_name.contains("\n")){
+            int index = drug_name.indexOf("\n");
+            drug_name = drug_name.trim().substring(0,index)+"...";
+        }
+
+        if(drug_ingr.length() > 13 ) {
+            drug_ingr = drug_ingr.substring(0,13) + "...";
+        }
+        if(drug_category.trim().contains("]")) {
+            int index = drug_category.indexOf("]");
+            drug_category = drug_category.substring(index+1,drug_category.length());
+        }
+
         // 아이템 내 각 위젯에 데이터 반영
-        drugCompanyTextView.setText(drugInfoItem.getDrug_company());
-        drugNameTextView.setText(drugInfoItem.getDrug_name());
-        drugTypeTextView.setText(drugInfoItem.getDrug_type());
-        drugCategoryTextView.setText(drugInfoItem.getDrug_category());
-        drugMainIngredientTextView.setText(drugInfoItem.getMain_ingredient());
-        drugTabooTextView.setText(drugInfoItem.getTaboo());
+        drugCompanyTextView.setText(drug_company);
+        drugNameTextView.setText(drug_name.trim());
+        drugTypeTextView.setText(drug_type);
+        drugCategoryTextView.setText(drug_category);
+        drugMainIngredientTextView.setText(drug_ingr);
+        drugTabooTextView.setText(drug_taboo);
+
         drugRatingBar.setRating(drugInfoItem.getRating());
         drugRatingNum.setText(drugInfoItem.getRating_number());
 
@@ -95,10 +126,17 @@ public class DrugInfoItemAdapter extends BaseAdapter{
         drugInfoItemsList.add(item);
     }
 
-    public void setTaboo(String taboo,String ingr){
+    public void initTaboo(){
+        for(int i=0;i<drugInfoItemsList.size();i++){
+            drugInfoItemsList.get(i).setTaboo("없음");
+            drugInfoItemsList.get(i).setProhibited_content("없음");
+        }
+    }
+    public void setTaboo(String taboo,String ingr,String prohibit){
         for(int i=0;i<drugInfoItemsList.size();i++){
             if(drugInfoItemsList.get(i).getMain_ingredient().contains(ingr)){
                 drugInfoItemsList.get(i).setTaboo(taboo);
+                drugInfoItemsList.get(i).setProhibited_content(prohibit);
             }
         }
     }

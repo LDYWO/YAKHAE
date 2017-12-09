@@ -24,10 +24,10 @@
             app:title="약품 정보"/>
 
     <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:src="@drawable/pills"
+        android:src="@drawable/general_medicine"
         android:layout_marginTop="25dp"
         android:layout_marginBottom="10dp"
         android:id="@+id/drug_image" />
@@ -58,16 +58,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="10dp"
         android:isIndicator="true"
         android:numStars="5"
         android:rating="0"
-        android:stepSize="0.5" />
+        android:stepSize="0.1" />
 
     <TextView
         android:id="@+id/rating_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="7dp"
         android:padding="5dp"
         android:text="평점" />
 
@@ -84,7 +86,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="   리뷰"
-        android:textSize="20dp"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:padding="5dp"
         android:textColor="@color/colorPrimary"
         android:background="#dddddd"/>
 
@@ -92,7 +97,11 @@
             android:id="@+id/review_listview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:padding="5dp"
+            android:clipToPadding="false"
+            android:divider="#00000000"
+            android:dividerHeight="8dp">
         </ListView>
 
         <android.support.design.widget.FloatingActionButton

@@ -1,5 +1,6 @@
 package com.example.user.yakhae_demo;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -27,6 +28,8 @@ public class CategorySearchResultActivity extends AppCompatActivity {
     Button searchButton;
     String selected, drug_ingr;
 
+    ProgressDialog progressDialog;
+
     ListView listView;
     DrugInfoItemAdapter adapter = new DrugInfoItemAdapter();
 
@@ -50,8 +53,8 @@ public class CategorySearchResultActivity extends AppCompatActivity {
         arrayAdapter = ArrayAdapter.createFromResource(this, R.array.Category,android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
 
-
-
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("검색 중 입니다...");
 
         searchButton=(Button)findViewById(R.id.searchButton);
 
@@ -88,6 +91,7 @@ public class CategorySearchResultActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
+            progressDialog.show();
             super.onPreExecute();
         }
 
@@ -118,6 +122,7 @@ public class CategorySearchResultActivity extends AppCompatActivity {
                                         contact.child("item_ingr_name").getValue().toString(),
                                         "없음",
                                         Float.parseFloat(contact.child("rating").getValue().toString()));
+                                adapter.initTaboo();
                             }
                             else{
                                 adapter.addItem(
@@ -130,10 +135,11 @@ public class CategorySearchResultActivity extends AppCompatActivity {
                                         contact.child("item_ingr_name").getValue().toString(),
                                         "없음",
                                         Float.parseFloat(contact.child("rating").getValue().toString()));
-
+                                adapter.initTaboo();
                             }
                         }
                     }
+                    adapter.initTaboo();
                     listView.setAdapter(adapter);
 
                 }
@@ -147,10 +153,9 @@ public class CategorySearchResultActivity extends AppCompatActivity {
             mDatabase2.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
+                    adapter.initTaboo();
                     Iterable<DataSnapshot> childcontact = dataSnapshot.getChildren();
                     for (DataSnapshot contact : childcontact){
-                        //Log.i("contact_Drug_infof:::",contact.getKey().toString());
-                        //Log.i("type_name_b:::",contact.child("type_name_b").getValue().toString());
                         if(drug_ingr.contains(contact.child("ingr_name").getValue().toString())){
                             adapter.setTaboo(contact.child("type_name_b").getValue().toString()+", "+
                                             contact.child("type_name_h").getValue().toString()+", "+
@@ -159,10 +164,15 @@ public class CategorySearchResultActivity extends AppCompatActivity {
                                             contact.child("type_name_t").getValue().toString()+", "+
                                             contact.child("type_name_ty").getValue().toString()+", "+
                                             contact.child("type_name_y").getValue().toString(),
-                                    contact.child("ingr_name").getValue().toString());
+                                    contact.child("ingr_name").getValue().toString(),
+                                    contact.child("prohbt_content").getValue().toString());
                         }
                     }
                     listView.setAdapter(adapter);
+
+                    if (dataSnapshot.exists()){
+                        progressDialog.dismiss();
+                    }
                 }
 
                 @Override
@@ -191,6 +201,7 @@ public class CategorySearchResultActivity extends AppCompatActivity {
                     String drug_type = item.getDrug_type();
                     String drug_main_ingre = item.getMain_ingredient();
                     String drug_taboo = item.getTaboo();
+                    String drug_prohibit = item.getProhibited_content();
                     Float drug_rating = item.getRating();
                     String drug_rating_num = item.getRating_number();
 
@@ -205,6 +216,7 @@ public class CategorySearchResultActivity extends AppCompatActivity {
                     intent.putExtra("drug_taboo",drug_taboo.toString());
                     intent.putExtra("drug_rating",drug_rating.toString());
                     intent.putExtra("drug_rating_num",drug_rating_num.toString());
+                    intent.putExtra("drug_prohibit",drug_prohibit.toString());
                     startActivity(intent);
                 }
             });

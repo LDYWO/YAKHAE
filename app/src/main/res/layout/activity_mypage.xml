@@ -141,15 +141,11 @@
             android:enabled="false"/>
     </RelativeLayout>
 
-    <ListView
-        android:layout_width="match_parent"
+    <android.support.v7.widget.RecyclerView
         android:layout_height="wrap_content"
+        android:layout_width="match_parent"
         android:layout_below="@+id/review_title"
-        android:id="@+id/my_reviews"
-        android:padding="5dp"
-        android:clipToPadding="false"
-        android:divider="#00000000"
-        android:dividerHeight="10dp"
-        android:footerDividersEnabled="true">
-    </ListView>
+        android:id="@+id/review_recyclerview">
+    </android.support.v7.widget.RecyclerView>
+
 </RelativeLayout>

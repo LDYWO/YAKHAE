@@ -21,10 +21,9 @@
         android:orientation="vertical"
         android:background="@color/WHITE">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:background="@color/colorPrimary">
 
             <TextView
@@ -32,26 +31,29 @@
                 android:layout_height="wrap_content"
                 android:text="제약회사"
                 android:id="@+id/drug_company"
-                android:layout_gravity="center"
+                android:layout_centerVertical="true"
                 android:padding="3dp"
-                android:textColor="@color/WHITE"/>
+                android:textColor="@color/WHITE"
+                android:textSize="10dp"/>
 
             <TextView
                 android:id="@+id/drug_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/drug_company"
+                android:layout_toRightOf="@+id/drug_company"
                 android:padding="3dp"
                 android:text="약품명"
                 android:textColor="@color/WHITE"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="13dp"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:background="@color/WHITE">
 
             <TextView
@@ -59,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:text="일반의약품/전문의약품"
                 android:id="@+id/drug_type"
-                android:layout_gravity="center"
+                android:layout_centerVertical="true"
                 android:padding="3dp"
                 android:textColor="@color/BLACK"
                 android:textStyle="bold"/>
@@ -69,15 +71,16 @@
                 android:layout_height="wrap_content"
                 android:text="약품 분류"
                 android:id="@+id/drug_category"
-                android:layout_gravity="center"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/drug_type"
+                android:layout_toRightOf="@+id/drug_type"
                 android:padding="3dp"
-                android:textColor="@color/BLACK"/>
+                android:textColor="@color/BLACK" />
 
-        </LinearLayout>
-        <LinearLayout
+        </RelativeLayout>
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:background="@color/WHITE">
 
             <TextView
@@ -85,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:text="주요 성분"
                 android:id="@+id/main_ingredient"
-                android:layout_gravity="center"
+                android:layout_centerVertical="true"
                 android:padding="3dp"
                 android:textColor="@color/colorPrimary" />
 
@@ -94,9 +97,12 @@
                 android:layout_height="wrap_content"
                 android:text="금기 사항"
                 android:id="@+id/taboo"
-                android:layout_gravity="center"
+                android:layout_toEndOf="@+id/main_ingredient"
+                android:layout_toRightOf="@+id/main_ingredient"
+                android:layout_centerVertical="true"
                 android:padding="3dp"
-                android:textColor="@color/RED"/>
+                android:textColor="@color/RED"
+                 />
 
             <RatingBar
                 android:id="@+id/ratingbar"
@@ -107,22 +113,30 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:stepSize="0.5"
+                android:layout_toEndOf="@+id/taboo"
+                android:layout_toRightOf="@+id/taboo"
+                android:layout_centerVertical="true"
+                android:stepSize="0.1"
                 android:isIndicator="true"
                 android:numStars="5"
                 android:rating="0"
                 />
 
             <TextView
+                android:id="@+id/rating_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/rating_num"
+                android:layout_alignBaseline="@+id/ratingbar"
                 android:layout_gravity="center"
-                android:text="test"
                 android:layout_marginLeft="5dp"
+                android:layout_toEndOf="@+id/ratingbar"
+                android:layout_toRightOf="@+id/ratingbar"
+                android:layout_alignBottom="@+id/ratingbar"
                 android:padding="3dp"
-                android:textColor="@color/colorPrimaryDark"/>
+                android:text="test"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="8dp" />
 
-        </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

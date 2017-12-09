@@ -45,7 +45,7 @@ public class DrugInfoDetailActivity extends AppCompatActivity {
         drug_company.setText("제약회사: "+drug_intent.getStringExtra("drug_company").toString());
         drug_name.setText("의약품: "+drug_intent.getStringExtra("drug_name").toString());
         ratingBar.setRating(Float.parseFloat(drug_intent.getStringExtra("drug_rating")));
-        rating_num.setText("평점 "+drug_intent.getStringExtra("drug_rating_num").toString());
+        rating_num.setText("평점  "+drug_intent.getStringExtra("drug_rating_num").toString());
 
 
         drug_intent.getStringExtra("drug_category").toString();
@@ -72,7 +72,8 @@ public class DrugInfoDetailActivity extends AppCompatActivity {
                 drug_intent.getStringExtra("drug_type").toString(),
                 drug_intent.getStringExtra("drug_category").toString(),
                 drug_intent.getStringExtra("drug_main_ingre").toString(),
-                drug_intent.getStringExtra("drug_taboo").toString());
+                drug_intent.getStringExtra("drug_taboo").toString(),
+                drug_intent.getStringExtra("drug_prohibit").toString());
         DrugInfolistView.setAdapter(DrugInfoItemadapter);
 
         final ListView ReviewInfolistView;
