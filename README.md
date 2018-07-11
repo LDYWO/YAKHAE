@@ -3,8 +3,6 @@
 - Running Test at Device (Samsung Galaxy 7 Edge)
 - Social Application Project in Ajou University. (2017)
 
-***
-
 ## Using
 - Language : Android Java, Firebase (Real Time Database)
 
